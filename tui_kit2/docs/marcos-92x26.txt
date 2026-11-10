@@ -1,0 +1,671 @@
+── inicio ──────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                            Inicio
+
+  Documentos encontrados (8)
+
+  > ▾ ensayo                                                                        3 libros
+           el-principito.pdf                                                          1.0 MB
+           viaje-al-centro.pdf                                                        3.2 MB
+           rayuela.pdf                                                                2.1 MB
+    ▾ manuales                                                                      2 libros
+           manual-de-tipografia.pdf                                                   8.0 MB
+           el-arte-del-libro.pdf                                                      5.2 MB
+    ▾ novela                                                                        2 libros
+      EPUB fahrenheit-451.epub                                                        500 KB
+      EPUB 1984.epub                                                                  459 KB
+    ▾ salida                                                                         1 libro
+      HTML el-principito.html                                                         214 KB
+
+  Ruta: (pulsa [r])
+  Grupo «ensayo»: Enter o ← lo pliega
+
+
+
+
+
+
+ q salir · [b] buscar · [i] inspeccionar · [c] convertir · [o] opciones · [s] ajustes
+
+── inicio · bajar ──────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                            Inicio
+
+  Documentos encontrados (8)
+
+    ▾ ensayo                                                                        3 libros
+  >        el-principito.pdf                                                          1.0 MB
+           viaje-al-centro.pdf                                                        3.2 MB
+           rayuela.pdf                                                                2.1 MB
+    ▾ manuales                                                                      2 libros
+           manual-de-tipografia.pdf                                                   8.0 MB
+           el-arte-del-libro.pdf                                                      5.2 MB
+    ▾ novela                                                                        2 libros
+      EPUB fahrenheit-451.epub                                                        500 KB
+      EPUB 1984.epub                                                                  459 KB
+    ▾ salida                                                                         1 libro
+      HTML el-principito.html                                                         214 KB
+
+  Ruta: (pulsa [r])
+  Enter: analizar el-principito.pdf
+
+
+
+
+
+
+ q salir · [b] buscar · [i] inspeccionar · [c] convertir · [o] opciones · [s] ajustes
+
+── inicio · bajar ──────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                            Inicio
+
+  Documentos encontrados (8)
+
+    ▾ ensayo                                                                        3 libros
+           el-principito.pdf                                                          1.0 MB
+  >        viaje-al-centro.pdf                                                        3.2 MB
+           rayuela.pdf                                                                2.1 MB
+    ▾ manuales                                                                      2 libros
+           manual-de-tipografia.pdf                                                   8.0 MB
+           el-arte-del-libro.pdf                                                      5.2 MB
+    ▾ novela                                                                        2 libros
+      EPUB fahrenheit-451.epub                                                        500 KB
+      EPUB 1984.epub                                                                  459 KB
+    ▾ salida                                                                         1 libro
+      HTML el-principito.html                                                         214 KB
+
+  Ruta: (pulsa [r])
+  Enter: analizar viaje-al-centro.pdf
+
+
+
+
+
+
+ q salir · [b] buscar · [i] inspeccionar · [c] convertir · [o] opciones · [s] ajustes
+
+── diagnóstico ─────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                            Inicio
+
+  Documentos encontrados (8)
+
+    ▾ ensayo                                                                        3 libros
+           el-principito.pdf                                                          1.0 MB
+  >        viaje-al-centro.pdf                                                        3.2 MB
+           rayuela.pdf                                                                2.1 MB
+    ▾ manuales                                                                      2 libros
+           manual-de-tipografia.pdf                                                   8.0 MB
+           el-arte-del-libro.pdf                                                      5.2 MB
+    ▾ novela                                                                        2 libros
+      EPUB fahrenheit-451.epub                                                        500 KB
+      EPUB 1984.epub                                                                  459 KB
+    ▾ salida                                                                         1 libro
+      HTML el-principito.html                                                         214 KB
+
+  Ruta: (pulsa [r])
+  Enter: analizar viaje-al-centro.pdf
+
+
+
+
+
+
+ q salir · [b] buscar · [i] inspeccionar · [c] convertir · [o] opciones · [s] ajustes
+
+── diagnóstico → paso ──────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                       Diagnóstico
+
+  Diagnóstico: viaje-al-centro.pdf
+
+   Formato        PDF
+   Páginas        53
+   Tamaño         595.28x841.89
+   Cifrado        no
+   Capa de texto  sí (74.312 caracteres)
+   Fuentes        6
+   Imágenes       9 (9 convertibles)
+   Bloques        412
+   Avisos         2
+
+  [OK] Enter continuar
+
+
+
+
+
+
+
+
+
+
+ [c] convertir · [o] opciones · [s] ajustes · Esc volver · q salir
+
+── opciones ────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown
+
+  > HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  HTML semántico: el intermedio del que salen los demás.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown
+
+    HTML                  [OK]
+  > Markdown              [OK]
+    EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  Markdown: el texto con su estructura, sin adornos.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown
+
+    HTML                  [OK]
+    Markdown              [OK]
+  > EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  EPUB 3: el libro para cualquier lector, sin DRM.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · encender EPUB ────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown · EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+  > EPUB                  [OK]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  EPUB 3: el libro para cualquier lector, sin DRM.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown · EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  Ebook autocontenido: un solo archivo con lector propio.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · métricas ─────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown · EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook         ┌─ Métricas del libro ─────────────────────────────────┐
+    PDF/imprimir  │ Palabras: 13.586                                     │
+  ────────────────│ Páginas del PDF: 53                                  │────────────────
+    Carpeta de sal│ Capítulos: 27                                        │
+    HTML intermedi│ Páginas de lectura: 45                               │
+    Papel · HTML  │ Por página: 302                                      │
+    Papel · ebook │ Perfil del texto: limpio                             │
+    Cuaderno      │                                                      │
+    Reparto       │                                                      │
+    Tema          │                                                      │
+    Tema de la ter│ ↑↓ desplazar                                         │
+                  └──────────────────────────────────────────────────────┘
+  Ebook autocontenido: un solo archivo con lector propio.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── opciones · cerrar métricas ──────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown · EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  Ebook autocontenido: un solo archivo con lector propio.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+
+
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── convertir ───────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Opciones
+
+  Opciones de conversión · Salidas: HTML · Markdown · EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  ────────────────────────────────────────────────────────────────────────────────────────
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+    Papel · HTML          Carta · 215,9×279,4 mm
+    Papel · ebook         sin papel
+    Cuaderno              no
+    Reparto               una hoja
+    Tema                  auto
+    Tema de la terminal   Alto contraste
+
+  Ebook autocontenido: un solo archivo con lector propio.
+  El libro
+   13.586 palabras · 53 páginas · 27 capítulos · 45 min de lectura
+   Perfil del texto: limpio · 302 por página
+  ¿Conservar también el HTML intermedio? [s/n]
+  Pregunta porque keep_intermediate = ask en config.json
+ ↑↓ mover · ←→ cambiar · [c] convertir ya · [m] métricas · Esc volver · q salir
+
+── convertir · ¿conservar el HTML? ─────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Progreso
+
+  Convirtiendo
+
+   [ ] html
+   [ ] md
+   [ ] epub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [ ] md
+   [ ] epub
+
+  Convirtiendo… 1/3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [OK] md
+   [ ] epub
+
+  Convirtiendo… 2/3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [OK] md
+   [OK] epub
+
+  Convirtiendo… 3/3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                         Resultado
+
+  Resultado
+
+  Artefactos
+   [OK] HTML     output/viaje-al-centro/viaje-al-centro.html                   214 KB
+   [OK] Markdown output/viaje-al-centro/viaje-al-centro.md                     209 KB
+   [OK] EPUB     output/viaje-al-centro/viaje-al-centro.epub                   143 KB
+
+  Fidelidad: html 1.0000 · md 1.0000 · epub 1.0000
+
+  Avisos
+   [!] W-META-DUMMY · Metadatos de relleno en subtitle, publisher…
+
+
+
+
+
+
+
+
+
+
+
+
+ [i] inspeccionar · [c] otra conversión · [s] ajustes · Esc inicio · q salir
+
+── resultado ───────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                         Resultado
+
+  Resultado
+
+  Artefactos
+   [OK] HTML     output/viaje-al-centro/viaje-al-centro.html                   214 KB
+   [OK] Markdown output/viaje-al-centro/viaje-al-centro.md                     209 KB
+   [OK] EPUB     output/viaje-al-centro/viaje-al-centro.epub                   143 KB
+
+  Fidelidad: html 1.0000 · md 1.0000 · epub 1.0000
+
+  Avisos
+   [!] W-META-DUMMY · Metadatos de relleno en subtitle, publisher…
+
+
+
+
+
+
+
+
+
+
+
+
+ [i] inspeccionar · [c] otra conversión · [s] ajustes · Esc inicio · q salir
+
+── configuración ───────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                     Configuración
+
+  Configuración
+
+  > lang                es
+    theme               auto
+    tui_theme           Alto contraste
+    paper               Carta · 215,9×279,4 mm
+    out_dir             output
+    keep_intermediate   preguntar
+    reader_panel        no
+    reader_spread       una hoja
+    words_per_page      300
+    log_level           info
+    overwrite           no
+
+
+
+
+
+
+
+
+  Los cambios se aplican al guardar
+
+ ↑↓ mover · ←→ cambiar · [s] guardar y volver · [f] fuentes · q salir
+
+── fuentes ─────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                           Fuentes
+
+  Fuentes de entrada
+
+  > ensayo                                                                          3 libros
+    manuales                                                                        2 libros
+    novela                                                                          2 libros
+    salida                                                                           1 libro
+
+  + añadir · Supr quitar · T probar · Enter ver los libros
+
+  Libros encontrados
+   ensayo/el-principito.pdf
+   ensayo/viaje-al-centro.pdf
+   ensayo/rayuela.pdf
+   novela/fahrenheit-451.epub
+   novela/1984.epub
+   manuales/manual-de-tipografia.pdf
+   manuales/el-arte-del-libro.pdf
+   salida/el-principito.html
+
+
+
+  Entrada: 4 fuentes · 8 libros
+
+ ↑↓ mover · +/Supr editar · T probar · Enter abrir · Esc volver · q salir
+
+── ayuda ───────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                           Fuentes
+
+
+
+
+
+               ┌─ Teclas ───────────────────────────────────────────────────┐
+               │                                                            │
+               │ ↑/↓ elegir                                                 │
+               │ ←/→ o espacio cambiar valor                                │
+               │ Enter confirmar                                            │
+               │ Esc volver / cancelar la edición                           │
+               │ b buscar en la lista · Esc limpia                          │
+               │ ←/→ plegar y desplegar el grupo                            │
+               │ PgUp/PgDn una pantalla · Inicio/Fin los extremos           │
+               │ F1 o ? esta ayuda                                          │
+               │ q salir · Ctrl+C cancelar (código 5)                       │
+               │ F1 · Esc                                                   │
+               └────────────────────────────────────────────────────────────┘
+
+
+
+
+
+
+ ↑↓ mover · +/Supr editar · T probar · Enter abrir · Esc volver · q salir
+
+── fuentes · cerrar la ayuda ───────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                           Fuentes
+
+  Fuentes de entrada
+
+  > ensayo                                                                          3 libros
+    manuales                                                                        2 libros
+    novela                                                                          2 libros
+    salida                                                                           1 libro
+
+  + añadir · Supr quitar · T probar · Enter ver los libros
+
+  Libros encontrados
+   ensayo/el-principito.pdf
+   ensayo/viaje-al-centro.pdf
+   ensayo/rayuela.pdf
+   novela/fahrenheit-451.epub
+   novela/1984.epub
+   manuales/manual-de-tipografia.pdf
+   manuales/el-arte-del-libro.pdf
+   salida/el-principito.html
+
+
+
+  Entrada: 4 fuentes · 8 libros
+
+ ↑↓ mover · +/Supr editar · T probar · Enter abrir · Esc volver · q salir
+
+── inicio ──────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 · 1.17                                                            Inicio
+
+  Documentos encontrados (8)
+
+    ▾ ensayo                                                                        3 libros
+           el-principito.pdf                                                          1.0 MB
+  >        viaje-al-centro.pdf                                                        3.2 MB
+           rayuela.pdf                                                                2.1 MB
+    ▾ manuales                                                                      2 libros
+           manual-de-tipografia.pdf                                                   8.0 MB
+           el-arte-del-libro.pdf                                                      5.2 MB
+    ▾ novela                                                                        2 libros
+      EPUB fahrenheit-451.epub                                                        500 KB
+      EPUB 1984.epub                                                                  459 KB
+    ▾ salida                                                                         1 libro
+      HTML el-principito.html                                                         214 KB
+
+  Ruta: (pulsa [r])
+  Enter: analizar viaje-al-centro.pdf
+
+
+
+
+
+
+ q salir · [b] buscar · [i] inspeccionar · [c] convertir · [o] opciones · [s] ajustes

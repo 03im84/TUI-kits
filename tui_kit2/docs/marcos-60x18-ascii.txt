@@ -1,0 +1,479 @@
+── inicio ──────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                            Inicio
+
+  Documentos encontrados (8)
+
+  > v ensayo                                        3 libros
+           el-principito.pdf                          1.0 MB
+           viaje-al-centro.pdf                        3.2 MB
+           rayuela.pdf                                2.1 MB
+    v manuales                                      2 libros
+           manual-de-tipografia.pdf                   8.0 MB
+           el-arte-del-libro.pdf                      5.2 MB
+    v novela                                        2 libros
+
+  Ruta: (pulsa [r])
+
+
+
+ q salir - [b] buscar - [i] inspeccionar - [c] convertir
+
+── inicio · bajar ──────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                            Inicio
+
+  Documentos encontrados (8)
+
+    v ensayo                                        3 libros
+  >        el-principito.pdf                          1.0 MB
+           viaje-al-centro.pdf                        3.2 MB
+           rayuela.pdf                                2.1 MB
+    v manuales                                      2 libros
+           manual-de-tipografia.pdf                   8.0 MB
+           el-arte-del-libro.pdf                      5.2 MB
+    v novela                                        2 libros
+
+  Ruta: (pulsa [r])
+
+
+
+ q salir - [b] buscar - [i] inspeccionar - [c] convertir
+
+── inicio · bajar ──────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                            Inicio
+
+  Documentos encontrados (8)
+
+    v ensayo                                        3 libros
+           el-principito.pdf                          1.0 MB
+  >        viaje-al-centro.pdf                        3.2 MB
+           rayuela.pdf                                2.1 MB
+    v manuales                                      2 libros
+           manual-de-tipografia.pdf                   8.0 MB
+           el-arte-del-libro.pdf                      5.2 MB
+    v novela                                        2 libros
+
+  Ruta: (pulsa [r])
+
+
+
+ q salir - [b] buscar - [i] inspeccionar - [c] convertir
+
+── diagnóstico ─────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                            Inicio
+
+  Documentos encontrados (8)
+
+    v ensayo                                        3 libros
+           el-principito.pdf                          1.0 MB
+  >        viaje-al-centro.pdf                        3.2 MB
+           rayuela.pdf                                2.1 MB
+    v manuales                                      2 libros
+           manual-de-tipografia.pdf                   8.0 MB
+           el-arte-del-libro.pdf                      5.2 MB
+    v novela                                        2 libros
+
+  Ruta: (pulsa [r])
+
+
+
+ q salir - [b] buscar - [i] inspeccionar - [c] convertir
+
+── diagnóstico → paso ──────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                       Diagnóstico
+
+  Diagnóstico: viaje-al-centro.pdf
+
+   Formato        PDF
+   Páginas        53
+   Tamaño         595.28x841.89
+   Cifrado        no
+   Capa de texto  sí (74.312 caracteres)
+   Fuentes        6
+   Imágenes       9 (9 convertibles)
+   Bloques        412
+   Avisos         2
+
+  [OK] Enter continuar
+
+
+ [c] convertir - [o] opciones - [s] ajustes - Esc volver
+
+── opciones ────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown
+
+  > HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  HTML semántico: el intermedio del que salen los demás.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown
+
+    HTML                  [OK]
+  > Markdown              [OK]
+    EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  Markdown: el texto con su estructura, sin adornos.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown
+
+    HTML                  [OK]
+    Markdown              [OK]
+  > EPUB                  [ ]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  EPUB 3: el libro para cualquier lector, sin DRM.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · encender EPUB ────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown - EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+  > EPUB                  [OK]
+    Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  EPUB 3: el libro para cualquier lector, sin DRM.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · bajar ────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown - EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  Ebook autocontenido: un solo archivo con lector propio.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · métricas ─────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown - EPUB
+   +- Métricas del libro -------------------------------+
+   | Palabras: 13.586                                   |
+   | Páginas del PDF: 53                                |
+   | Capítulos: 27                                      |
+  >| Páginas de lectura: 45                             |
+   | Por página: 302                                    |
+  -| Perfil del texto: limpio                           |-
+   |                                                    |
+   |                                                    |
+   |                                                    |
+  E| ^v desplazar                                       |
+   +----------------------------------------------------+ v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── opciones · cerrar métricas ──────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown - EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  Ebook autocontenido: un solo archivo con lector propio.
+                                                          v
+
+
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── convertir ───────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Opciones
+
+  Opciones de conversión - Salidas: HTML - Markdown - EPUB
+
+    HTML                  [OK]
+    Markdown              [OK]
+    EPUB                  [OK]
+  > Ebook                 [ ]
+    PDF/imprimir          [ ]
+  --------------------------------------------------------
+    Carpeta de salida     output
+    HTML intermedio       preguntar
+
+  Ebook autocontenido: un solo archivo con lector propio.
+                                                          v
+  ¿Conservar también el HTML intermedio? [s/n]
+  Pregunta porque keep_intermediate = ask en config.json
+ ^v mover - <> cambiar - [c] convertir ya - [m] métricas
+
+── convertir · ¿conservar el HTML? ─────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Progreso
+
+  Convirtiendo
+
+   [ ] html
+   [ ] md
+   [ ] epub
+
+
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [ ] md
+   [ ] epub
+
+  Convirtiendo… 1/3
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [OK] md
+   [ ] epub
+
+  Convirtiendo… 2/3
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 - 1.17                          Progreso
+
+  Convirtiendo
+
+   [OK] html
+   [OK] md
+   [OK] epub
+
+  Convirtiendo… 3/3
+
+
+
+
+
+
+
+
+ trabajando… espera, no hay teclas que valgan
+
+── convertir · ¿conservar el HTML? → paso ──────────────────────────────────
+ Incunable 1.12.0 - 1.17                         Resultado
+
+  Resultado
+
+  Artefactos
+   [OK] HTML     output/viaje-al-centro/…      214 KB
+   [OK] Markdown output/viaje-al-centro/…      209 KB
+   [OK] EPUB     output/viaje-al-centro/…      143 KB
+
+  Fidelidad: html 1.0000 - md 1.0000 - epub 1.0000
+
+  Avisos
+   [!] W-META-DUMMY - Metadatos de relleno en subtitle, p…
+
+
+
+
+ [i] inspeccionar - [c] otra conversión - [s] ajustes
+
+── resultado ───────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                         Resultado
+
+  Resultado
+
+  Artefactos
+   [OK] HTML     output/viaje-al-centro/…      214 KB
+   [OK] Markdown output/viaje-al-centro/…      209 KB
+   [OK] EPUB     output/viaje-al-centro/…      143 KB
+
+  Fidelidad: html 1.0000 - md 1.0000 - epub 1.0000
+
+  Avisos
+   [!] W-META-DUMMY - Metadatos de relleno en subtitle, p…
+
+
+
+
+ [i] inspeccionar - [c] otra conversión - [s] ajustes
+
+── configuración ───────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                     Configuración
+
+  Configuración
+
+  > lang                es
+    theme               auto
+    tui_theme           Alto contraste
+    paper               Carta - 215,9x279,4 mm
+    out_dir             output
+    keep_intermediate   preguntar
+    reader_panel        no
+    reader_spread       una hoja
+    words_per_page      300
+
+
+  Los cambios se aplican al guardar
+
+ ^v mover - <> cambiar - [s] guardar y volver - [f] fuentes
+
+── fuentes ─────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                           Fuentes
+
+  Fuentes de entrada
+
+  > ensayo                                          3 libros
+    manuales                                        2 libros
+    novela                                          2 libros
+    salida                                           1 libro
+
+  + añadir - Supr quitar - T probar - Enter ver los libros
+
+  Libros encontrados
+   ensayo/el-principito.pdf
+
+
+  Entrada: 4 fuentes - 8 libros
+
+ ^v mover - +/Supr editar - T probar - Enter abrir
+
+── ayuda ───────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                           Fuentes
+
+  +- Teclas ---------------------------------------------+
+  |                                                      |
+  | ^/v elegir                                           |
+  | </> o espacio cambiar valor                          |
+  | Enter confirmar                                      |
+  | Esc volver / cancelar la edición                     |
+  | b buscar en la lista - Esc limpia                    |
+  | </> plegar y desplegar el grupo                      |
+  | PgUp/PgDn una pantalla - Inicio/Fin los extremos     |
+  | F1 o ? esta ayuda                                    |
+  | q salir - Ctrl+C cancelar (código 5)                 |
+  | F1 - Esc                                             |
+  +------------------------------------------------------+
+
+
+ ^v mover - +/Supr editar - T probar - Enter abrir
+
+── fuentes · cerrar la ayuda ───────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                           Fuentes
+
+  Fuentes de entrada
+
+  > ensayo                                          3 libros
+    manuales                                        2 libros
+    novela                                          2 libros
+    salida                                           1 libro
+
+  + añadir - Supr quitar - T probar - Enter ver los libros
+
+  Libros encontrados
+   ensayo/el-principito.pdf
+
+
+  Entrada: 4 fuentes - 8 libros
+
+ ^v mover - +/Supr editar - T probar - Enter abrir
+
+── inicio ──────────────────────────────────────────────────────────────────
+ Incunable 1.12.0 - 1.17                            Inicio
+
+  Documentos encontrados (8)
+
+    v ensayo                                        3 libros
+           el-principito.pdf                          1.0 MB
+  >        viaje-al-centro.pdf                        3.2 MB
+           rayuela.pdf                                2.1 MB
+    v manuales                                      2 libros
+           manual-de-tipografia.pdf                   8.0 MB
+           el-arte-del-libro.pdf                      5.2 MB
+    v novela                                        2 libros
+
+  Ruta: (pulsa [r])
+
+
+
+ q salir - [b] buscar - [i] inspeccionar - [c] convertir
