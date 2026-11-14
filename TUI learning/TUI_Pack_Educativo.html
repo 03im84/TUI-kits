@@ -1,0 +1,1453 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interfaces de terminal — pack educativo</title>
+<style>
+@page {
+  size: A4;
+  margin: 18mm 16mm 16mm 16mm;
+  @bottom-left { content: "Pack TUI · Instituto de Aprendizaje Humano"; font-family: Georgia, serif; font-size: 7pt; color: #b0a89c; letter-spacing: .06em; }
+  @bottom-center { content: counter(page); font-family: Georgia, serif; font-size: 8pt; color: #8a8378; }
+  @bottom-right { content: string(seccion); font-family: Georgia, serif; font-size: 7pt; color: #b0a89c; letter-spacing: .06em; text-transform: uppercase; }
+}
+@page :first { @bottom-left { content: ""; } @bottom-center { content: ""; } @bottom-right { content: ""; } }
+
+* { box-sizing: border-box; }
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9.4pt; line-height: 1.5; color: #23211d; margin: 0; background: #fff;
+}
+h1, h2, h3, h4 { margin: 0; font-weight: normal; }
+p { margin: 0 0 2.6mm; }
+b, strong { color: #16262b; }
+i, em { color: #3d382f; }
+a { color: #8a5a2b; text-decoration: none; }
+.mono, code { font-family: "DejaVu Sans Mono", "Courier New", monospace; font-size: .88em; background: #f2efe8; padding: 0 1mm; border-radius: .6mm; }
+
+/* ---------- portada ---------- */
+.cover { height: 250mm; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; }
+.cover-top { border-top: 2.5pt solid #16262b; padding-top: 6mm; }
+.sello { font-size: 7.6pt; letter-spacing: .28em; text-transform: uppercase; color: #8a5a2b; }
+.cover h1 { font-size: 34pt; line-height: 1.05; margin: 14mm 0 5mm; letter-spacing: -.015em; color: #16262b; }
+.cover h1 em { font-style: italic; }
+.cover .sub { font-size: 12pt; font-style: italic; color: #5d574d; max-width: 122mm; line-height: 1.45; }
+.cover-meta { display: flex; gap: 8mm; border-top: .8pt solid #d9d2c5; padding-top: 5mm; font-size: 8.2pt; color: #5d574d; }
+.cover-meta div { flex: 1; }
+.cover-meta b { display: block; font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #8a5a2b; margin-bottom: 1.5mm; font-weight: normal; }
+
+/* ---------- estructura ---------- */
+section { page-break-before: auto; margin-top: 9mm; }
+section:not(.parte):not(.page) { border-top: .5pt solid #e6e0d4; padding-top: 7mm; }
+section:first-of-type { border-top: 0; padding-top: 0; }
+section.parte { page-break-before: always; padding-top: 40mm; break-before: page; }
+section.page { page-break-after: always; break-after: page; }
+.num { string-set: seccion content(); font-size: 8pt; letter-spacing: .22em; text-transform: uppercase; color: #8a5a2b; display: block; margin-bottom: 2mm; }
+h2.sec { page-break-after: avoid; break-after: avoid; font-size: 21pt; line-height: 1.14; color: #16262b; margin-bottom: 4mm; letter-spacing: -.01em; }
+.parte h2.sec { font-size: 27pt; }
+h3 { page-break-after: avoid; break-after: avoid; font-size: 11.4pt; color: #16262b; margin: 5mm 0 2.1mm; }
+h3:first-of-type { margin-top: 4mm; }
+.lead { font-size: 10.3pt; color: #3d382f; font-style: italic; margin-bottom: 5mm; }
+p.nota-txt { font-size: 8.4pt; color: #5d574d; font-style: italic; margin-top: -1mm; }
+
+/* ---------- tablas ---------- */
+table { page-break-inside: auto; width: 100%; table-layout: fixed; border-collapse: collapse; margin: 3mm 0 4.5mm; font-size: 8.5pt; }
+th { background: #16262b; color: #fff; text-align: left; padding: 1.9mm 2mm; font-weight: normal; font-size: 7.4pt; letter-spacing: .07em; text-transform: uppercase; }
+td { padding: 1.45mm 2mm; border-bottom: .5pt solid #e3ddd1; vertical-align: top; }
+tr { page-break-inside: avoid; }
+tbody tr:nth-child(even) td { background: #faf8f3; }
+table.compact td, table.compact th { padding: 1.15mm 1.8mm; font-size: 8.1pt; line-height: 1.4; }
+table.ficha { margin-top: 5mm; }
+table.ficha th { background: #8a5a2b; }
+table.ficha td:first-child { background: #f6f2ea; }
+table.doscol td { width: 50%; }
+table.glosario td:first-child { width: 30%; }
+td.sem { background: #eef2f3 !important; font-weight: bold; color: #16262b; text-align: center; }
+.no { color: #a63d2f; font-weight: bold; }
+.si { color: #2f6b3d; font-weight: bold; }
+
+/* ---------- bloques ---------- */
+.box { border: .8pt solid #d9d2c5; background: #faf8f3; padding: 4mm 4.5mm; margin: 4mm 0; page-break-inside: avoid; }
+.box-t { font-size: 7.4pt; letter-spacing: .18em; text-transform: uppercase; color: #8a5a2b; margin-bottom: 2mm; }
+.box p:last-child { margin-bottom: 0; }
+.regla { border-left: 3pt solid #8a5a2b; background: #fdfbf6; padding: 3mm 4mm; margin: 4mm 0; font-style: italic; page-break-inside: avoid; }
+.alerta { border-left: 3pt solid #a63d2f; background: #fdf6f4; padding: 3mm 4mm; margin: 4mm 0; page-break-inside: avoid; }
+.panel-nota { border-left: 3pt solid #16262b; background: #f4f7f8; padding: 3mm 4mm; margin: 3.5mm 0; font-size: 8.9pt; page-break-inside: avoid; }
+.cols2 { display: flex; gap: 6mm; margin: 3mm 0; page-break-inside: avoid; }
+.cols2 > div { flex: 1; font-size: 8.6pt; }
+
+/* ---------- figuras y código ---------- */
+pre.fig {
+  font-family: "DejaVu Sans Mono", monospace; font-size: 6.7pt; line-height: 1.26;
+  background: #16262b; color: #e8e3d8; padding: 4mm 4.5mm; margin: 3mm 0 4.5mm;
+  white-space: pre; overflow: hidden; page-break-inside: avoid; border-radius: 1mm;
+}
+pre.code {
+  font-family: "DejaVu Sans Mono", monospace; font-size: 7.1pt; line-height: 1.38;
+  background: #f6f2ea; color: #26221c; border-left: 2.5pt solid #8a5a2b;
+  padding: 3.5mm 4mm; margin: 3mm 0 3mm; white-space: pre-wrap; page-break-inside: avoid;
+}
+.reglas { display: flex; gap: 7mm; }
+.reglas > div { flex: 1; }
+.reglas b { display: block; font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; color: #8a5a2b; margin-bottom: 2mm; }
+.reglas ol { margin: 0; padding-left: 5mm; font-size: 8.6pt; }
+.reglas li { margin-bottom: 1.6mm; }
+
+/* ---------- índice ---------- */
+.toc { font-size: 8.8pt; }
+.toc .g { font-size: 7.2pt; letter-spacing: .16em; text-transform: uppercase; color: #8a5a2b; margin: 4mm 0 1.6mm; }
+.toc a { display: block; padding: .9mm 0; border-bottom: .4pt dotted #ddd6c8; color: #23211d; }
+.toc a span { color: #8a5a2b; display: inline-block; width: 11mm; font-family: "DejaVu Sans Mono", monospace; font-size: 7.6pt; }
+.ix { display: flex; gap: 10mm; font-size: 8.6pt; margin-top: 4mm; }
+.ix > div { flex: 1; }
+.ix .g { font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; color: #8a5a2b; margin: 5mm 0 1.4mm; }
+.ix .e { display: flex; border-bottom: .4pt dotted #ddd6c8; padding: 1mm 0; }
+.ix .e span { color: #8a5a2b; font-family: "DejaVu Sans Mono", monospace; font-size: 7.4pt; width: 10mm; flex: none; }
+
+/* ---------- pantalla ---------- */
+@media screen {
+  .print-only { display: none; }
+  body { background: #f4f1ea; }
+  .wrap { display: block; max-width: 900px; margin: 0 auto; padding: 32px 26px 80px; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,.06); }
+  section { page-break-before: auto; border-top: 1px solid #e8e2d6; padding-top: 30px; margin-top: 30px; }
+  section.parte { padding-top: 40px; }
+  .cover { height: auto; padding-bottom: 30px; }
+  nav.tocnav { display: none; }
+  pre.fig { font-size: 10px; overflow-x: auto; }
+  pre.code { font-size: 11px; }
+  h2.sec { font-size: 26px; }
+  .parte h2.sec { font-size: 32px; }
+  table { font-size: 12.5px; }
+  table.compact td, table.compact th { font-size: 12px; }
+  .lead { font-size: 15px; }
+  p { font-size: 14px; line-height: 1.65; }
+  .cols2 > div, .reglas ol, .panel-nota { font-size: 13px; }
+}
+@media print { .tocnav { display: none; } .wrap { display: block; } }
+</style></head><body>
+<div class="wrap"><nav class="tocnav"><div class="toc"><div class="g">Parte 0</div><a href="#p00"><span>00</span>Cómo está organizado el pack</a><div class="g">Parte I · Idealizar</div><a href="#p01"><span>01</span>Qué es (y qué no es) una TUI</a><a href="#p02"><span>02</span>Cuándo una TUI es la respuesta correcta</a><a href="#p03"><span>03</span>Los cinco géneros y cómo elegir</a><a href="#p04"><span>04</span>El contrato antes del boceto</a><div class="g">Parte II · El núcleo</div><a href="#p05"><span>05</span>N1 · La celda y la rejilla</a><a href="#p06"><span>06</span>N2 · Marcos, bandas y layouts</a><a href="#p07"><span>07</span>N3 · Jerarquía sin tipografía</a><a href="#p08"><span>08</span>N4 · Color: roles y estados</a><a href="#p09"><span>09</span>N5 · Los cinco estados</a><a href="#p10"><span>10</span>N6 · El foco</a><a href="#p11"><span>11</span>N7 · El mapa de teclas</a><a href="#p12"><span>12</span>N8 · La barra de estado</a><a href="#p13"><span>13</span>N9 · La línea de mensajes</a><a href="#p14"><span>14</span>Densidad, números y accesibilidad</a><div class="g">Parte III · Particularidades</div><a href="#p15"><span>15</span>P1 · Panel de estado</a><a href="#p16"><span>16</span>P2 · Tabla y explorador</a><a href="#p17"><span>17</span>P3 · Formulario y validación</a><a href="#p18"><span>18</span>P4 · Asistente por pasos</a><a href="#p19"><span>19</span>P5 · Cola de trabajo y progreso</a><a href="#p20"><span>20</span>P6 · Diálogos y paleta de comandos</a><a href="#p21"><span>21</span>P7 · Registro y visor de eventos</a><div class="g">Parte IV · Implementar</div><a href="#p22"><span>22</span>Estado, render, entrada</a><a href="#p23"><span>23</span>Cuatro sustratos, del ANSI al framework</a><a href="#p24"><span>24</span>Rendimiento y límites reales</a><a href="#p25"><span>25</span>Pruebas y calidad</a><a href="#p26"><span>26</span>Entregar y mantener</a><div class="g">Parte V · Síntesis</div><a href="#p27"><span>27</span>Las dieciséis reglas nucleares</a><a href="#p28"><span>28</span>Seis ejercicios con rúbrica</a><a href="#p29"><span>29</span>Glosario y para seguir</a></div></nav>
+<div class="cover">
+  <div class="cover-top"><div class="sello">Instituto de Aprendizaje Humano · Pack educativo</div></div>
+  <div>
+    <h1>Interfaces de terminal<br><em>para quien nunca ha diseñado una</em></h1>
+    <div class="sub">Idealizar con criterio, diseñar sobre una rejilla, implementar sin frameworks durante las primeras treinta líneas.<br>
+    Un núcleo de nueve piezas reutilizables y siete patrones de pantalla que se construyen con ellas.</div>
+  </div>
+  <div>
+    <table class="compact" style="font-size:8.4pt">
+      <tr><td style="width:44mm;color:#8a5a2b;font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase">Para quién</td><td>Sin experiencia previa en diseño ni en interfaces</td></tr>
+      <tr><td style="color:#8a5a2b;font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase">Cómo está hecho</td><td>Núcleo primero, particularidades después, todo reutilizable</td></tr>
+      <tr><td style="color:#8a5a2b;font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase">Al terminar</td><td>Podrás diseñar y construir tus propias TUI, y saber cuándo no conviene</td></tr>
+    </table>
+  </div>
+  <div class="cover-meta">
+    <div><b>Parte I</b>Idealizar: pros, contras<br>y elección de género</div>
+    <div><b>Parte II</b>El núcleo: nueve piezas<br>transversales</div>
+    <div><b>Partes III–V</b>Patrones, código<br>y manual de decisión</div>
+  </div>
+</div>
+
+<section id="p00" class="page print-only">
+<span class="num">Índice</span>
+<h2 class="sec">Contenido del pack</h2>
+<div class="ix"><div><div class="g">Parte 0</div><div class="e"><span>00</span>Cómo está organizado el pack</div><div class="g">Parte I · Idealizar</div><div class="e"><span>01</span>Qué es (y qué no es) una TUI</div><div class="e"><span>02</span>Cuándo una TUI es la respuesta correcta</div><div class="e"><span>03</span>Los cinco géneros y cómo elegir</div><div class="e"><span>04</span>El contrato antes del boceto</div><div class="g">Parte II · El núcleo</div><div class="e"><span>05</span>N1 · La celda y la rejilla</div><div class="e"><span>06</span>N2 · Marcos, bandas y layouts</div><div class="e"><span>07</span>N3 · Jerarquía sin tipografía</div><div class="e"><span>08</span>N4 · Color: roles y estados</div><div class="e"><span>09</span>N5 · Los cinco estados</div><div class="e"><span>10</span>N6 · El foco</div><div class="e"><span>11</span>N7 · El mapa de teclas</div><div class="e"><span>12</span>N8 · La barra de estado</div><div class="e"><span>13</span>N9 · La línea de mensajes</div><div class="e"><span>14</span>Densidad, números y accesibilidad</div></div><div><div class="g">Parte III · Particularidades</div><div class="e"><span>15</span>P1 · Panel de estado</div><div class="e"><span>16</span>P2 · Tabla y explorador</div><div class="e"><span>17</span>P3 · Formulario y validación</div><div class="e"><span>18</span>P4 · Asistente por pasos</div><div class="e"><span>19</span>P5 · Cola de trabajo y progreso</div><div class="e"><span>20</span>P6 · Diálogos y paleta de comandos</div><div class="e"><span>21</span>P7 · Registro y visor de eventos</div><div class="g">Parte IV · Implementar</div><div class="e"><span>22</span>Estado, render, entrada</div><div class="e"><span>23</span>Cuatro sustratos, del ANSI al framework</div><div class="e"><span>24</span>Rendimiento y límites reales</div><div class="e"><span>25</span>Pruebas y calidad</div><div class="e"><span>26</span>Entregar y mantener</div><div class="g">Parte V · Síntesis</div><div class="e"><span>27</span>Las dieciséis reglas nucleares</div><div class="e"><span>28</span>Seis ejercicios con rúbrica</div><div class="e"><span>29</span>Glosario y para seguir</div></div></div>
+<h3>Cómo se usa el pack</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:30%"><b>Si vas a empezar un proyecto</b></td><td>Parte I completa, §27 (las dieciséis reglas) y §28 (ejercicios). El núcleo se consulta mientras se construye.</td></tr>
+<tr><td><b>Si ya tienes una pantalla y no sabes por qué no funciona</b></td><td>Ve directo al patrón correspondiente en la parte III y a su ficha de composición.</td></tr>
+<tr><td><b>Si vienes de programar y quieres criterio</b></td><td>Parte II completa antes de escribir una línea. Es donde está el 80 % del oficio.</td></tr>
+<tr><td><b>Si vienes de UX gráfica</b></td><td>§05, §07 y §08 primero: son las tres piezas donde este medio rompe tus hábitos.</td></tr>
+</tbody>
+</table>
+
+<div class="regla">Regla de lectura: nada de la parte II es opcional. Todo lo de la parte III es <b>consecuencia</b>. Si intentas aprender la parte III sin la II, acabarás copiando pantallas sin entender por qué funcionan, que es exactamente lo que produce las herramientas de terminal feas.</div>
+
+<p class="nota-txt" style="margin-top:6mm">Treinta capítulos en cinco partes. El núcleo (parte II) se lee completo antes de tocar la parte III: los patrones son combinaciones de esas nueve piezas.</p>
+</section>
+
+<section id="p01">
+<span class="num">00 · Cómo está organizado</span>
+<h2 class="sec">Un pack nuclear: lo común primero, lo particular después</h2>
+<p class="lead">La estructura no es decorativa. Cada pieza que aprendas en la parte II se vuelve a usar en la parte III sin cambios: los patrones no son diseños nuevos, son <b>combinaciones</b> del núcleo con un añadido pequeño.</p>
+
+
+<pre class="fig">  PARTE I · IDEALIZAR                    PARTE II · EL NÚCLEO
+  ¿debe existir? pros y contras          N1 rejilla      N2 marcos y layouts
+  qué género de TUI es                   N3 jerarquía    N4 color
+  el contrato antes del boceto           N5 estados      N6 foco
+                                         N7 teclas       N8 barra de estado
+                    │                    N9 mensajes
+                    └──────────┬─────────┘
+                               ▼
+              PARTE III · PARTICULARIDADES
+              P1 panel · P2 tabla · P3 formulario · P4 asistente
+              P5 cola de trabajo · P6 diálogos · P7 registros
+                               ▼
+              PARTE IV · IMPLEMENTAR      PARTE V · SÍNTESIS
+              estado/render/entrada        16 reglas · 6 ejercicios
+              sustratos · pruebas          rúbrica · glosario</pre>
+
+
+<h3>0.1 Las nueve piezas del núcleo</h3>
+<table class="compact">
+<thead><tr><th style="width:12%">Pieza</th><th style="width:26%">Qué resuelve</th><th>Dónde reaparece</th></tr></thead>
+<tbody>
+<tr><td><b>N1</b> Rejilla</td><td>La unidad de todo: la celda y sus medidas</td><td>Los siete patrones, sin excepción</td></tr>
+<tr><td><b>N2</b> Marcos y layouts</td><td>Reparto del espacio y cinco estructuras base</td><td>P1, P2, P4, P6, P7</td></tr>
+<tr><td><b>N3</b> Jerarquía</td><td>Cómo destacar sin tipografías ni tamaños</td><td>Todos</td></tr>
+<tr><td><b>N4</b> Color</td><td>Cuatro roles y dos estados, y su alternativa sin color</td><td>Todos</td></tr>
+<tr><td><b>N5</b> Estados</td><td>Vacío, cargando, error, éxito, sin permiso</td><td>Todos</td></tr>
+<tr><td><b>N6</b> Foco</td><td>Quién recibe las teclas y cómo se ve</td><td>P2, P3, P4, P6, P7</td></tr>
+<tr><td><b>N7</b> Teclas</td><td>Mapa canónico y memoria muscular</td><td>Todos</td></tr>
+<tr><td><b>N8</b> Barra de estado</td><td>El contrato visible de lo que se puede hacer</td><td>Todos</td></tr>
+<tr><td><b>N9</b> Mensajes</td><td>Errores, confirmaciones y avisos en una línea</td><td>P2, P3, P5, P6</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section class="parte">
+<span class="num">Parte I</span>
+<h2 class="sec">Idealizar: decidir antes de dibujar</h2>
+<p class="lead">La mayoría de las TUIs malas no fallan al implementarse: fallan al decidirse. Se construyen porque era divertido o porque «el terminal es más rápido», y nadie comprobó antes si el problema pedía una interfaz.</p>
+</section>
+
+<section id="p02">
+<span class="num">01 · Idealizar</span>
+<h2 class="sec">Qué es (y qué no es) una interfaz de terminal</h2>
+<p class="lead">Una TUI es una aplicación que vive dentro de la terminal: dibuja con caracteres sobre una rejilla fija, se maneja con teclado y no necesita ventanas, ratón ni entorno gráfico.</p>
+
+<h3>1.1 Las cuatro condiciones que la definen</h3>
+<table class="compact">
+<thead><tr><th style="width:22%">Condición</th><th style="width:34%">Qué significa</th><th>Consecuencia de diseño</th></tr></thead>
+<tbody>
+<tr><td><b>Rejilla de caracteres</b></td><td>La pantalla es una matriz de celdas iguales, no un lienzo libre.</td><td>Todo se piensa en columnas y filas. El espacio es escaso y contable: se administra, no se rellena.</td></tr>
+<tr><td><b>Entrada por teclado</b></td><td>El usuario escribe teclas; puede haber ratón, pero nunca es la única vía.</td><td>El mapa de teclas es parte del diseño, no un detalle de implementación.</td></tr>
+<tr><td><b>Dentro de un terminal</b></td><td>Comparte espacio con otros programas, se accede por SSH y convive con el prompt.</td><td>La aplicación tiene que poder entrar y salir limpia; y a menudo se usa en pantallas de 40 columnas.</td></tr>
+<tr><td><b>Sin imágenes ni tipografías</b></td><td>Una sola familia monoespaciada; color limitado; sin transparencias.</td><td>La jerarquía se construye con espacio, mayúsculas, posición y símbolos.</td></tr>
+</tbody>
+</table>
+
+<h3>1.2 Lo que una TUI no es</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:34%"><b>No es «una web en gris»</b></td><td>Un formulario web trasladado a caracteres pierde todo lo que la web hacía bien (jerarquía, ayuda contextual, validación suave) y conserva lo malo (densidad, dependencia del ratón).</td></tr>
+<tr><td><b>No es una herramienta de segunda</b></td><td>Para vigilar servicios, procesar lotes, explorar registros o trabajar por SSH, una TUI es a menudo <b>mejor</b> que una interfaz gráfica: arranca en milisegundos y funciona donde no hay pantalla.</td></tr>
+<tr><td><b>No es una salida de consola</b></td><td>Imprimir líneas y terminar no es una interfaz: es un registro. La diferencia es que la TUI <b>mantiene un estado</b> y responde a teclas sin volver a ejecutarse.</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<div class="box-t">La definición operativa del pack</div>
+<p style="margin-bottom:0">Una TUI es <b>una aplicación con estado que dibuja una rejilla de caracteres y responde a teclas</b>. Todo lo que se construya bajo esa definición entra en el pack; todo lo que no mantenga estado (un comando que imprime y sale) necesita otras reglas, que no son estas.</p>
+</div>
+</section>
+
+<section id="p03">
+<span class="num">02 · Idealizar</span>
+<h2 class="sec">Cuándo una TUI es la respuesta correcta</h2>
+<p class="lead">Antes de elegir TUI hay que ganársela. Esta es la conversación honesta que hay que tener con uno mismo, con los pros y los contras puestos en la misma tabla.</p>
+
+<h3>2.1 Ventajas reales (no entusiasmo, ventajas)</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:32%"><b>Arranca en milisegundos</b></td><td>No hay motor de render, ni capa gráfica, ni fuentes que cargar. Para herramientas que se abren veinte veces al día, esto es una diferencia de uso, no de rendimiento.</td></tr>
+<tr><td><b>Funciona por SSH y sin escritorio</b></td><td>Es la única interfaz posible en un servidor, en un contenedor o en una conexión mala. Y la misma herramienta sirve en local y en remoto.</td></tr>
+<tr><td><b>Se puede automatizar y componer</b></td><td>Convive con tuberías, <span class="mono">tmux</span>, <span class="mono">grep</span>, scripts y tareas programadas. Una interfaz gráfica vive aislada; una TUI es una pieza más del sistema.</td></tr>
+<tr><td><b>Es barata de distribuir</b></td><td>Un binario o un paquete. Sin instaladores, sin dependencias de sistema, sin actualizaciones de escritorio.</td></tr>
+<tr><td><b>La rejilla obliga a priorizar</b></td><td>Con 80 columnas no cabe lo accesorio. Muchas TUIs son más claras que su equivalente gráfica porque no tuvieron sitio para el desorden.</td></tr>
+<tr><td><b>Es accesible por defecto… si se hace bien</b></td><td>Todo texto, todo teclado: funciona con lectores de pantalla y sin ratón. La accesibilidad es una consecuencia del medio, no un añadido (§14).</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 Desventajas que hay que aceptar por escrito</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:32%"><b>Público limitado</b></td><td>Quien no vive en la terminal no la va a usar. Si el usuario final es administrativo, clínico o de dirección, la TUI casi nunca es la respuesta.</td></tr>
+<tr><td><b>Sin imágenes ni gráficos</b></td><td>Nada de fotografías, mapas, iconos ricos ni curvas. Series temporales como mucho en una línea.</td></tr>
+<tr><td><b>Depende del terminal del otro</b></td><td>Tamaño, colores, Unicode, teclas modificadoras: cada terminal es un mundo. Hay que degradar y probar (§25).</td></tr>
+<tr><td><b>La curva de entrada es alta</b></td><td>Sin ratón y sin botones evidentes, el usuario tiene que aprender teclas. Si la herramienta se usa una vez al mes, esa curva no se amortiza.</td></tr>
+<tr><td><b>Las animaciones cuestan</b></td><td>Y por SSH cuestan tráfico. La sensación de inmediatez exige cuidado con el refresco (§24).</td></tr>
+<tr><td><b>Más difícil de testear visualmente…</b></td><td>…pero más fácil de testear que una interfaz gráfica, si el render es una función pura (§22, §25). Con criterio, la desventaja se vuelve ventaja.</td></tr>
+</tbody>
+</table>
+
+<h3>2.3 La prueba de las seis preguntas</h3>
+<p>Si contestas «no» a alguna de las tres primeras, la TUI no es el medio. Si contestas «sí» a todas, el género está claro.</p>
+<table class="compact">
+<thead><tr><th style="width:8%">#</th><th style="width:52%">Pregunta</th><th>Si la respuesta es «no»</th></tr></thead>
+<tbody>
+<tr><td class="sem">1</td><td>¿El usuario trabaja ya en la terminal o por SSH?</td><td>Haz una interfaz web. En serio.</td></tr>
+<tr><td class="sem">2</td><td>¿La tarea se repite, o al menos se usa con frecuencia?</td><td>Un comando con buenos argumentos y buena salida es mejor que una TUI.</td></tr>
+<tr><td class="sem">3</td><td>¿La información es sobre todo texto, números y estados?</td><td>Si hay mapas, imágenes o geometría, es otro medio.</td></tr>
+<tr><td class="sem">4</td><td>¿Se puede manejar todo con teclado y sin color?</td><td>Rediseña antes de programar: algo está apoyado en lo visual.</td></tr>
+<tr><td class="sem">5</td><td>¿Funciona en 80×24 y se degrada en 40 columnas?</td><td>Aún no está diseñada, solo bocetada.</td></tr>
+<tr><td class="sem">6</td><td>¿Sabes qué teclas usa y dónde se ven?</td><td>No hay interfaz: hay dibujo.</td></tr>
+</tbody>
+</table>
+
+<div class="regla">La TUI es la elección correcta cuando <b>el coste de abrir la herramienta es el problema</b> y el contenido es texto: vigilar, explorar, procesar, revisar. Es la elección equivocada cuando el problema es convencer a alguien que no ha abierto una terminal en su vida.</div>
+</section>
+
+<section id="p04">
+<span class="num">03 · Idealizar</span>
+<h2 class="sec">Los cinco géneros y cómo elegir el tuyo</h2>
+<p class="lead">Casi toda herramienta de terminal es una variante de cinco formas. Reconocer la forma antes de dibujar evita el error más caro: inventar una pantalla que ya existe y funciona peor.</p>
+
+<table class="compact">
+<thead><tr><th style="width:20%">Género</th><th style="width:26%">Pregunta que responde</th><th style="width:22%">Pieza central</th><th>Patrón del pack</th></tr></thead>
+<tbody>
+<tr><td><b>Vigilancia</b></td><td>«¿Cómo está esto ahora mismo?»</td><td>Tarjetas con cifra y comparación</td><td>P1 panel de estado</td></tr>
+<tr><td><b>Exploración</b></td><td>«¿Dónde está el que busco y qué tiene?»</td><td>Lista + detalle + filtro</td><td>P2 tabla y explorador</td></tr>
+<tr><td><b>Captura</b></td><td>«¿Cómo meto este dato sin equivocarme?»</td><td>Campos con validación</td><td>P3 formulario · P4 asistente</td></tr>
+<tr><td><b>Proceso</b></td><td>«¿Cómo va esto y qué ha fallado?»</td><td>Cola con estados y progreso</td><td>P5 cola de trabajo</td></tr>
+<tr><td><b>Diagnóstico</b></td><td>«¿Qué pasó exactamente?»</td><td>Registro con filtro y detalle</td><td>P7 registros</td></tr>
+</tbody>
+</table>
+
+<h3>3.1 Cómo se elige (y cómo se combinan)</h3>
+<p>Se elige por la <b>acción principal</b> del usuario, no por el tipo de datos. Una herramienta de pacientes puede ser exploración (buscar y abrir) o captura (dar de alta); son dos pantallas distintas del mismo producto, y cada una tiene su género. Lo normal en una herramienta madura es <b>dos o tres géneros combinados</b> con una tecla que los une, nunca cinco amontonados en una sola pantalla.</p>
+
+<table class="compact">
+<tbody>
+<tr><td style="width:30%"><b>Un género por pantalla</b></td><td>El usuario sabe siempre qué está mirando. Cambiar de género es cambiar de pantalla, con una tecla estable (<span class="mono">1</span>, <span class="mono">2</span>, <span class="mono">3</span> o <span class="mono">Tab</span> entre secciones).</td></tr>
+<tr><td><b>Combinación típica</b></td><td>Vigilancia + diagnóstico: el panel detecta, <span class="mono">Enter</span> abre los registros de esa métrica. Es la combinación más útil de todas y la que menos se implementa.</td></tr>
+<tr><td><b class="no">Lo que no funciona</b></td><td>Una pantalla que intenta vigilar, explorar y capturar a la vez. El usuario acaba con veinte teclas y ninguna segura.</td></tr>
+</tbody>
+</table>
+
+<div class="panel-nota"><b>Prueba de humo:</b> escribe en una frase la acción principal de tu herramienta. Si la frase tiene dos verbos («ver y editar», «buscar y procesar»), tienes dos pantallas, no una. Ese es el reparto que hay que hacer antes de dibujar nada.</div>
+</section>
+
+<section id="p05">
+<span class="num">04 · Idealizar</span>
+<h2 class="sec">El contrato antes del boceto</h2>
+<p class="lead">Diseñar una TUI es responder seis preguntas por escrito. Lo que no se responde antes se decide por accidente durante la implementación, y ahí ya no se decide: se improvisa.</p>
+
+<table class="compact">
+<thead><tr><th style="width:8%">#</th><th style="width:26%">Pregunta</th><th style="width:30%">Qué produce</th><th>Si no se responde</th></tr></thead>
+<tbody>
+<tr><td class="sem">1</td><td><b>¿Quién y en qué condiciones?</b></td><td>Ancho mínimo, si hay color, si hay prisa, si hay conexión mala.</td><td>Se diseña para uno mismo en una pantalla grande y no funciona para nadie más.</td></tr>
+<tr><td class="sem">2</td><td><b>¿Cuál es la tarea principal, en un verbo?</b></td><td>El género (§03) y la pantalla de arranque.</td><td>La herramienta abre en una pantalla que no es la que se usa.</td></tr>
+<tr><td class="sem">3</td><td><b>¿Con qué frecuencia se usa?</b></td><td>Cuánto puede exigir la curva de teclas.</td><td>Atajos para una herramienta mensual, o menús para una que se usa cada hora.</td></tr>
+<tr><td class="sem">4</td><td><b>¿Qué error es caro?</b></td><td>Dónde van las confirmaciones, los deshacer y las validaciones.</td><td>Se protege lo barato y se deja suelto lo grave (§13).</td></tr>
+<tr><td class="sem">5</td><td><b>¿De dónde vienen los datos y qué pasa si fallan?</b></td><td>Los estados de error y la política de datos obsoletos (§09).</td><td>La pantalla se queda en blanco y el usuario cree que no hay datos.</td></tr>
+<tr><td class="sem">6</td><td><b>¿Cómo se sale y qué queda hecho?</b></td><td>Teclas de salida, limpieza de terminal y confirmación de estado.</td><td>El usuario sale con la terminal rota y sin saber si su acción se guardó.</td></tr>
+</tbody>
+</table>
+
+<h3>4.1 El contrato en cinco líneas (plantilla para copiar)</h3>
+<pre class="code">HERRAMIENTA:      ______________________  (un sustantivo concreto)
+USUARIO:          ________________  en  ______ columnas, con/sin color
+TAREA PRINCIPAL:  ______________________  (un verbo: vigilar | explorar |
+                                           capturar | procesar | diagnosticar)
+FRECUENCIA:       ______ veces al ______
+ERROR CARO:       ______________________  ->  protección: ______
+DATOS:            origen ______  si falla: ______
+SALIDA:           tecla ______  deja hecho: ______  restaura: ______</pre>
+
+<h3>4.2 Alcances y limitaciones: lo que hay que aceptar de entrada</h3>
+<table class="compact">
+<thead><tr><th style="width:50%">Alcance (lo que este medio hace mejor)</th><th>Limitación (lo que no se negocia)</th></tr></thead>
+<tbody>
+<tr><td>Densidad de información por pantalla</td><td>Sin imágenes, iconos ricos ni gráficos; series como mucho de una línea</td></tr>
+<tr><td>Velocidad de arranque y de interacción con teclado</td><td>Sin ratón como vía principal, sin <i>hover</i>, sin arrastrar y soltar</td></tr>
+<tr><td>Funcionar por SSH, en contenedores y en servidores</td><td>Depende del tamaño, del color y del juego de caracteres del terminal ajeno</td></tr>
+<tr><td>Componerse con otros programas y automatizarse</td><td>No hay integración con el escritorio: portapapeles y archivos, según terminal</td></tr>
+<tr><td>Accesibilidad de base (todo texto, todo teclado)</td><td>Solo si no se depende del color ni del Unicode (§14)</td></tr>
+<tr><td>Coste de distribución casi nulo</td><td>Público limitado a quien ya vive en la terminal</td></tr>
+</tbody>
+</table>
+
+<h3>4.3 El contrato, resuelto: un ejemplo completo</h3>
+<pre class="code">HERRAMIENTA:      lista de pacientes en espera
+USUARIO:          terapeuta · 100+ columnas · a veces por SSH y sin color
+TAREA PRINCIPAL:  explorar
+FRECUENCIA:       15 veces al día
+ERROR CARO:       borrar una ficha  ->  confirmar escribiendo el nombre,
+                                        papelera de 30 días, nunca borrado real
+DATOS:            base local  ·  si falla: última copia con su hora, marcada
+SALIDA:           q  ·  deja hecho: la selección se recuerda al volver
+                  ·  restaura: cursor, eco y pantalla</pre>
+
+<table class="compact">
+<thead><tr><th style="width:30%">Respuesta</th><th>Consecuencia directa en el diseño</th></tr></thead>
+<tbody>
+<tr><td>«Explorar», 15 veces al día</td><td>Género P2 (tabla + detalle) como pantalla de arranque. No hay panel: nadie abre una herramienta quince veces para mirar cifras.</td></tr>
+<tr><td>«Por SSH, sin color»</td><td>La selección se marca con <span class="mono">▶</span>; los estados llevan palabra. El color es un extra, no un requisito.</td></tr>
+<tr><td>«Borrar es caro»</td><td>La única confirmación de la aplicación, y con el nombre escrito a mano. Todo lo demás se hace sin interrumpir.</td></tr>
+<tr><td>«Base local que puede fallar»</td><td>Estado de error con datos de la última copia y su hora. La pantalla nunca se queda en blanco.</td></tr>
+</tbody>
+</table>
+
+<div class="alerta"><b>El límite que más se ignora:</b> una TUI no compite con una aplicación de escritorio; compite con un comando, un archivo de texto y un <span class="mono">grep</span>. Si tu TUI no es más clara o más rápida que esa combinación, no hay razón para construirla. Y no pasa nada: la mitad de las ideas de TUI se caen en esta comprobación, y caerse ahí es un éxito del método.</div>
+</section>
+
+<section class="parte">
+<span class="num">Parte II</span>
+<h2 class="sec">El núcleo: nueve piezas que se repiten siempre</h2>
+<p class="lead">Estas nueve piezas son el vocabulario del medio. Se aprenden una vez y se usan en cualquier pantalla: son las que hacen que dos herramientas distintas parezcan del mismo autor, y las que permiten diseñar rápido sin copiar.</p>
+</section>
+
+<section id="p06">
+<span class="num">05 · Núcleo N1</span>
+<h2 class="sec">La celda y la rejilla</h2>
+<p class="lead">Todo lo demás se apoya aquí. Si la rejilla está mal pensada, ninguna otra pieza puede salvarlo: es el equivalente a una retícula tipográfica en papel.</p>
+
+<h3>5.1 Las medidas que hay que saber de memoria</h3>
+<table class="compact">
+<thead><tr><th style="width:26%">Medida</th><th style="width:24%">Valor</th><th>Por qué</th></tr></thead>
+<tbody>
+<tr><td><b>Pantalla mínima</b></td><td>80 × 24</td><td>El tamaño clásico de terminal y el mínimo razonable. Todo tiene que caber aquí sin cortarse.</td></tr>
+<tr><td><b>Degradación</b></td><td>40 columnas</td><td>Móvil, panel dividido, ventana estrecha. O funciona, o muestra un aviso claro: nunca dibujo roto.</td></tr>
+<tr><td><b>Margen interior</b></td><td>1 columna</td><td>Nada pegado al borde. Un carácter de aire alrededor de todo cambia por completo la legibilidad.</td></tr>
+<tr><td><b>Sangría de nivel</b></td><td>2 columnas</td><td>Jerarquía por posición: cada nivel de anidamiento, dos columnas.</td></tr>
+<tr><td><b>Ancho de columna de texto</b></td><td>≤ 72 columnas</td><td>Más allá, la vista pierde el salto de línea. En pantallas anchas, el texto se centra o se divide en dos columnas.</td></tr>
+<tr><td><b>Filas de contenido</b></td><td>3 bandas</td><td>Cabecera + cuerpo + pie. Deja 20 filas útiles en una pantalla de 24: ese es el presupuesto real.</td></tr>
+</tbody>
+</table>
+
+<h3>5.2 El presupuesto de espacio, contado</h3>
+<pre class="fig">80 x 24  ──────────────────────────────────────────────────────────────
+ fila 1      ┌ CABECERA: título + contexto (1 fila) ──────────────────┐
+ filas 2-3   │ margen + subtítulo opcional                           │
+ filas 4-21  │                                                       │
+             │        CUERPO: 18 filas útiles de contenido           │
+             │                                                       │
+ fila 22     ├───────────────────────────────────────────────────────┤
+ fila 23     │ BARRA DE ESTADO: teclas disponibles ahora             │
+ fila 24     │ línea de mensajes (errores, confirmaciones)           │
+             └───────────────────────────────────────────────────────┘
+ Si necesitas más filas para el cuerpo, quítalas de la cabecera:
+ nunca de la barra de estado ni de la línea de mensajes.</pre>
+
+<h3>5.3 Las cuatro reglas de N1</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Los anchos se deciden en el diseño, no por el contenido.</b> Una columna no crece porque un dato sea largo: se trunca (§16). Si el contenido no cabe, el diseño estaba mal.</td></tr>
+<tr><td class="sem">2</td><td><b>Todo se mide en columnas, nunca en píxeles ni en porcentajes.</b> «La columna de estado ocupa 12 columnas», no «un 15 %».</td></tr>
+<tr><td class="sem">3</td><td><b>El contenido se alinea a la rejilla, no al gusto.</b> Bordes en la misma columna, cifras en la misma posición, etiquetas de la misma longitud.</td></tr>
+<tr><td class="sem">4</td><td><b>Se prueba en tres anchos: 80, 60 y 40.</b> Un diseño que solo funciona en 80 no está terminado; es un boceto grande.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p07">
+<span class="num">06 · Núcleo N2</span>
+<h2 class="sec">Marcos, bandas y los cinco layouts</h2>
+<p class="lead">Cinco estructuras cubren casi todo. No hay que inventar layouts: hay que reconocer cuál de estos cinco es el problema y aplicarlo entero.</p>
+
+<h3>6.1 Los cinco layouts</h3>
+<table class="compact">
+<thead><tr><th style="width:14%">Código</th><th style="width:24%">Estructura</th><th style="width:28%">Cuándo</th><th>Riesgo típico</th></tr></thead>
+<tbody>
+<tr><td><b>L1</b> Tres bandas</td><td>Cabecera · cuerpo · barra de estado</td><td>Cualquier pantalla simple y todas las de vigilancia</td><td>Cabecera demasiado alta: se come el cuerpo</td></tr>
+<tr><td><b>L2</b> Dos columnas</td><td>Reparto vertical 40/60 o 30/70</td><td>Lista + detalle cuando no hay filtros</td><td>Columnas que cambian de ancho según el contenido</td></tr>
+<tr><td><b>L3</b> Master-detail</td><td>Lista arriba o izquierda, detalle al lado, pie común</td><td>Exploración con acción sobre un elemento</td><td>El detalle roba espacio a la lista hasta hacerla ilegible</td></tr>
+<tr><td><b>L4</b> Asistente</td><td>Stepper · paso · pie con navegación</td><td>Captura de varios pasos</td><td>Pasos que no caben y se cortan por abajo</td></tr>
+<tr><td><b>L5</b> Modal sobre pantalla</td><td>Pantalla base + caja centrada</td><td>Decisión breve o confirmación</td><td>Anidar modales; en 40 columnas se convierte en toda la pantalla</td></tr>
+</tbody>
+</table>
+
+<h3>6.2 Los marcos: la única decoración con función</h3>
+<pre class="fig">  simple            doble             banda              sin marco
+ ┌──────────┐      ╔══════════╗      ┌ TÍTULO ─────┐     TÍTULO
+ │          │      ║          ║      │             │     ─────────────
+ └──────────┘      ╚══════════╝      └─────────────┘     contenido
+
+  Regla: un solo estilo por pantalla. El doble marca lo activo o lo modal,
+  no lo importante. Todo lo demás, simple. Y si la pantalla está apretada,
+  el marco es lo primero que se quita: la banda de título basta.</pre>
+
+<h3>6.3 Las cinco reglas de N2</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Un layout por pantalla.</b> Combinar L3 con L4 dentro de la misma vista es la forma más rápida de perder al usuario.</td></tr>
+<tr><td class="sem">2</td><td><b>La barra de estado y la línea de mensajes no se mueven nunca</b>: siempre las dos últimas filas. Es el ancla espacial de la aplicación.</td></tr>
+<tr><td class="sem">3</td><td><b>Los bordes se dibujan con Unicode o con ASCII, y se elige antes de empezar.</b> Media aplicación con <span class="mono">┌</span> y media con <span class="mono">+</span> parece un descuido.</td></tr>
+<tr><td class="sem">4</td><td><b>El título de la caja dice qué contiene, no dónde estás.</b> «PACIENTES», no «Pantalla 2 de 5».</td></tr>
+<tr><td class="sem">5</td><td><b>Al reducir el ancho, primero se estrecha el detalle, después se oculta, y solo al final se avisa.</b> Ese es el orden de prioridades del layout.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p08">
+<span class="num">07 · Núcleo N3</span>
+<h2 class="sec">Jerarquía sin tipografía</h2>
+<p class="lead">No hay tamaños, ni pesos finos, ni familias distintas. Quedan cinco herramientas, y con cinco se construye toda la jerarquía que hace falta.</p>
+
+<h3>7.1 El repertorio completo</h3>
+<table class="compact">
+<thead><tr><th style="width:22%">Herramienta</th><th style="width:34%">Uso</th><th>Límite</th></tr></thead>
+<tbody>
+<tr><td><b>Mayúsculas</b></td><td>Títulos de zona y etiquetas de columna. Grita, así que se usa poco.</td><td>Un bloque de más de seis palabras en mayúsculas se lee peor que en caja baja.</td></tr>
+<tr><td><b>Negrita</b></td><td>El dato, el nombre, la cifra que importa en la fila.</td><td>Si hay tres negritas en una fila, no hay ninguna.</td></tr>
+<tr><td><b>Sangría (2 col.)</b></td><td>Anidamiento, jerarquía de árbol, continuación de un mensaje.</td><td>Más de tres niveles en 80 columnas es ilegible: replantea el contenido.</td></tr>
+<tr><td><b>Espacio en blanco</b></td><td>Separar bloques, agrupar por proximidad.</td><td>Es la herramienta más potente y la que menos se usa.</td></tr>
+<tr><td><b>Símbolos</b></td><td><span class="mono">▶</span> foco · <span class="mono">✓</span> hecho · <span class="mono">✗</span> error · <span class="mono">◆ ● ○</span> progreso · <span class="mono">▲▼</span> orden</td><td>Un símbolo por significado, y el mismo en toda la aplicación. Nunca dos símbolos para lo mismo.</td></tr>
+</tbody>
+</table>
+
+<h3>7.2 El mismo dato, con y sin jerarquía</h3>
+<pre class="fig"> SIN JERARQUÍA                          CON JERARQUÍA
+ 001 Alvarez Marta 34 insomnio activo   001  Álvarez, Marta      34  insomnio   activo
+ 002 Bravo Julio 51 ansiedad activo     ▶002  Bravo, Julio        51  ansiedad   activo
+ 003 Cano Rosa 29 duelo alta            003  Cano, Rosa          29  duelo      alta
+
+ Lo que ha cambiado: una columna de separación, anchos fijos,
+ números a la derecha, un marcador de foco. Nada más.</pre>
+
+<h3>7.3 Las cuatro reglas de N3</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Una jerarquía de tres niveles como máximo</b>: zona, bloque, dato. Cuatro niveles en una rejilla de caracteres no se distinguen.</td></tr>
+<tr><td class="sem">2</td><td><b>El énfasis se gana, no se reparte.</b> En cada fila, un solo elemento en negrita: el que el usuario viene a buscar.</td></tr>
+<tr><td class="sem">3</td><td><b>La separación va antes que la decoración.</b> Antes de añadir un marco, añade una línea en blanco; casi siempre resuelve más.</td></tr>
+<tr><td class="sem">4</td><td><b>Consistencia absoluta:</b> si «ERROR» va en mayúsculas en una pantalla, va en mayúsculas en todas. La inconsistencia se percibe como error aunque no lo sea.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p09">
+<span class="num">08 · Núcleo N4</span>
+<h2 class="sec">Color: cuatro roles, dos estados y un plan B</h2>
+<p class="lead">El color en una TUI no es decoración ni marca: es una señal de estado. Cuatro roles bastan, y todos tienen que funcionar también sin color.</p>
+
+<h3>8.1 La paleta funcional</h3>
+<table class="compact">
+<thead><tr><th style="width:18%">Rol</th><th style="width:22%">Se usa para</th><th style="width:26%">Alternativa sin color</th><th>Error frecuente</th></tr></thead>
+<tbody>
+<tr><td><b>Fondo / neutro</b></td><td>Todo el texto normal</td><td>—</td><td>Texto gris claro «elegante» que es ilegible en un proyector</td></tr>
+<tr><td><b>Acento</b></td><td>Una sola cosa: el foco, o el dato principal de la pantalla</td><td>Marcador <span class="mono">▶</span>, negrita</td><td>Usar el acento en cinco sitios: deja de señalar</td></tr>
+<tr><td><b>Éxito</b></td><td>Confirmaciones y estados correctos</td><td>Palabra «OK» / «✓»</td><td>Verde para todo lo que no es un error</td></tr>
+<tr><td><b>Alerta / error</b></td><td>Fallos y riesgo. El rojo se gasta poco o no significa nada</td><td>Palabra «ERROR» / «✗»</td><td>Rojo para avisos informativos</td></tr>
+<tr><td><b>Estado: selección</b></td><td>La fila activa</td><td>Símbolo en el margen + negrita</td><td>Selección solo con fondo de color</td></tr>
+<tr><td><b>Estado: deshabilitado</b></td><td>Lo que no está disponible ahora</td><td>Paréntesis o nota «(no disponible)»</td><td>Gris que se confunde con texto normal</td></tr>
+</tbody>
+</table>
+
+<h3>8.2 Las cinco reglas de N4</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Nunca el color como única señal.</b> Cada color lleva palabra, símbolo o posición. Es el requisito de accesibilidad más importante del medio.</td></tr>
+<tr><td class="sem">2</td><td><b>Contraste antes que armonía.</b> Texto sobre fondo con diferencia clara; nada de grises intermedios para información.</td></tr>
+<tr><td class="sem">3</td><td><b>Funciona en 16 colores</b> aunque el terminal soporte millones. El terminal del otro no es el tuyo.</td></tr>
+<tr><td class="sem">4</td><td><b>Respeta el tema del usuario</b>: no fijes fondo blanco ni negro absolutos salvo que sea imprescindible.</td></tr>
+<tr><td class="sem">5</td><td><b>Pruébalo en daltonismo</b>: verde y rojo son el par que más se confunde. Si tu pantalla depende de distinguirlos, está mal diseñada.</td></tr>
+</tbody>
+</table>
+
+<div class="panel-nota">Prueba de una sola línea: imprime la pantalla sin colores y pide a alguien que diga cuál es el elemento activo y cuál es el error. Si no puede, el diseño dependía del color.</div>
+</section>
+
+<section id="p10">
+<span class="num">09 · Núcleo N5</span>
+<h2 class="sec">Los cinco estados de toda pantalla</h2>
+<p class="lead">El caso feliz se dibuja solo. El oficio está en los otros cuatro: vacío, cargando, error y sin permiso. Son los que separan una herramienta de una demostración.</p>
+
+<table class="compact">
+<thead><tr><th style="width:16%">Estado</th><th style="width:30%">Qué ve el usuario</th><th>Qué debe poder hacer</th></tr></thead>
+<tbody>
+<tr><td><b>Vacío</b></td><td>Una frase que explica qué aparecerá aquí <b>y cómo llenarlo</b>: «Aún no hay registros. Crea el primero con <span class="mono">n</span>.»</td><td>La acción que lo llena, sin salir de la pantalla.</td></tr>
+<tr><td><b>Cargando</b></td><td>Estructura visible (filas esqueleto o cabeceras) y un indicador discreto. Si hay datos anteriores, se muestran con su hora.</td><td>Seguir navegando por lo ya cargado; cancelar.</td></tr>
+<tr><td><b>Error</b></td><td>Qué falló, de dónde venía el dato y qué se conserva: «No se pudo actualizar. Se muestran los datos de las 14:02.»</td><td>Reintentar con una tecla; seguir trabajando con lo cacheado.</td></tr>
+<tr><td><b>Sin permiso</b></td><td>Que no es un fallo técnico: «Tu cuenta no tiene acceso a esta sección.»</td><td>Saber a quién pedirlo; volver.</td></tr>
+<tr><td><b>Éxito</b></td><td>La pantalla con el resultado y una confirmación breve en la línea de mensajes.</td><td>Continuar; y deshacer, si la acción lo permite.</td></tr>
+</tbody>
+</table>
+
+<h3>9.1 Cómo se escribe cada estado</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:26%"><b>Vacío útil</b></td><td>Explica el futuro, no la ausencia: «Aquí aparecerán los lotes procesados» + acción. Nunca «No hay datos» a secas, y nunca una pantalla en blanco.</td></tr>
+<tr><td><b>Cargando honesto</b></td><td>El indicador dura lo que dura la carga real. Si tarda más de un segundo, se añade el recuento («leyendo 40 de 218»).</td></tr>
+<tr><td><b>Error accionable</b></td><td>Tres piezas: qué pasó, qué se conserva y qué tecla reintenta. Sin las tres, no es un mensaje de error: es una queja.</td></tr>
+<tr><td><b>Sin permiso distinto de error</b></td><td>Mezclarlos hace que el usuario intente arreglar por su cuenta lo que solo puede arreglar un administrador.</td></tr>
+<tr><td><b>Éxito breve</b></td><td>Una línea, tres segundos, sin diálogo que hay que cerrar. Los mensajes de éxito no interrumpen.</td></tr>
+</tbody>
+</table>
+
+<div class="regla">Regla de los cinco estados: <b>ninguna pantalla se considera terminada hasta que existen las cinco versiones</b>. Y la prueba de fuego es el estado vacío: es el primero que ve un usuario nuevo, y el que casi nadie diseña.</div>
+</section>
+
+<section id="p11">
+<span class="num">10 · Núcleo N6</span>
+<h2 class="sec">El foco: quién recibe las teclas</h2>
+<p class="lead">En una interfaz sin ratón, el foco <i>es</i> el cursor del usuario. Si no se ve, la aplicación es inutilizable por muy bien dibujada que esté.</p>
+
+<h3>10.1 Las cuatro reglas del foco</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Un solo foco, siempre visible.</b> Nunca dos elementos que parecen activos. Y visible sin color: marcador en el margen, subrayado o negrita.</td></tr>
+<tr><td class="sem">2</td><td><b>El foco se conserva al cambiar de contexto.</b> Si el usuario abre un detalle y lo cierra, vuelve a la misma fila, no al principio de la lista.</td></tr>
+<tr><td class="sem">3</td><td><b>Tab y Shift-Tab recorren las zonas</b> en un orden que sigue la lectura: izquierda a derecha, arriba a abajo. Nunca un orden arbitrario.</td></tr>
+<tr><td class="sem">4</td><td><b>Al abrir una pantalla, el foco está donde está la tarea</b>, no en una cabecera inerte.</td></tr>
+</tbody>
+</table>
+
+<h3>10.2 Cómo se ve el foco sin color</h3>
+<pre class="fig">  sin foco visible          con foco en la fila 2
+  001  Álvarez, Marta        001  Álvarez, Marta
+  002  Bravo, Julio          ▶002  Bravo, Julio        ← marcador en el margen
+  003  Cano, Rosa            003  Cano, Rosa
+
+  Y con el foco en un campo de texto:
+  Nombre   ▏Marta Álvarez      ← barra de inserción visible
+  Correo   │marta@ejemplo       ← campos no activos sin barra</pre>
+
+<h3>10.3 El error clásico: el foco fantasma</h3>
+<p>Ocurre cuando se abre un diálogo y la pantalla de fondo conserva su resaltado. El usuario pulsa <span class="mono">↓</span> esperando moverse por el diálogo y mueve la lista de detrás. Solución: al activar un modo modal, el foco de fondo <b>se desactiva visualmente</b> aunque la selección se recuerde para cuando se cierre.</p>
+</section>
+
+<section id="p12">
+<span class="num">11 · Núcleo N7</span>
+<h2 class="sec">El mapa de teclas</h2>
+<p class="lead">Las teclas son la mitad de la interfaz. Un mapa mal elegido no se arregla con ayuda: se arregla cambiando el mapa antes de publicar.</p>
+
+<h3>11.1 El mapa canónico</h3>
+<table class="compact">
+<thead><tr><th style="width:22%">Tecla</th><th style="width:34%">Significado</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">↑ ↓ ← →</span> / <span class="mono">k j h l</span></td><td>Mover el foco</td><td>Las flechas para todos; <span class="mono">hjkl</span> como alias para expertos. Nunca solo <span class="mono">hjkl</span>.</td></tr>
+<tr><td><span class="mono">Enter</span></td><td>Avanzar, abrir, confirmar</td><td>El «sí» universal. Nunca lo uses para borrar.</td></tr>
+<tr><td><span class="mono">Esc</span></td><td>Volver, cerrar, cancelar</td><td>El «no» universal. Siempre disponible, en toda pantalla.</td></tr>
+<tr><td><span class="mono">Tab</span> / <span class="mono">Shift-Tab</span></td><td>Cambiar de zona</td><td>Orden de lectura.</td></tr>
+<tr><td><span class="mono">/</span></td><td>Buscar o filtrar</td><td>Estándar de facto: no lo cambies.</td></tr>
+<tr><td><span class="mono">?</span></td><td>Ayuda con el mapa completo</td><td>Debe existir siempre y estar actualizada.</td></tr>
+<tr><td><span class="mono">q</span></td><td>Salir</td><td>Con confirmación solo si hay trabajo sin guardar.</td></tr>
+<tr><td><span class="mono">Ctrl-C</span></td><td>Interrumpir</td><td>Nunca lo bloquees. Si hay un proceso, pregunta y cancela limpio.</td></tr>
+<tr><td><span class="mono">g</span> / <span class="mono">G</span></td><td>Ir al principio / al final</td><td>Convención heredada de <span class="mono">vi</span>, muy extendida.</td></tr>
+<tr><td><span class="mono">n</span> / <span class="mono">N</span></td><td>Siguiente / anterior resultado</td><td>Solo si hay búsqueda activa; si no, no hacen nada.</td></tr>
+</tbody>
+</table>
+
+<h3>11.2 Las cuatro reglas de N7</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Una tecla, un significado en toda la aplicación.</b> Si <span class="mono">d</span> borra en una pantalla, no puede duplicar en otra.</td></tr>
+<tr><td class="sem">2</td><td><b>Nada imprescindible vive en una combinación con Ctrl</b>, salvo lo global (salir, buscar). Las combinaciones son para expertos, no para la tarea principal.</td></tr>
+<tr><td class="sem">3</td><td><b>Nunca se cambia una tecla sin avisar</b> en el registro de cambios: las teclas son memoria muscular.</td></tr>
+<tr><td class="sem">4</td><td><b>La letra de la tecla se elige por su nombre en el idioma del usuario</b>: <span class="mono">e</span> de editar, <span class="mono">b</span> de borrar, <span class="mono">f</span> de filtrar. Y se muestra siempre junto a la palabra (§12).</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p13">
+<span class="num">12 · Núcleo N8</span>
+<h2 class="sec">La barra de estado como contrato</h2>
+<p class="lead">Es el elemento más pequeño del núcleo y el que más rendimiento da: una sola línea que dice <b>qué se puede hacer ahora mismo</b>. Sin ella, el usuario adivina.</p>
+
+<h3>12.1 Anatomía</h3>
+<pre class="fig">┌────────────────────────────────────────────────────────────────────────┐
+│ ↑↓ mover  Enter abrir  / buscar  f filtrar  o ordenar  ? ayuda  q salir │
+└────────────────────────────────────────────────────────────────────────┘
+  tecla ─┘        └─ verbo en el mismo orden: tecla primero, acción después
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ ESC cerrar   Enter guardar   Tab siguiente  Ctrl-Z deshacer             │
+└────────────────────────────────────────────────────────────────────────┘
+  En un formulario, la barra CAMBIA: muestra lo que funciona aquí, no el
+  mapa completo. El mapa completo vive en la ayuda (?).</pre>
+
+<h3>12.2 Las cinco reglas de N8</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Solo lo que funciona ahora.</b> Si el usuario está en un formulario, no aparecen las teclas de la tabla.</td></tr>
+<tr><td class="sem">2</td><td><b>Entre cinco y siete acciones.</b> Más es un menú disfrazado; menos, en la ayuda.</td></tr>
+<tr><td class="sem">3</td><td><b>Formato constante:</b> tecla, espacio, verbo en minúsculas. Alineado a la izquierda o repartido, pero siempre igual.</td></tr>
+<tr><td class="sem">4</td><td><b>La tecla de salida está en el extremo derecho.</b> Es donde la busca el ojo cuando alguien se atasca.</td></tr>
+<tr><td class="sem">5</td><td><b>Si algo está bloqueado, se dice por qué</b>: «Enter guardar (faltan 2 campos)». Ese paréntesis evita la mitad de los atascos.</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<div class="box-t">La prueba del contrato</div>
+<p style="margin-bottom:0">Tapa el resto de la pantalla y deja solo la barra de estado: un usuario nuevo debe poder saber <b>qué puede hacer</b> en esa pantalla. Si no puede, la barra es un adorno y las teclas son un secreto.</p>
+</div>
+</section>
+
+<section id="p14">
+<span class="num">13 · Núcleo N9</span>
+<h2 class="sec">La línea de mensajes: errores, avisos y confirmaciones</h2>
+<p class="lead">Todo lo que la aplicación tiene que decir al usuario pasa por una sola línea. Es poco sitio y por eso obliga a escribir bien: es el mejor corrector de estilo que existe.</p>
+
+<h3>13.1 La plantilla de tres partes</h3>
+<table class="compact">
+<thead><tr><th style="width:18%">Parte</th><th style="width:34%">Qué dice</th><th>Ejemplo</th></tr></thead>
+<tbody>
+<tr><td><b>Qué pasó</b></td><td>El hecho, en presente y sin tecnicismos</td><td>«No se pudo guardar el registro.»</td></tr>
+<tr><td><b>Qué se conserva</b></td><td>Lo que no se ha perdido (si hay algo)</td><td>«Los datos siguen en el formulario.»</td></tr>
+<tr><td><b>Qué hacer</b></td><td>La tecla o el paso concreto</td><td>«Pulsa <span class="mono">r</span> para reintentar.»</td></tr>
+</tbody>
+</table>
+
+<h3>13.2 Cómo se escriben los mensajes</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:34%"><b class="no">Mal</b></td><td><b class="si">Bien</b></td></tr>
+<tr><td>«Error 500»</td><td>«No se pudo leer la lista (fallo del servidor). Pulsa r para reintentar.»</td></tr>
+<tr><td>«¿Estás seguro?»</td><td>«Se van a borrar 3 registros. Escribe "borrar" para confirmar.»</td></tr>
+<tr><td>«Operación completada»</td><td>«218 registros importados. 3 omitidos por falta de nombre.»</td></tr>
+<tr><td>«No hay datos»</td><td>«Aún no hay registros. Pulsa n para crear el primero.»</td></tr>
+<tr><td>«Campo inválido»</td><td>«El correo necesita un dominio después de la arroba.»</td></tr>
+</tbody>
+</table>
+
+<h3>13.3 Las cinco reglas de N9</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Una línea, o dos como máximo.</b> Si necesita más, es un diálogo o una pantalla, no un mensaje.</td></tr>
+<tr><td style="sem">2</td><td><b>Los mensajes se borran solos</b> a los pocos segundos, salvo los errores, que se quedan hasta que se resuelven o se descartan con Esc.</td></tr>
+<tr><td style="sem">3</td><td><b>Nunca se culpa al usuario</b>: se describe el hecho y la salida. «Falta el dominio» es un dato; «has escrito mal el correo» es una acusación.</td></tr>
+<tr><td class="sem">4</td><td><b>Las confirmaciones no interrumpen</b>: van a la línea de mensajes, no a un diálogo.</td></tr>
+<tr><td class="sem">5</td><td><b>El tono es constante</b>: sin exclamaciones, sin humor, sin emojis. La herramienta no es tu amiga; es una herramienta.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p15">
+<span class="num">14 · Núcleo N10</span>
+<h2 class="sec">Densidad, ritmo y números (y la accesibilidad como cierre)</h2>
+<p class="lead">Las nueve piezas anteriores describen lo que se ve; esta describe <b>cuánto</b> se ve. La densidad es la decisión que más cambia la sensación de una TUI y la que menos se piensa.</p>
+
+<h3>14.1 El ritmo de la pantalla</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:32%"><b>Grupos de 5 a 9 elementos</b></td><td>La vista agrupa por proximidad. Un listado de veinte filas se lee como un bloque; se le añaden separadores cada cinco o siete.</td></tr>
+<tr><td><b>Una línea en blanco</b></td><td>Entre bloques lógicos. Nunca dos: dos líneas en blanco no separan más, solo gastan.</td></tr>
+<tr><td><b>Densidad alta con descanso</b></td><td>Se puede ser denso si hay jerarquía y espacio en los bordes. Lo que cansa no es la densidad: es la ausencia de jerarquía.</td></tr>
+<tr><td><b>Repetición exacta</b></td><td>Cada fila del mismo tipo tiene exactamente el mismo formato. La consistencia ahorra la mitad del esfuerzo de lectura.</td></tr>
+</tbody>
+</table>
+
+<h3>14.2 Los números, que son la mitad del contenido</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:32%"><b>Alineados a la derecha</b></td><td>Y con los decimales en la misma posición: <span class="mono">1.284,50</span> sobre <span class="mono">96,00</span> alinea las comas y permite comparar de un vistazo.</td></tr>
+<tr><td><b>Unidad siempre visible</b></td><td>«312 ms», «68 %», «12 GB». Un número sin unidad no es un dato: es un misterio.</td></tr>
+<tr><td><b>Tres cifras significativas</b></td><td>«1.284» antes que «1.283,7»; «0,8 %» antes que «0,7843 %». La precisión falsa es ruido.</td></tr>
+<tr><td><b>Comparación junto al número</b></td><td>«+6 %», «de 20», «▲». Un número aislado no dice si hay que preocuparse.</td></tr>
+</tbody>
+</table>
+
+<h3>14.3 Accesibilidad y degradación: el cierre del núcleo</h3>
+<table class="compact">
+<thead><tr><th style="width:26%">Condición</th><th>Qué se garantiza</th></tr></thead>
+<tbody>
+<tr><td><b>Sin color</b></td><td>Todo estado tiene palabra o símbolo. Probado con <span class="mono">NO_COLOR=1</span>.</td></tr>
+<tr><td><b>Sin Unicode</b></td><td>Juego alternativo ASCII (<span class="mono">+ - |</span>). Detectado o seleccionable a mano.</td></tr>
+<tr><td><b>40 columnas</b></td><td>Una columna de contenido, detalle a pantalla completa, barra reducida a cinco teclas.</td></tr>
+<tr><td><b>Lector de pantalla</b></td><td>Orden de lectura lógico; sin depender de la posición del cursor para transmitir información.</td></tr>
+<tr><td><b>Teclado solo</b></td><td>Toda acción alcanzable; ninguna exclusiva del ratón.</td></tr>
+<tr><td><b>Terminal tonta</b> (<span class="mono">TERM=dumb</span>)</td><td>Modo sin pantalla interactiva: imprime y sale, o avisa de que no puede funcionar.</td></tr>
+</tbody>
+</table>
+
+<p class="nota-txt" style="margin-top:2mm">Con esto queda cerrado el núcleo: nueve piezas y una regla de densidad. A partir de aquí, <b>cada patrón de la parte III solo añade una cosa</b>; si un patrón necesita más de una, está mal descompuesto.</p>
+</section>
+
+<section class="parte">
+<span class="num">Parte III</span>
+<h2 class="sec">Las particularidades: siete patrones de pantalla</h2>
+<p class="lead">Un patrón no es un diseño nuevo: es una <b>composición</b> de piezas del núcleo con un añadido pequeño y propio. Si al leer un patrón no reconoces de dónde viene cada parte, no lo has entendido todavía.</p>
+
+<div class="box">
+<div class="box-t">Cómo se lee cada patrón</div>
+<p>Siempre igual, en cinco líneas: <b>cuándo se usa</b> (y cuándo no), <b>anatomía</b> con un boceto, <b>reglas</b> que no se negocian, <b>ficha de composición</b> —qué reutiliza del núcleo, qué añade, qué teclas estrena, qué estados necesita y dónde está su límite— y <b>los tres errores</b> que se cometen siempre con ese patrón.
+Los siete patrones cubren, sumados, casi cualquier herramienta de terminal que vayas a necesitar: panel, tabla, formulario, asistente, proceso por lotes, diálogo y visor de registros.</p>
+</div>
+</section>
+
+<section id="p16">
+<span class="num">15 · Patrón P1</span>
+<h2 class="sec">Panel de estado</h2>
+<p class="lead">Una pantalla que responde a «¿cómo está esto?» en menos de tres segundos, sin que el usuario tenga que hacer nada.</p>
+
+<h3>15.1 Cuándo se usa (y cuándo no)</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:33%"><b>Se usa</b></td><td>Cuando hay entre cuatro y nueve cifras que se miran a diario, cuando el valor está en detectar lo anómalo, cuando el usuario es el mismo todos los días y ya sabe leer la pantalla.</td></tr>
+<tr><td><b class="no">No se usa</b></td><td>Si hay que actuar sobre registros concretos —eso es una tabla—, si hay más de nueve métricas (entonces hay una jerarquía mal hecha, no un panel), o si el usuario es ocasional: un panel que hay que interpretar es una tabla mal diseñada.</td></tr>
+</tbody>
+</table>
+
+<h3>15.2 Anatomía</h3>
+<pre class="fig">┌ SERVICIO · api-interno ─────────────────────────────── última: 14:02:11 ┐
+│                                                                        │
+│  PETICIONES / MIN        LATENCIA P95         ERRORES 5 MIN            │
+│        1.284                  312 ms              0.8 %               │
+│        ▲ +6 % vs ayer         ▁▂▃▅▂▁▂▃            ▲ +0.2                │
+│                                                                        │
+│  COLA DE TRABAJO         DISCO                  CERTIFICADO            │
+│        37 pendientes         68 % usado          caduca en 12 d        │
+│        ████████░░░░ 8/20     12 GB libres        [renovar]             │
+│                                                                        │
+├────────────────────────────────────────────────────────────────────────┤
+│ r refrescar   Enter detalle   f periodo   ? ayuda   q salir            │
+└────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>15.3 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Una cifra por tarjeta, y su unidad siempre visible.</b> «312» no dice nada; «312 ms» sí. La unidad no se abrevia hasta perder significado.</td></tr>
+<tr><td class="sem">2</td><td><b>Cada cifra lleva comparación.</b> Un número sin referencia no es información: «+6 % vs ayer», «de 20», «▲». Sin comparación, el usuario no sabe si preocuparse.</td></tr>
+<tr><td class="sem">3</td><td><b>Mismo ancho y misma retícula para todas las tarjetas.</b> Tres columnas iguales, no anchos «según el contenido». La comparación visual se hace por posición.</td></tr>
+<tr><td class="sem">4</td><td><b>Lo más importante, arriba a la izquierda</b>, porque es donde cae la mirada primero y donde no hay nada más que leer.</td></tr>
+<tr><td class="sem">5</td><td><b>Marca de tiempo de los datos, siempre.</b> Un panel sin hora miente por omisión: el usuario cree estar viendo el presente.</td></tr>
+<tr><td class="sem">6</td><td><b>Si el dato es viejo, se dice.</b> «última: hace 40 min» en ámbar junto al bloque afectado. Es la diferencia entre un panel y una ilusión.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N3 jerarquía · N4 roles de color · N5 estados · N8 barra de estado · L1 layout de tres bandas</td></tr>
+<tr><td><b>Lo que añade</b></td><td>La <b>retícula de tarjetas</b> y la regla de comparación por posición. El bloque de tendencia opcional (una línea de ▁▂▃).</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>r refrescar · f cambiar periodo · Enter abrir el detalle de la tarjeta activa</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Vacío (sin datos aún: explica qué se medirá) · cargando (mantiene la última cifra y su hora) · error (conserva lo viejo, marcado) · éxito (por defecto)</td></tr>
+<tr><td><b>Su límite</b></td><td>No sirve para series largas ni para actuar sobre elementos. Con más de nueve métricas deja de ser panel y pasa a ser una tabla con filtros.</td></tr>
+</tbody>
+</table>
+
+
+<h3>15.4 Los tres errores de siempre</h3>
+<div class="cols2">
+<div><b>1. Decorar antes de informar.</b> Marcos dobles, colores vivos y un logo de tres líneas: el 40 % de la pantalla gasta en estética y queda sitio para cuatro cifras.</div>
+<div><b>2. Cifras sin comparación.</b> «Usuarios: 8.412» no dice si es bueno. Con «+12 % esta semana» se convierte en información.</div>
+<div><b>3. Refrescar sin avisar.</b> La pantalla cambia bajo los ojos mientras el usuario lee. Se marca la actualización y se evita mover lo que no ha cambiado.</div>
+</div>
+</section>
+
+<section id="p17">
+<span class="num">16 · Patrón P2</span>
+<h2 class="sec">Tabla y explorador de datos</h2>
+<p class="lead">El patrón más usado y el que más se estropea: una lista de elementos con un detalle al lado, filtro, orden y una fila que siempre está activa.</p>
+
+<h3>16.1 Cuándo se usa</h3>
+<p>Cuando el usuario tiene que <b>encontrar uno entre muchos</b> y después hacer algo con él. Si siempre es el mismo elemento, no hace falta tabla; si hay que mirar veinte a la vez para comparar, probablemente sea un panel. Si la acción es sobre un solo elemento y siempre igual, quizá baste una lista simple con Enter.</p>
+
+<h3>16.2 Anatomía: tres zonas y una fila activa</h3>
+<pre class="fig">┌ PACIENTES ── /ins · 12 resultados ──────────────────────────────────────┐
+│ ID    NOMBRE              EDAD   MOTIVO            ESTADO     ÚLTIMA    │
+│ 001   Álvarez, Marta        34   insomnio          activo     04 nov    │
+│▶002   Bravo, Julio          51   ansiedad          activo     06 nov    │
+│ 003   Cano, Rosa            29   duelo             alta       12 oct    │
+│ 004   Díaz, Andrés          47   insomnio          en espera  30 oct    │
+│ ...                                                                     │
+├───────────────────────────────────┬─────────────────────────────────────┤
+│ 12 registros · orden: última ▼    │ FICHA 002 · Bravo, Julio            │
+│ filtro: insomnio                  │ Edad 51 · derivado por su médico    │
+│                                   │ [e] editar  [d] borrar  [Enter] ver │
+├───────────────────────────────────┴─────────────────────────────────────┤
+│ / buscar  ↑↓ mover  o ordenar  f filtrar  Enter abrir  ? ayuda  q salir │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>16.3 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Seis columnas visibles como máximo.</b> Si necesitas más, el detalle es el sitio para el resto. Cada columna que se añade resta un 10 % de legibilidad a todas las demás.</td></tr>
+<tr><td class="sem">2</td><td><b>La primera columna es el identificador</b> y siempre está: corto, único, estable. Es a lo que el usuario se referirá al hablar de la fila.</td></tr>
+<tr><td class="sem">3</td><td><b>Los números se alinean a la derecha, el texto a la izquierda.</b> Es la única forma de comparar 1.284 con 96 sin leer dígito a dígito.</td></tr>
+<tr><td class="sem">4</td><td><b>La fila activa se marca con un símbolo además del color</b> (<span class="mono">▶</span> en el margen). Sin color, sin señalar: quien no distingue el resaltado pierde el cursor de la interfaz.</td></tr>
+<tr><td class="sem">5</td><td><b>Se trunca con puntos suspensivos, no se parte la palabra</b> ni se deja que empuje la columna siguiente. El ancho de cada columna se decide en el diseño, no por el dato más largo.</td></tr>
+<tr><td class="sem">6</td><td><b>Contador siempre visible:</b> «12 resultados». Es lo que evita la pregunta «¿y esto es todo?».</td></tr>
+<tr><td class="sem">7</td><td><b>El filtro se ve.</b> Un filtro aplicado y no mostrado es la primera causa de «faltan datos» en una herramienta interna.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N2 marcos y bandas · N4 color (estado y selección) · N5 estados · N6 foco · N7 teclas · N8 barra de estado · L3 master-detail</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>modelo de columnas</b> (ancho, tipo, alineación, orden) y el ciclo de filtro. Es el añadido más pequeño de todos los patrones y el más rentable.</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>/ buscar · f filtrar · o ordenar · Espacio seleccionar · * seleccionar todo · Enter abrir · g/G ir a principio/final · n/N siguiente/anterior resultado</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Vacío (<b>con la acción que lo llena</b>: «crea el primer registro con n») · filtro sin resultados («quitar filtro con Esc») · cargando (filas esqueleto) · error de lectura (mantener lo cacheado y avisar) · éxito</td></tr>
+<tr><td><b>Su límite</b></td><td>Por encima de unos cientos de filas sin virtualización se nota el tirón; con miles hay que paginar o virtualizar. Y no es un editor: si hay que cambiar muchas celdas, es otro patrón.</td></tr>
+</tbody>
+</table>
+
+
+<h3>16.4 Los tres errores de siempre</h3>
+<div class="cols2">
+<div><b>1. Selección invisible al perder el foco.</b> El usuario abre un diálogo y ya no sabe qué fila estaba activa. La fila activa conserva su marca aunque el foco esté en otro sitio.</div>
+<div><b>2. Ordenar por la columna equivocada.</b> Se ordena por la fecha mostrada en formato «04 nov» y no por la fecha real. Se ordena siempre por el dato, nunca por su representación.</div>
+<div><b>3. Barra de estado que no cambia.</b> La barra muestra todas las teclas siempre. Debe mostrar solo las que funcionan <i>ahora</i>.</div>
+</div>
+</section>
+
+<section id="p18">
+<span class="num">17 · Patrón P3</span>
+<h2 class="sec">Formulario y validación</h2>
+<p class="lead">Aquí se pierde más tiempo que en ningún otro patrón: no por escribir, sino por corregir errores que la interfaz pudo evitar.</p>
+
+<h3>17.1 Anatomía</h3>
+<pre class="fig">┌ NUEVO REGISTRO ─────────────────────────────────────────────────────────┐
+│                                                                        │
+│  Nombre *      ▏Marta Álvarez Ruiz                                     │
+│                                                                        │
+│  Edad *        ▏34                                                     │
+│                entre 18 y 99                                           │
+│                                                                        │
+│  Motivo        ▏insomnio                                               │
+│                ┌──────────────────────────────┐                        │
+│                │ insomnio                     │ ← sugerencias          │
+│                │ insomnio crónico             │                        │
+│                │ insomnio de conciliación     │                        │
+│                └──────────────────────────────┘                        │
+│                                                                        │
+│  Correo        ▏marta@ejemplo                                          │
+│                ✗ falta el dominio después de la arroba                 │
+│                                                                        │
+│  * obligatorio                                                         │
+├────────────────────────────────────────────────────────────────────────┤
+│ Tab siguiente  Shift-Tab anterior  Enter guardar  Esc cancelar         │
+└────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>17.2 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Validar al salir del campo, no al teclear.</b> Corregir mientras se escribe es una forma elegante de insultar al usuario. La excepción son los contadores («23/200»).</td></tr>
+<tr><td class="sem">2</td><td><b>El error va pegado al campo</b>, debajo, con una marca (<span class="mono">✗</span>) y una frase que diga <b>cómo arreglarlo</b>: «falta el dominio después de la arroba», no «correo no válido».</td></tr>
+<tr><td class="sem">3</td><td><b>Nunca se borra lo escrito.</b> Jamás. Ni al fallar, ni al cambiar de paso, ni al irse y volver.</td></tr>
+<tr><td class="sem">4</td><td><b>El ancho del campo insinúa el contenido</b>: edad estrecha, correo ancho. Un campo de 40 columnas para un año es una promesa falsa.</td></tr>
+<tr><td class="sem">5</td><td><b>Enter guarda y Esc cancela</b>, siempre, en toda la aplicación. Si en esta pantalla Enter significa otra cosa, hay que decirlo en la barra.</td></tr>
+<tr><td class="sem">6</td><td><b>Al guardar, se bloquea y se dice qué está pasando</b>: «guardando…». Un campo que acepta más escritura mientras guarda produce duplicados.</td></tr>
+<tr><td class="sem">7</td><td><b>Cancelar con cambios pide confirmación; salir sin cambios, no.</b> La confirmación se gasta solo en lo que se pierde.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N3 jerarquía · N4 color (error y foco) · N5 estados · N6 foco · N7 teclas (Tab/Shift-Tab) · N9 línea de mensajes</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>modelo de campo</b> (etiqueta, tipo, ancho, obligatoriedad, ayuda, validador) y la lista de sugerencias.</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>Tab / Shift-Tab navegar · Enter guardar · Esc cancelar · Ctrl-Z deshacer en el campo</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Vacío (valores por defecto razonables) · editando · error por campo · error global (arriba, si hay varios) · guardando · guardado (mensaje de confirmación breve)</td></tr>
+<tr><td><b>Su límite</b></td><td>Con más de siete u ocho campos en pantallas de 24 filas no cabe: hay que pasar a P4 (asistente por pasos). Y si el formulario es de texto largo, se abre en <span class='mono'>$EDITOR</span>.</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="p19">
+<span class="num">18 · Patrón P4</span>
+<h2 class="sec">Asistente por pasos</h2>
+<p class="lead">Un formulario largo convertido en una conversación corta. Su valor no está en dividir, sino en <b>decidir por el usuario</b> lo que no necesita decidir.</p>
+
+<h3>18.1 Anatomía</h3>
+<pre class="fig">┌ IMPORTAR PACIENTES ─────────────────────────────────────────────────────┐
+│                                                                        │
+│   (1) Origen  ────  (2) Columnas  ────  (3) Revisión  ────  (4) Listo   │
+│        ✓               ✓                 ●                             │
+│   ───────────────────────────────────────────────────────────────────  │
+│                                                                        │
+│   PASO 3 DE 4 · Revisión                                                │
+│                                                                        │
+│   Se importarán 218 registros.                                          │
+│   3 filas se descartarán por falta de nombre.                           │
+│   ─────────────────────────────────────────────────────────────────    │
+│   001  Álvarez, Marta      34   insomnio                                │
+│   002  Bravo, Julio        51   ansiedad                                │
+│   003  Cano, Rosa          29   duelo                                   │
+│                                                                        │
+│   ¿Qué quieres hacer con las 3 filas incompletas?                       │
+│   ▸ omitirlas          guardarlas para revisar          cancelar todo   │
+│                                                                        │
+├────────────────────────────────────────────────────────────────────────┤
+│ Enter continuar  ← atrás  g guardar borrador  Esc salir  ? ayuda        │
+└────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>18.2 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Cinco pasos como máximo</b>, y cada paso responde una sola pregunta. Si un paso tiene dos decisiones, son dos pasos.</td></tr>
+<tr><td class="sem">2</td><td><b>El paso actual se ve, y también lo ya hecho</b> (✓ en los completados). El usuario tiene que saber cuánto falta para decidir si sigue.</td></tr>
+<tr><td class="sem">3</td><td><b>Volver atrás no pierde nada.</b> Nunca. Y el paso final es un <b>resumen editable</b>: es la última red antes del desastre.</td></tr>
+<tr><td class="sem">4</td><td><b>Se puede salir y reanudar.</b> Borrador guardado con <span class="mono">g</span> y recuperado al volver. Un asistente que se pierde a mitad es un asistente que nadie usa dos veces.</td></tr>
+<tr><td class="sem">5</td><td><b>Los valores por defecto hacen el 80 % del trabajo.</b> El mejor paso es el que no aparece porque había una opción evidente ya marcada.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N2 marcos · N3 jerarquía · N5 estados · N6 foco · N7 teclas · N8 barra de estado</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>stepper</b> (indicador de pasos), la validación por paso y el borrador persistente.</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>Enter siguiente · ← atrás · g guardar borrador · s saltar el paso (si es opcional)</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Borrador pendiente al abrir · validación fallida en el paso · revisión final · proceso en curso (tras confirmar) · resultado con recuento (importados / descartados)</td></tr>
+<tr><td><b>Su límite</b></td><td>No sirve para tareas diarias repetidas: si alguien hace esto cinco veces al día, un asistente de cuatro pasos es fricción pura. Para eso, formulario único con opciones recordadas.</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="p20">
+<span class="num">19 · Patrón P5</span>
+<h2 class="sec">Cola de trabajo y progreso</h2>
+<p class="lead">Lo que el usuario no ve, no existe; y si lo ve mal, no se fía. El problema no es dibujar una barra, es <b>decir la verdad sobre el tiempo</b>.</p>
+
+<h3>19.1 Anatomía</h3>
+<pre class="fig">┌ PROCESAR LOTES ─────────────────────────────────────────────────────────┐
+│ Progreso global  ███████████████░░░░░░░░░░░░  62 %  ·  quedan ~1 min 40 │
+│ 218 de 351 · 4 con error                                                │
+│                                                                        │
+│ ESTADO    ARCHIVO                 TAMAÑO    TIEMPO    RESULTADO         │
+│ hecho     lote-001.csv             2.1 MB     0.4 s   218 filas         │
+│ hecho     lote-002.csv             1.9 MB     0.5 s   351 filas         │
+│ en curso  lote-003.csv             2.4 MB      ----    leyendo…         │
+│ pendiente lote-004.csv             2.0 MB               -               │
+│ error     lote-005.csv             0.9 MB     0.2 s   ✗ línea 42: sin ID│
+│ ...                                                                     │
+├────────────────────────────────────────────────────────────────────────┤
+│ p pausar  c cancelar  e reintentar errores  l ver registro  q salir     │
+└────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>19.2 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>El progreso es monótono y honesto.</b> Nunca vuelve atrás, nunca se queda en 99 % dos minutos. Si no se puede calcular, se muestra el recuento («218 de 351») y no un porcentaje inventado.</td></tr>
+<tr><td class="sem">2</td><td><b>El tiempo restante solo se muestra si es fiable</b> —tamaños homogéneos, ritmo estable—. Un «quedan 2 s» que se convierte en tres minutos destruye la confianza más que no dar estimación.</td></tr>
+<tr><td class="sem">3</td><td><b>Cada elemento tiene su estado visible</b>: pendiente, en curso, hecho, error. La barra global sin detalle no permite saber qué falló.</td></tr>
+<tr><td class="sem">4</td><td><b>Cancelar funciona de verdad y dice qué pasó</b> con lo ya procesado: «se canceló tras 218 de 351; lo procesado se conserva».</td></tr>
+<tr><td class="sem">5</td><td><b>Los errores no se pierden al terminar:</b> quedan en una lista final con su acción de reintento. Un proceso que acaba «con 4 errores» y sin decir cuáles es un proceso roto.</td></tr>
+<tr><td class="sem">6</td><td><b>La interfaz no secuestra la terminal:</b> Ctrl-C siempre responde, y el proceso deja un registro en un archivo para poder mirarlo después.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N4 color por estado · N5 estados ampliados (4 + error por elemento) · N8 barra de estado · L3 master-detail</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>modelo de elemento</b> con su estado propio, el recuento global y la política de refresco (una actualización por segundo, no por evento).</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>p pausar · c cancelar · e reintentar solo los errores · l abrir el registro completo</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Sin trabajo en cola (vacío) · en curso · pausado · cancelado · terminado con errores · terminado limpio</td></tr>
+<tr><td><b>Su límite</b></td><td>En terminales remotas, repintar toda la tabla en cada evento satura la conexión: se refresca el conjunto como mucho una vez por segundo y se escribe solo lo que cambió (§24).</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="p21">
+<span class="num">20 · Patrón P6</span>
+<h2 class="sec">Diálogos, menús y paleta de comandos</h2>
+<p class="lead">Todo lo que interrumpe. Bien usado, protege; mal usado, es la razón por la que la gente odia las interfaces de texto.</p>
+
+<h3>20.1 Los tres tipos y cuándo usar cada uno</h3>
+<table class="compact">
+<thead><tr><th style="width:22%">Tipo</th><th style="width:32%">Para qué</th><th>Regla</th></tr></thead>
+<tbody>
+<tr><td><b>Confirmación</b></td><td>Acción destructiva o irreversible</td><td>Solo entonces. Se nombra el objeto y la cantidad: «borrar 3 registros», no «¿estás seguro?». La acción destructiva nunca es la opción por defecto.</td></tr>
+<tr><td><b>Diálogo de acción breve</b></td><td>Pedir un dato sin salir de la pantalla (renombrar, mover)</td><td>Un campo, dos botones, Esc cancela. Si necesita dos campos, casi siempre es mejor un formulario completo.</td></tr>
+<tr><td><b>Paleta de comandos</b></td><td>Funciones que se usan poco y no caben en la barra</td><td>Se abre con <span class="mono">Ctrl-K</span> o <span class="mono">:</span>, busca por nombre y muestra la tecla de cada comando. Sustituye a los menús largos.</td></tr>
+</tbody>
+</table>
+
+<h3>20.2 Anatomía</h3>
+<pre class="fig">        ┌ BORRAR REGISTROS ──────────────────────────────┐
+        │                                                │
+        │  Se van a borrar 3 registros seleccionados.     │
+        │  Esta acción no se puede deshacer.              │
+        │                                                │
+        │  Escribe  borrar  para confirmar:               │
+        │  ▏                                              │
+        │                                                │
+        │        [ cancelar ]            ( borrar )       │
+        └────────────────────────────────────────────────┘
+
+┌ PALETA DE COMANDOS ─────────────────────────── Ctrl-K ─┐
+│ ▏exp                                                    │
+│  exportar csv                    Ctrl-E                 │
+│  exportar json                   Ctrl-J                 │
+│  expandir todo                   z                      │
+└─────────────────────────────────────────────────────────┘</pre>
+
+<h3>20.3 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>Esc cierra siempre</b>, desde cualquier diálogo, y no ejecuta nada.</td></tr>
+<tr><td class="sem">2</td><td><b>No se anidan diálogos.</b> Si aparece un error mientras hay una confirmación abierta, el error va a la línea de mensajes, no encima.</td></tr>
+<tr><td class="sem">3</td><td><b>El foco inicial no está en la acción destructiva.</b> Empieza en «cancelar» o en el campo vacío.</td></tr>
+<tr><td class="sem">4</td><td><b>Se dice qué se va a hacer y a cuántos.</b> La cantidad es información, no adorno.</td></tr>
+<tr><td class="sem">5</td><td><b>En 40 columnas, el diálogo mínimo ocupa toda la pantalla.</b> Se diseña para que quepa en 36 columnas o se degrada conscientemente a pantalla completa.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N2 marcos (borde con título) · N4 color (destructivo) · N6 foco (modal) · N7 teclas (Esc, Ctrl-K) · N9 línea de mensajes</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>bloqueo modal</b> del resto de la pantalla y el componente de búsqueda incremental.</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>Esc cerrar · Enter confirmar · Ctrl-K abrir paleta · Tab alternar botones</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Diálogo abierto sobre pantalla con selección previa · campo de confirmación vacío · error de validación de la confirmación</td></tr>
+<tr><td><b>Su límite</b></td><td>No es sitio para información: si hay que leer más de cuatro líneas, no es un diálogo, es una pantalla.</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="p22">
+<span class="num">21 · Patrón P7</span>
+<h2 class="sec">Registro, detalle y visor de eventos</h2>
+<p class="lead">La pantalla que se usa cuando algo ha ido mal, y por tanto la que menos margen tiene para estar mal diseñada.</p>
+
+<h3>21.1 Anatomía</h3>
+<pre class="fig">┌ EVENTOS ── nivel: ≥ aviso ── 1.284 líneas ──────────────────────────────┐
+│ 14:02:11  INFO   conexión establecida con api-interno:443              │
+│ 14:02:14  INFO   lote-001.csv procesado (218 filas)                     │
+│ 14:02:15  WARN   latencia 812 ms por encima del umbral                  │
+│▶14:02:19  ERROR  lote-005.csv línea 42: falta el campo ID               │
+│                  ↳ fila: 005;nombre=Cano, Rosa;edad=29                  │
+│ 14:02:20  INFO   reintento 1/3 en 2 s                                   │
+├────────────────────────────────────────────────────────────────────────┤
+│ ↑↓ mover  f filtrar nivel  / buscar  t seguir  y copiar  e editor  q    │
+└────────────────────────────────────────────────────────────────────────┘</pre>
+
+<h3>21.2 Reglas que no se negocian</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:8%" class="sem">1</td><td><b>El nivel se escribe además de colorearse</b> (INFO / WARN / ERROR). El color no puede ser el único portador de la información (§8).</td></tr>
+<tr><td class="sem">2</td><td><b>Hora alineada a la izquierda en columna fija</b>, siempre el mismo formato, siempre con segundos si el diagnóstico importa.</td></tr>
+<tr><td class="sem">3</td><td><b>El mensaje no se trunca si es un error.</b> Si hay que cortarlo, se parte en dos líneas con sangría, como en el ejemplo: primero el hecho, después el contexto.</td></tr>
+<tr><td class="sem">4</td><td><b>Seguir el final es una tecla, no un comportamiento permanente.</b> Si el usuario sube a leer, la vista no se mueve sola; se avisa: «3 nuevas líneas ↓».</td></tr>
+<tr><td class="sem">5</td><td><b>Se puede copiar y abrir en el editor</b> del usuario. Una interfaz que no deja sacar el texto obliga a repetir el trabajo a mano.</td></tr>
+</tbody>
+</table>
+
+
+<table class="ficha">
+<thead><tr><th style="width:26%">Ficha de composición</th><th>Contenido</th></tr></thead>
+<tbody>
+<tr><td><b>Reutiliza del núcleo</b></td><td>N1 rejilla · N3 jerarquía (nivel en caja alta) · N4 color por nivel · N6 foco · N7 teclas · N8 barra de estado</td></tr>
+<tr><td><b>Lo que añade</b></td><td>El <b>buffer de líneas</b> con scroll, el filtro por nivel y el modo «seguir».</td></tr>
+<tr><td><b>Teclas nuevas</b></td><td>f filtrar por nivel · t seguir el final · y copiar al portapapeles · e abrir en $EDITOR</td></tr>
+<tr><td><b>Estados obligatorios</b></td><td>Sin eventos (vacío con la explicación de qué se registrará) · filtro sin resultados · en pausa (lectura manual) · error de lectura del archivo de registro</td></tr>
+<tr><td><b>Su límite</b></td><td>No es un editor ni un visor de texto largo. Para analizar en serio, se exporta: la TUI sirve para detectar, no para estudiar.</td></tr>
+</tbody>
+</table>
+
+</section>
+
+<section class="parte">
+<span class="num">Parte IV</span>
+<h2 class="sec">Implementar: del boceto a la herramienta</h2>
+<p class="lead">Aquí se descubre lo que ningún boceto cuenta: una TUI es un <b>bucle</b>. Todo lo demás —marcos, colores, tablas— es consecuencia de tres decisiones que se toman una vez.</p>
+</section>
+
+<section id="p23">
+<span class="num">22 · Implementación</span>
+<h2 class="sec">La arquitectura mínima: estado, render, entrada</h2>
+<p class="lead">Si el código de una TUI está bien organizado, se puede dibujar cualquier pantalla sin tocar la lógica. Si está mal, cada pantalla nueva rompe las anteriores.</p>
+
+<h3>22.1 Las cuatro piezas</h3>
+<table class="compact">
+<thead><tr><th style="width:20%">Pieza</th><th style="width:34%">Qué es</th><th>Regla</th></tr></thead>
+<tbody>
+<tr><td><b>Estado</b></td><td>Una estructura de datos que contiene todo lo que la pantalla necesita mostrar: lista, selección, filtro, mensaje, modo.</td><td>Una sola fuente de verdad. Si algo se dibuja, está en el estado; si no está en el estado, no se dibuja.</td></tr>
+<tr><td><b>Render</b></td><td>Una función que recibe el estado y devuelve la pantalla completa (una rejilla de caracteres o una lista de líneas).</td><td><b>Función pura</b>: sin leer archivos, sin consultar la hora, sin red. Mismo estado, misma pantalla. Esto es lo que hace testeable la interfaz.</td></tr>
+<tr><td><b>Entrada</b></td><td>Traduce la tecla pulsada en un cambio de estado.</td><td>La entrada no dibuja nunca. Solo cambia el estado y deja que el bucle repinte.</td></tr>
+<tr><td><b>Bucle</b></td><td>Espera un evento → actualiza estado → repinta → repite. Más un manejador de cambio de tamaño.</td><td>Un solo hilo para la interfaz. El trabajo pesado va fuera y comunica resultados al estado.</td></tr>
+</tbody>
+</table>
+
+<pre class="fig">        ┌───────────────┐   tecla    ┌──────────────┐
+        │   ENTRADA     │───────────▶│              │
+        └───────────────┘            │    ESTADO    │
+        ┌───────────────┐  resultado │  (una sola   │
+        │ TRABAJO ASÍNC.│───────────▶│   verdad)    │
+        └───────────────┘            └──────┬───────┘
+                                            │ render(estado)
+                                            ▼
+        ┌───────────────┐   celdas   ┌──────────────┐
+        │   TERMINAL    │◀───────────│   REJILLA    │
+        └───────────────┘  (diff)    └──────────────┘</pre>
+
+<h3>22.2 Los cuatro errores que arruinan una TUI</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:32%"><b>Dibujar y decidir a la vez</b></td><td>El código que pinta la tabla también consulta la base de datos. Resultado: pantallas que se congelan y errores imposibles de reproducir. Se separa en render puro y acciones.</td></tr>
+<tr><td><b>No manejar el cambio de tamaño</b></td><td>La terminal se redimensiona y el marco se rompe. Se debe escuchar el evento (SIGWINCH o equivalente) y volver a calcular el layout; y fijar un <b>mínimo</b> por debajo del cual se muestra un aviso en lugar de basura.</td></tr>
+<tr><td><b>Repintar todo en cada tecla</b></td><td>Funciona en local y parpadea por SSH. Se repinta solo lo que cambió, o se limita la frecuencia a 10–15 fps.</td></tr>
+<tr><td><b>No restaurar la terminal al salir</b></td><td>El usuario acaba con el cursor invisible y el eco desactivado. Toda salida —incluido Ctrl-C y las excepciones— pasa por una limpieza registrada al arrancar.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p24">
+<span class="num">23 · Implementación</span>
+<h2 class="sec">Del boceto al código: cuatro sustratos</h2>
+<p class="lead">Se puede empezar por un framework o por el sustrato. Con lo primero se llega antes; con lo segundo se entiende por qué el framework existe. Recomendación honesta: escribir <b>una vez</b> la versión de treinta líneas y luego no volver a hacerlo nunca.</p>
+
+<h3>23.1 Nivel 0 · ANSI puro (Python, sin dependencias)</h3>
+<pre class="code">import sys, tty, termios, select
+
+def leer_tecla():
+    if select.select([sys.stdin], [], [], 0)[0]:
+        return sys.stdin.read(1)
+    return None
+
+def dibujar(estado):
+    # mueve el cursor al origen y pinta la pantalla completa
+    filas = []
+    filas.append("┌─ TAREAS " + "─" * 60 + "┐")
+    for i, t in enumerate(estado["items"][:8]):
+        marca = "▶" if i == estado["sel"] else " "
+        filas.append("│" + (marca + " " + t).ljust(70)[:70] + "│")
+    filas.append("├" + "─" * 70 + "┤")
+    filas.append("│ ↑↓ mover   q salir".ljust(71) + "│")
+    filas.append("└" + "─" * 70 + "┘")
+    sys.stdout.write("\x1b[H" + "\n".join(filas))   # H = ir a 1,1
+    sys.stdout.flush()
+
+def main():
+    estado = {"items": ["comprar pan", "llamar a Ana", "revisar informe"],
+              "sel": 0}
+    fd = sys.stdin.fileno()
+    viejo = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)                      # sin eco, sin espera de Enter
+        sys.stdout.write("\x1b[?25l")        # oculta el cursor
+        while True:
+            dibujar(estado)
+            k = leer_tecla()
+            if k == "q":
+                break
+            elif k == "j" and estado["sel"] < len(estado["items"]) - 1:
+                estado["sel"] += 1
+            elif k == "k" and estado["sel"] > 0:
+                estado["sel"] -= 1
+    finally:
+        sys.stdout.write("\x1b[?25h")        # muestra el cursor
+        termios.tcsetattr(fd, termios.TCSADRAIN, viejo)
+
+main()</pre>
+<p class="nota-txt">Treinta líneas y ya están las cuatro piezas: estado, render puro, lectura de tecla y limpieza garantizada. Todo lo que venga después es esto con más comodidad.</p>
+
+<h3>23.2 Nivel 1 · Framework (Python / Textual)</h3>
+<pre class="code">from textual.app import App, ComposeResult
+from textual.widgets import Footer, Header, ListItem, ListView, Static
+
+class Tareas(App):
+    CSS = "ListView { border: round $accent; height: 1fr; }"
+    TITULO = "TAREAS"
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield ListView(*[ListItem(Static(t)) for t in
+                         ["comprar pan", "llamar a Ana", "revisar informe"]])
+        yield Footer()
+
+Tareas().run()</pre>
+<p class="nota-txt">El framework aporta lo que cuesta escribir bien y no enseña nada: foco, scroll, redimensionado, diff de pantalla, barra de estado con teclas, temas. Lo que <b>no</b> aporta es la decisión de diseño: eso lo sigues poniendo tú.</p>
+
+<h3>23.3 Los otros dos sustratos, en una línea cada uno</h3>
+<table class="compact">
+<thead><tr><th style="width:16%">Sustrato</th><th style="width:28%">Cuándo elegirlo</th><th>Qué cambia respecto a los anteriores</th></tr></thead>
+<tbody>
+<tr><td><b>Ink</b> (JS/TS)</td><td>Ya hay un equipo de JavaScript o la herramienta se distribuye por <span class="mono">npx</span>.</td><td>Modelo de componentes con reconcilización, como React, pero dibujando en la terminal. Ecosistema de CLIs muy maduro.</td></tr>
+<tr><td><b>ratatui</b> (Rust)</td><td>La herramienta tiene que ser un único binario, muy rápida, y distribuirse sin runtime.</td><td>Control fino del búfer y del diff; más ceremonia para lo mismo. Ideal si el rendimiento es un requisito, no una esperanza.</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<div class="box-t">Regla de elección (para no perder una semana)</div>
+<p style="margin-bottom:0">Si la TUI es una herramienta interna de un equipo → el lenguaje que ya usa el equipo, con su framework. Si es una herramienta que se va a distribuir → un binario o <span class="mono">npx</span>, porque pedirle a alguien que instale un entorno para ver una tabla es el primer abandono.
+Y si es para aprender → el nivel 0 primero, sin excusas.</p>
+</div>
+</section>
+
+<section id="p25">
+<span class="num">24 · Implementación</span>
+<h2 class="sec">Rendimiento y límites reales</h2>
+<p class="lead">La terminal es rápida en local y lenta por red. Casi todos los problemas de «va a tirones» son de ancho de banda, no de CPU.</p>
+
+<h3>24.1 La aritmética que conviene tener en la cabeza</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:34%"><b>Una pantalla de 80×24</b></td><td>1.920 celdas. Repintarla entera son unos pocos kilobytes: irrelevante en local, notable por SSH a 30 fps.</td></tr>
+<tr><td><b>Regla práctica</b></td><td>Refresco máximo de 10–15 fps para datos y 1 fps para procesos largos. Por encima, el ojo no gana nada y la conexión sufre.</td></tr>
+<tr><td><b>Lo que cuesta de verdad</b></td><td>No es pintar: es <b>consultar</b>. Si el refresco dispara una consulta a la base de datos, el problema es de arquitectura, no de dibujo.</td></tr>
+<tr><td><b>Objetivo medible</b></td><td>Arranque por debajo de 200 ms y primer frame por debajo de 100 ms. Si tarda más, el usuario cree que no funciona y pulsa dos veces.</td></tr>
+</tbody>
+</table>
+
+<h3>24.2 Lo que una TUI no puede hacer (y su alternativa)</h3>
+<table class="compact">
+<thead><tr><th style="width:26%">No se puede</th><th style="width:34%">Por qué</th><th>Qué se hace en su lugar</th></tr></thead>
+<tbody>
+<tr><td><b>Imágenes y gráficos ricos</b></td><td>La unidad es el carácter. Hay protocolos de imagen, pero dependen del terminal.</td><td>Tablas, sparklines de una línea, cifras bien alineadas. Y exportar la imagen a un archivo.</td></tr>
+<tr><td><b>Ratón como entrada principal</b></td><td>Existe, pero no es fiable ni accesible; y quien usa la herramienta por SSH no lo espera.</td><td>Todo alcanzable con teclado. El ratón, si se añade, es un extra que nunca es la única vía.</td></tr>
+<tr><td><b>Tipografía y jerarquía fina</b></td><td>Una sola familia monoespaciada; negrita, caja alta y espacio son todo el repertorio.</td><td>Jerarquía por posición, espacio en blanco y mayúsculas (§7).</td></tr>
+<tr><td><b>Scroll nativo</b></td><td>La aplicación controla la pantalla; el scroll puede romper el dibujo.</td><td>Scroll propio con <span class="mono">↑↓</span>, y modo de pantalla alternativa bien gestionado al salir.</td></tr>
+<tr><td><b>Animaciones continuas</b></td><td>Cuestan tráfico y CPU, y marean en un entorno de trabajo.</td><td>Solo transiciones de estado (progreso, spinner de carga) y con un motivo.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="p26">
+<span class="num">25 · Implementación</span>
+<h2 class="sec">Pruebas y calidad: cómo saber que funciona</h2>
+<p class="lead">Una TUI se puede testear mejor que una interfaz gráfica, porque su render es texto. Es una de sus ventajas grandes y casi nadie la aprovecha.</p>
+
+<h3>25.1 La prueba de instantánea (snapshot)</h3>
+<p>Como el render es una función pura de estado a texto, se guarda la salida esperada de un estado concreto en un archivo («dorado») y se compara en cada cambio. Si el resultado cambia, se revisa si es intencionado. Con tres estados bien elegidos —lleno, vacío, error— se cubre el 80 % de los fallos visuales.</p>
+
+<h3>25.2 Simulación de teclas</h3>
+<p>Se aplican secuencias de teclas al estado y se comprueba el resultado: <span class="mono">↓ ↓ Enter Esc</span> debe dejar la selección, el detalle abierto y el detalle cerrado, sin efectos colaterales. Estas pruebas detectan el bug más común de todas las TUIs: la tecla que hace cosas distintas según el historial de navegación.</p>
+
+<h3>25.3 La lista de comprobación de veinte puntos</h3>
+<table class="compact doscol">
+<tbody>
+<tr><td>1. Cabe en 80×24 sin cortarse</td><td>11. Cambiar de tamaño no rompe el dibujo</td></tr>
+<tr><td>2. Es usable en 40 columnas o avisa</td><td>12. El foco siempre es visible</td></tr>
+<tr><td>3. Se entiende sin color</td><td>13. Esc siempre vuelve atrás</td></tr>
+<tr><td>4. Funciona sin Unicode (<span class="mono">+--+</span>)</td><td>14. Ctrl-C sale limpio y restaura la terminal</td></tr>
+<tr><td>5. Funciona con <span class="mono">TERM=dumb</span></td><td>15. Cancelar no deja datos a medias</td></tr>
+<tr><td>6. Estado vacío con la acción que lo llena</td><td>16. Los errores dicen cómo arreglarlos</td></tr>
+<tr><td>7. Estado de carga sin bloquear</td><td>17. Filtro aplicado siempre visible</td></tr>
+<tr><td>8. Error de red sin perder lo cacheado</td><td>18. Cifras alineadas a la derecha</td></tr>
+<tr><td>9. Diez mil filas sin tirón</td><td>19. Las teclas están en la ayuda (<span class="mono">?</span>)</td></tr>
+<tr><td>10. Textos largos truncados con …</td><td>20. Arranque por debajo de 200 ms</td></tr>
+</tbody>
+</table>
+
+<div class="panel-nota">Los puntos 3, 4 y 5 son los que separan una herramienta profesional de una demostración. Probarla en una terminal de 40 columnas sin colores y con Unicode desactivado cuesta diez minutos y descubre más que una tarde de revisión de código.</div>
+</section>
+
+<section id="p27">
+<span class="num">26 · Implementación</span>
+<h2 class="sec">Entregar y mantener</h2>
+<p class="lead">Una TUI que no se puede instalar ni recordar no existe. El último kilómetro también se diseña.</p>
+
+<table class="compact">
+<tbody>
+<tr><td style="width:30%"><b>Instalación</b></td><td>Un comando, sin entorno previo: <span class="mono">pipx install</span>, <span class="mono">npx</span> o un binario. Cada paso extra de instalación pierde la mitad de los usuarios.</td></tr>
+<tr><td><b><span class="mono">--help</span> completo</b></td><td>Con las teclas, no solo los argumentos. Y la pantalla <span class="mono">?</span> dentro de la aplicación, siempre actualizada con la barra de estado.</td></tr>
+<tr><td><b>Configuración</b></td><td>Archivo en el sitio estándar del sistema (XDG). Nada de configuración solo por variables de entorno, y nunca configuración obligatoria para empezar.</td></tr>
+<tr><td><b>Detección de capacidades</b></td><td>Comprobar color y UTF-8 al arrancar y degradar: sin color, con ASCII. Nunca asumir truecolor.</td></tr>
+<tr><td><b>Temas</b></td><td>Claro y oscuro como mínimo. Un tema oscuro forzado en una terminal clara es ilegible.</td></tr>
+<tr><td><b>Compatibilidad de teclas</b></td><td>Nunca se cambia una tecla sin avisar en el registro de cambios. Las teclas son memoria muscular: cambiarlas es romper el teclado de otro.</td></tr>
+</tbody>
+</table>
+
+<h3>26.1 La lista de publicación (diez puntos)</h3>
+<table class="compact doscol">
+<tbody>
+<tr><td>1. Se instala con un comando, sin entorno previo</td><td>6. El color y el Unicode se detectan al arrancar</td></tr>
+<tr><td>2. <span class="mono">--help</span> documenta las teclas, no solo los argumentos</td><td>7. Hay tema claro y oscuro</td></tr>
+<tr><td>3. <span class="mono">--version</span> responde sin abrir la interfaz</td><td>8. El registro de cambios avisa de cualquier tecla movida</td></tr>
+<tr><td>4. La configuración vive en el sitio estándar del sistema</td><td>9. Existe un modo no interactivo para scripts</td></tr>
+<tr><td>5. La pantalla <span class="mono">?</span> está actualizada con la barra de estado</td><td>10. El README muestra la herramienta en una captura de texto</td></tr>
+</tbody>
+</table>
+
+<div class="regla">Una TUI se juzga en los primeros treinta segundos: instalarla, abrirla y saber qué hacer sin leer nada más que la barra de estado. Todo lo de esta página existe para que esos treinta segundos salgan bien.</div>
+</section>
+
+<section class="parte">
+<span class="num">Parte V</span>
+<h2 class="sec">El manual de decisión</h2>
+<p class="lead">Todo el pack condensado en una página, seis ejercicios y un glosario. Si tienes que repasar antes de empezar un proyecto, esta es la parte que se relee.</p>
+</section>
+
+<section id="p28">
+<span class="num">27 · Síntesis</span>
+<h2 class="sec">Las dieciséis reglas nucleares</h2>
+
+<div class="reglas">
+<div><b>Del núcleo</b>
+<ol>
+<li>La unidad es la celda: piensa en columnas, no en píxeles.</li>
+<li>Diseña para 80×24 y comprueba en 40 columnas.</li>
+<li>Un margen de una columna alrededor de todo. Siempre.</li>
+<li>Tres roles de color como máximo, más dos estados.</li>
+<li>Nunca uses el color como única señal.</li>
+<li>Cinco estados por pantalla: vacío, cargando, error, éxito, sin permiso.</li>
+<li>Un solo foco visible en cada momento.</li>
+<li>Enter avanza, Esc vuelve, q sale. En todas las pantallas.</li>
+<li>La barra de estado muestra solo lo que funciona ahora.</li>
+<li>Jerarquía con mayúsculas, espacio y posición, no con adornos.</li>
+</ol></div>
+<div><b>De la decisión</b>
+<ol start="11">
+<li>Si el usuario tiene que actuar sobre un registro, no es un panel: es una tabla.</li>
+<li>Los números, a la derecha; el texto, a la izquierda.</li>
+<li>El progreso se dice con recuento o no se dice.</li>
+<li>Las acciones destructivas se nombran con su cantidad.</li>
+<li>El render es una función pura del estado: sin red, sin reloj, sin disco.</li>
+<li>Si algo no se puede hacer con teclado y sin color, no está terminado.</li>
+</ol></div>
+</div>
+
+<div class="regla">Y la que resume todas: <b>una TUI no es una interfaz gráfica en blanco y negro</b>. Es otra gramática —rejilla, teclas, densidad— y quien la trata como una versión pobre de una ventana hace herramientas que nadie quiere usar.</div>
+</section>
+
+<section id="p29">
+<span class="num">28 · Práctica</span>
+<h2 class="sec">Seis ejercicios, de una pantalla a una herramienta</h2>
+<p class="lead">Cada ejercicio añade una pieza del núcleo o un patrón. El criterio de aceptación es lo que decide si está terminado: si no se cumple, no está terminado, aunque se vea bonito.</p>
+
+<table class="compact">
+<thead><tr><th style="width:5%">#</th><th style="width:24%">Qué se construye</th><th style="width:22%">Qué se practica</th><th>Criterio de aceptación</th></tr></thead>
+<tbody>
+<tr><td><b>1</b></td><td>Reloj + estado del equipo (una pantalla, sin interacción)</td><td>N1 rejilla · N3 jerarquía · N4 color</td><td>Cabe en 40 columnas, se entiende sin color y se refresca una vez por segundo.</td></tr>
+<tr><td><b>2</b></td><td>Lista de tareas con foco, marcar y borrar</td><td>N5 estados · N6 foco · N7 teclas · N8 barra</td><td>Estado vacío con la acción que lo llena; foco visible sin color; Esc y q coherentes.</td></tr>
+<tr><td><b>3</b></td><td>Tabla master-detail con filtro y orden</td><td>P2 + L3 master-detail</td><td>Seis columnas como máximo, contador visible, filtro sin resultados explicado, 10.000 filas sin tirón.</td></tr>
+<tr><td><b>4</b></td><td>Formulario con validación y confirmación al salir</td><td>P3 + N9 mensajes</td><td>Valida al salir del campo, no borra lo escrito, error pegado al campo y con instrucción.</td></tr>
+<tr><td><b>5</b></td><td>Asistente de cuatro pasos que guarda borrador</td><td>P4 + stepper</td><td>Volver atrás no pierde nada; salir y reanudar funciona; el resumen final es editable.</td></tr>
+<tr><td><b>6</b></td><td><b>Procesador por lotes</b>: cola, progreso, errores y registro</td><td>P5 + P7 + arquitectura §22</td><td>Progreso monótono y honesto, errores acumulados con reintento, cancelar dice qué se conservó, render sin bloquear.</td></tr>
+</tbody>
+</table>
+
+<h3>28.1 Cómo se evalúa un ejercicio (rúbrica de cuatro niveles)</h3>
+<table class="compact">
+<thead><tr><th style="width:20%">Criterio</th><th style="width:20%">1 · No está</th><th style="width:20%">2 · A medias</th><th style="width:20%">3 · Bien</th><th>4 · Ejemplar</th></tr></thead>
+<tbody>
+<tr><td><b>Rejilla</b></td><td>Se rompe al redimensionar</td><td>Aguanta 80×24</td><td>Aguanta 40 columnas con aviso por debajo</td><td>Se adapta y prioriza contenido al reducir</td></tr>
+<tr><td><b>Estados</b></td><td>Solo el caso feliz</td><td>Vacío y error</td><td>Los cinco del núcleo</td><td>Además, datos obsoletos marcados con su hora</td></tr>
+<tr><td><b>Teclado</b></td><td>Solo algunas teclas</td><td>Todas, pero sin ayuda</td><td>Mapa completo en <span class="mono">?</span></td><td>La barra cambia según contexto</td></tr>
+<tr><td><b>Arquitectura</b></td><td>Todo en un archivo</td><td>Estado separado</td><td>Render puro y probado con instantáneas</td><td>Además, teclas simuladas en pruebas</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<span class="num">29 · Referencia</span>
+<h2 class="sec">Glosario y para seguir</h2>
+
+<table class="compact glosario">
+<tbody>
+<tr><td><b>Rejilla</b></td><td>Retícula de celdas (columnas × filas) sobre la que se dibuja todo.</td></tr>
+<tr><td><b>Celda</b></td><td>Un carácter en una posición. La unidad mínima de una TUI.</td></tr>
+<tr><td><b>Layout</b></td><td>Reparto del espacio: bandas, columnas, master-detail.</td></tr>
+<tr><td><b>Foco</b></td><td>El único elemento que recibe las teclas en este momento.</td></tr>
+<tr><td><b>Estado vacío</b></td><td>Pantalla sin datos que explica qué aparecerá y cómo llenarla.</td></tr>
+<tr><td><b>Degradación</b></td><td>Lo que se muestra cuando falta color, Unicode o ancho.</td></tr>
+<tr><td><b>Diff</b></td><td>Escribir solo las celdas que cambiaron en lugar de repintar todo.</td></tr>
+<tr><td><b>Búfer</b></td><td>Memoria intermedia que contiene la pantalla antes de escribirla.</td></tr>
+<tr><td><b>Modal</b></td><td>Elemento que bloquea el resto hasta que se resuelve.</td></tr>
+<tr><td><b>Snapshot test</b></td><td>Comparar el render de un estado con un archivo de referencia.</td></tr>
+<tr><td><b>TUI</b></td><td>Interfaz de usuario de terminal: texto, teclado, rejilla.</td></tr>
+<tr><td><b>ANSI / escape</b></td><td>Secuencias de control que mueven el cursor y cambian colores.</td></tr>
+<tr><td><b>Stepper</b></td><td>Indicador de pasos de un asistente.</td></tr>
+<tr><td><b>Sparkline</b></td><td>Serie temporal dibujada en una sola línea de caracteres.</td></tr>
+<tr><td><b>Modalidad de pantalla alternativa</b></td><td>Modo que ocupa toda la terminal y restaura su contenido al salir.</td></tr>
+</tbody>
+</table>
+
+<h3>29.1 Para seguir</h3>
+<table class="compact">
+<tbody>
+<tr><td style="width:26%"><b>Herramientas</b></td><td>Textual (Python) · Ink (JS/TS) · ratatui (Rust) · blessed/rich (Python) · bubbletea (Go).</td></tr>
+<tr><td><b>Lecturas</b></td><td>Las guías de estilo de CLI de <i>clig.dev</i> y de <i>Heroku</i>; los principios de diseño de TUIs de la documentación de Textual; cualquier manual de tipografía aplicado a rejilla fija.</td></tr>
+<tr><td><b>Práctica</b></td><td>Leer el código de tres herramientas de terminal que uses a diario y anotar qué teclas usan, cómo marcan el foco y qué hace su barra de estado. Es el mejor curso que existe y es gratis.</td></tr>
+</tbody>
+</table>
+
+<div class="regla">El objetivo del pack no es que sepas dibujar marcos: es que puedas mirar cualquier TUI —la tuya o la de otro— y decir <b>qué decisiones tomó, cuáles evitó y dónde va a fallar</b>. Eso es criterio, y es lo único que no caduca cuando cambia el framework.</div>
+</section>
+</div></body></html>
