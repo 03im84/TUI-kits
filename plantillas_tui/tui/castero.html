@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>castero · TUI real</title>
+<style>
+:root{--texto:#abb2bf;
+ --titulo:#d19a66;
+ --tenue:#5c6370;
+ --naranja:#d19a66;
+ --jugando:#e5c07b;
+ --verde:#98c379;
+ --seleccion:#d19a66;
+ --borde:#5c6370;--sel_fg:#282c34;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-tenue{color:var(--tenue)}
+.c-naranja{color:var(--naranja)}
+.c-jugando{color:var(--jugando)}
+.c-verde{color:var(--verde)}
+.c-borde{color:var(--borde)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>castero <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Cliente de podcasts con tres columnas —feeds, episodios, metadatos— que copia deliberadamente el diseño de las primeras versiones de iTunes. Usa el tema One Dark y <strong>casi no tiene color propio</strong>: un naranja para los títulos y las barras, y todo lo demás es texto.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option></select></label>
+    <span><code>castero</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> <strong>Medido</strong> de una captura: es One Dark otra vez (<code>#282c34</code> de fondo, <code>#d19a66</code> naranja para títulos y progreso, <code>#abb2bf</code> de texto, <code>#5c6370</code> de metadatos). castero no inventa paleta, usa la del tema: el color solo aparece donde hay algo que señalar.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Feeds</h2></div>
+  <p class="nota">Las tres columnas de Castero, con el feed y el episodio elegidos en naranja.</p>
+  <div class="term"><pre><span class="c-titulo">castero · Paused [00:12:32/00:38:26]: Buying Attention (+5 in queue)</span>                                
+                                                                                                    
+<span class="c-titulo">Feeds</span>                            <span class="c-titulo">Episodes</span>                                     <span class="c-titulo">Metadata</span>              
+<span class="c-tenue">────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+<span class="c-texto">Embedded</span>                         <span class="c-texto">Tunnel Vision</span>                                <span class="c-jugando">Buying Attention</span>      
+<span class="c-texto">NPR Politics Podcast</span>             <span class="c-texto">Crickets and Cannibals</span>                       <span class="c-texto">Mon, 01 Jan 2018</span>      
+<span class="c-texto">Bullseye with Jesse Thorn</span>        <span class="c-texto">The Lonely American Man</span>                                            
+<span class="c-seleccion">Hidden Brain                    </span> <span class="c-texto">Radio Replay: The Mind of the Village</span>        <span class="c-titulo">Description:</span>          
+<span class="c-texto">Invisibilia</span>                      <span class="c-texto">Think Fast with Daniel Kahneman</span>              <span class="c-texto">Have you ever opened</span>  
+<span class="c-texto">Tiny Desk Concerts</span>               <span class="c-texto">Men: 45, Women: 0</span>                            <span class="c-texto">your computer with the</span>
+<span class="c-texto">Alt.Latino</span>                       <span class="c-texto">Counting Other People&#x27;s Blessings</span>            <span class="c-texto">intention of sending</span>  
+<span class="c-texto">Song Travels Express</span>             <span class="c-texto">When Did Marriage Become So Hard?</span>            <span class="c-texto">one email - only to</span>   
+<span class="c-texto">How To Do Everything</span>             <span class="c-texto">Why Now?</span>                                     <span class="c-texto">spend an hour scrollin</span>
+<span class="c-texto">Crosscurrents</span>                    <span class="c-seleccion">Lost in Translation                         </span> <span class="c-texto">through social media?</span> 
+<span class="c-texto">Planet Money</span>                     <span class="c-texto">Radio Replay: The Power Hour</span>                                       
+<span class="c-texto">Radiolab</span>                         <span class="c-texto">Give Me Your Tired...</span>                        <span class="c-titulo">Copyright:</span>            
+<span class="c-texto">99% Invisible</span>                    <span class="c-texto">The Science of Grit</span>                          <span class="c-texto">2015 NPR</span>              
+<span class="c-texto">The Daily</span>                        <span class="c-texto">Peak Performance</span>                                                   
+<span class="c-texto">Reply All</span>                        <span class="c-texto">The Value of Solitude</span>                        <span class="c-titulo">Duración:</span>             
+<span class="c-texto">Switched on Pop</span>                  <span class="c-texto">Fighting the Status Quo</span>                      <span class="c-texto">00:38:26</span>              
+<span class="c-texto">Song Exploder</span>                    <span class="c-texto">The Benefits of Not Belonging</span>                                      
+<span class="c-texto">Code Switch</span>                      <span class="c-texto">What Makes a Good Life?</span>                      <span class="c-titulo">Descargado:</span>           
+                                                                              <span class="c-verde">sí · 24,1 MiB</span>         
+                                                                                                    
+<span class="c-tenue">↑↓ feed · ⇥ episodios · ⏎ reproducir · d descargar</span>                                                  
+<span class="c-tenue">r marcar escuchado · u actualizar feeds · / buscar</span>                                                  
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-texto">Processed 25 feeds with 2687 total episodes -- Press h for help</span>                                     </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Reproductor</h2></div>
+  <p class="nota">Lo que suena, su progreso y la cola.</p>
+  <div class="term"><pre><span class="c-titulo">castero · Reproduciendo</span>                                               <span class="c-tenue">volumen 72 %</span>                  
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Buying Attention </span><span class="c-borde">───────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">Hidden Brain · Mon, 01 Jan 2018 21:00:00 -0500</span>                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">00:12:32</span> <span class="c-naranja">███████████████████████</span><span class="c-tenue">···············································</span> <span class="c-texto">00:38:26</span>         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-jugando">▶</span> <span class="c-jugando">reproduciendo</span>   <span class="c-tenue">· velocidad 1.0×</span>                                                               <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">Espacio pausa · ← → 30 s · d descarga · q salir</span>                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">Descripción:</span>                                                                                     <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">Have you ever opened your computer with the intention of sending one</span>                             <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Cola · 5 episodios </span><span class="c-borde">─────────────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> Progreso </span><span class="c-borde">─────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">1</span> <span class="c-texto">Radio Replay: Fresh Starts</span>                    <span class="c-tenue">00:41:02</span> <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">escuchado</span>   <span class="c-texto">12:32</span>                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">2</span> <span class="c-texto">I&#x27;m Right, You&#x27;re Wrong</span>                       <span class="c-tenue">00:35:18</span> <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">restante</span>    <span class="c-texto">25:54</span>                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">3</span> <span class="c-texto">Radio Replay: Don&#x27;t Panic!</span>                    <span class="c-tenue">00:38:44</span> <span class="c-borde">│</span>  <span class="c-borde">│</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">4</span> <span class="c-texto">Never Go To Vegas</span>                             <span class="c-tenue">00:29:51</span> <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">marcas de posición</span>                 <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">5</span> <span class="c-texto">Kinder-Gardening</span>                              <span class="c-tenue">00:33:07</span> <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-naranja">◇◇◇◇◆◇◇◇◇◇</span>                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">guardado en</span>                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">q quitar · J/K mover · ⏎ reproducir</span>                      <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">~/.local/share/castero</span>             <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────┘</span>  <span class="c-borde">└────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-texto">[h] ayuda · [q] salir · [p] pausa</span>                                                                   </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Descargas</h2></div>
+  <p class="nota">La cola de descargas con sus barras.</p>
+  <div class="term"><pre><span class="c-titulo">castero · Descargas</span>                                                     <span class="c-tenue">2 en curso · 1 en cola</span>      
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> En curso </span><span class="c-borde">───────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-texto">Buying Attention.mp3</span>                  <span class="c-tenue">1,2 MiB/s</span>   <span class="c-tenue">quedan 00:14:42</span>   <span class="c-tenue">de 24,1 MiB</span>                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-naranja">█████████████████████████████████████████</span><span class="c-tenue">·························</span>  <span class="c-texto"> 62 %</span>                        <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">Fresh Starts.mp3</span>                      <span class="c-tenue">0,4 MiB/s</span>   <span class="c-tenue">quedan 00:33:31</span>   <span class="c-tenue">de 24,1 MiB</span>                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-naranja">████████████</span><span class="c-tenue">······················································</span>  <span class="c-texto"> 18 %</span>                        <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Terminadas </span><span class="c-borde">─────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-verde">[ok]</span> <span class="c-texto">Tunnel Vision.mp3</span>                  <span class="c-tenue">00:34:18</span>      <span class="c-tenue">8,1 MiB</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">[ok]</span> <span class="c-texto">Crickets and Cannibals.mp3</span>         <span class="c-tenue">00:34:18</span>      <span class="c-tenue">8,1 MiB</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">[ok]</span> <span class="c-texto">The Lonely American Man.mp3</span>        <span class="c-tenue">00:35:02</span>      <span class="c-tenue">8,1 MiB</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> En cola </span><span class="c-borde">────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">1</span>  <span class="c-texto">Why Now?.mp3</span>                         <span class="c-tenue">esperando turno</span>         <span class="c-tenue">0 %</span>                              <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">Solo se descarga uno a la vez: la cola respeta el orden del feed.</span>                                <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+<span class="c-tenue">d descargar · x cancelar · h ayuda                                                                  </span>
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#282c34"></span><code>#282c34</code></td><td>fondo</td><td>fondo</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#abb2bf"></span><code>#abb2bf</code></td><td>texto</td><td>texto</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#d19a66"></span><code>#d19a66</code></td><td>titulo</td><td>cabeceras de columna</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#5c6370"></span><code>#5c6370</code></td><td>tenue</td><td>metadatos</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#d19a66"></span><code>#d19a66</code></td><td>naranja</td><td>progreso y barra</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#e5c07b"></span><code>#e5c07b</code></td><td>jugando</td><td>lo que suena</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#98c379"></span><code>#98c379</code></td><td>verde</td><td>descarga completa</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#5c6370"></span><code>#5c6370</code></td><td>borde</td><td></td><td>heredado de tenue</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

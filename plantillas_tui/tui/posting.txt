@@ -1,0 +1,96 @@
+
+=== 01 · Petición ==================================================================================
+ atlas-api                                                            ◆ local     you@devbox
+
+  GET List users        POS Create user       DEL Delete user
+
+ GET ${BASE_URL}/users?page=1&per_page=20                              200               Send
+      → http://localhost:8000/users?page=1&per_page=20
+
+ Headers  Body     Path     Query    Auth     Options
+┌─ Headers ──────────────────────────────────────────────────────────┐  ┌─ Request ────────────────┐
+│ [x] Accept            application/json                          ×  │  │ método                   │
+│ [x] Authorization     Bearer ${API_TOKEN}                       ×  │  │ GET                      │
+│ [x] User-Agent        Posting/3.0                               ×  │  │                          │
+│ [x] Cache-Control     no-cache                                  ×  │  │ estado                   │
+│ [x] X-Request-ID      ${uuid}                                   ×  │  │ 200 OK                   │
+│ [x] X-Client-Version  2026.10                                   ×  │  │                          │
+│ [x] Origin            https://app.example.com                   ×  │  │ guardada en              │
+│ [ ] Accept-           ← escribiendo                             ×  │  │ users/                   │
+│                                                                    │  │   list-users.yaml        │
+│ sugerencias Accept-Charset  Accept-Encoding                        │  │                          │
+│                                                                    │  │                          │
+│ 8 cabeceras · 1 desactivada                                        │  │                          │
+│                                                                    │  │ Peticiones = ficheros:   │
+│ Ctrl+Space alterna · ^j envía · ^s guarda                          │  │ se versionan con git.    │
+│                                                                    │  │                          │
+│ ↑↓ mover · ^d duplicar · ⌫ borrar                                  │  │ × cierra la pestaña      │
+│                                                                    │  │                          │
+│                                                                    │  │                          │
+└────────────────────────────────────────────────────────────────────┘  └──────────────────────────┘
+ ^s guardar   ^j enviar   ^p comandos   F1 ayuda
+
+
+=== 02 · Respuesta =================================================================================
+ atlas-api                                                            ◆ local           200 OK
+
+ Body      Headers   Cookies   Trace                        335 B en 42.00 ms        200 OK
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ {                                                                                                │
+│   "users": [                                                                                     │
+│     {                                                                                            │
+│       "id": 42                                                                                   │
+│       "name": "Ada Lovelace"                                                                     │
+│       "email": "ada@example.com"                                                                 │
+│       "role": "admin"                                                                            │
+│       "active": true                                                                             │
+│       "tags": ["math", "code"]                                                                   │
+│     },                                                                                           │
+│     {                                                                                            │
+│       "id": 43                                                                                   │
+│       "name": "Grace Hopper"                                                                     │
+│       "email": "grace@example.com"                                                               │
+│       "role": "admin"                                                                            │
+│       "active": false                                                                            │
+│       "tags": ["navy", "cobol"]                                                                  │
+│     }                                                                                            │
+│   ],                                                                                             │
+│   "total": 2                                                                                     │
+│   "next": null                                                                                   │
+│ application/json · 22 líneas · 2 objetos · claves coloreadas por tipo                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+ ↑↓ línea   / buscar   y copiar   F1 ayuda
+
+
+=== 03 · Colección =================================================================================
+ atlas-api                                                                Requests · History
+
+┌─ Requests ───────────────────────────────┐  ┌─ GET List users ───────────────────────────────────┐
+│ / buscar petición                        │  │ GET ${BASE_URL}/users?page=1                       │
+│ ▾ auth/                                  │  │                                                    │
+│ GET Current user                     →   │  │ Headers   8                                        │
+│ POS Login                            →   │  │ Authorization  Bearer ${API_TOKEN}                 │
+│ POS Refresh session                  →   │  │ Accept  application/json                           │
+│ DEL Revoke session                   →   │  │                                                    │
+│ ▾ projects/                              │  │ Respuesta                                          │
+│ GET Get project                      →   │  │ 200 OK · 335 B · 42.00 ms                          │
+│ GET List projects                    →   │  │                                                    │
+│ POS Create project                   →   │  │ Última vez                                         │
+│ ▾ teams/                                 │  │ hoy 22:31:04                                       │
+│ GET List teams                       →   │  │                                                    │
+│ GET Team members                     →   │  │ Guardada en                                        │
+│ ▾ users/                                 │  │ users/list-users.yaml                              │
+│ GET Get user                         →   │  │                                                    │
+│ GET List users                       →   │  │ El árbol son ficheros YAML:                        │
+│ DEL Delete user                      →   │  │ se editan con cualquier editor                     │
+│                                          │  │ y se versionan con git.                            │
+│                                          │  │                                                    │
+│                                          │  │ Verbos  GET  POS  DEL                              │
+│                                          │  │                                                    │
+│                                          │  │ El color del verbo es lo único                     │
+│                                          │  │ que distingue una fila de otra.                    │
+│                                          │  │                                                    │
+└──────────────────────────────────────────┘  └────────────────────────────────────────────────────┘
+ ↑↓ petición   ⏎ abrir   ^n nueva   F1 ayuda
+

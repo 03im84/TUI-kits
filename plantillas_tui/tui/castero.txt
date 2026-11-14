@@ -1,0 +1,96 @@
+
+=== 01 · Feeds =====================================================================================
+castero · Paused [00:12:32/00:38:26]: Buying Attention (+5 in queue)
+
+Feeds                            Episodes                                     Metadata
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Embedded                         Tunnel Vision                                Buying Attention
+NPR Politics Podcast             Crickets and Cannibals                       Mon, 01 Jan 2018
+Bullseye with Jesse Thorn        The Lonely American Man
+Hidden Brain                     Radio Replay: The Mind of the Village        Description:
+Invisibilia                      Think Fast with Daniel Kahneman              Have you ever opened
+Tiny Desk Concerts               Men: 45, Women: 0                            your computer with the
+Alt.Latino                       Counting Other People's Blessings            intention of sending
+Song Travels Express             When Did Marriage Become So Hard?            one email - only to
+How To Do Everything             Why Now?                                     spend an hour scrollin
+Crosscurrents                    Lost in Translation                          through social media?
+Planet Money                     Radio Replay: The Power Hour
+Radiolab                         Give Me Your Tired...                        Copyright:
+99% Invisible                    The Science of Grit                          2015 NPR
+The Daily                        Peak Performance
+Reply All                        The Value of Solitude                        Duración:
+Switched on Pop                  Fighting the Status Quo                      00:38:26
+Song Exploder                    The Benefits of Not Belonging
+Code Switch                      What Makes a Good Life?                      Descargado:
+                                                                              sí · 24,1 MiB
+
+↑↓ feed · ⇥ episodios · ⏎ reproducir · d descargar
+r marcar escuchado · u actualizar feeds · / buscar
+
+
+
+Processed 25 feeds with 2687 total episodes -- Press h for help
+
+=== 02 · Reproductor ===============================================================================
+castero · Reproduciendo                                               volumen 72 %
+
+┌─ Buying Attention ───────────────────────────────────────────────────────────────────────────────┐
+│ Hidden Brain · Mon, 01 Jan 2018 21:00:00 -0500                                                   │
+│                                                                                                  │
+│ 00:12:32 ███████████████████████··············································· 00:38:26         │
+│                                                                                                  │
+│ ▶ reproduciendo   · velocidad 1.0×                                                               │
+│                                                                                                  │
+│ Espacio pausa · ← → 30 s · d descarga · q salir                                                  │
+│                                                                                                  │
+│ Descripción:                                                                                     │
+│ Have you ever opened your computer with the intention of sending one                             │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Cola · 5 episodios ─────────────────────────────────────┐  ┌─ Progreso ─────────────────────────┐
+│ 1 Radio Replay: Fresh Starts                    00:41:02 │  │ escuchado   12:32                  │
+│ 2 I'm Right, You're Wrong                       00:35:18 │  │ restante    25:54                  │
+│ 3 Radio Replay: Don't Panic!                    00:38:44 │  │                                    │
+│ 4 Never Go To Vegas                             00:29:51 │  │ marcas de posición                 │
+│ 5 Kinder-Gardening                              00:33:07 │  │ ◇◇◇◇◆◇◇◇◇◇                         │
+│                                                          │  │                                    │
+│                                                          │  │ guardado en                        │
+│ q quitar · J/K mover · ⏎ reproducir                      │  │ ~/.local/share/castero             │
+│                                                          │  │                                    │
+│                                                          │  │                                    │
+│                                                          │  │                                    │
+└──────────────────────────────────────────────────────────┘  └────────────────────────────────────┘
+
+[h] ayuda · [q] salir · [p] pausa
+
+=== 03 · Descargas =================================================================================
+castero · Descargas                                                     2 en curso · 1 en cola
+
+┌─ En curso ───────────────────────────────────────────────────────────────────────────────────────┐
+│ Buying Attention.mp3                  1,2 MiB/s   quedan 00:14:42   de 24,1 MiB                  │
+│ █████████████████████████████████████████·························   62 %                        │
+│                                                                                                  │
+│ Fresh Starts.mp3                      0,4 MiB/s   quedan 00:33:31   de 24,1 MiB                  │
+│ ████████████······················································   18 %                        │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Terminadas ─────────────────────────────────────────────────────────────────────────────────────┐
+│ [ok] Tunnel Vision.mp3                  00:34:18      8,1 MiB                                    │
+│ [ok] Crickets and Cannibals.mp3         00:34:18      8,1 MiB                                    │
+│ [ok] The Lonely American Man.mp3        00:35:02      8,1 MiB                                    │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ En cola ────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1  Why Now?.mp3                         esperando turno         0 %                              │
+│                                                                                                  │
+│ Solo se descarga uno a la vez: la cola respeta el orden del feed.                                │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+d descargar · x cancelar · h ayuda
+

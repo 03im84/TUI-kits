@@ -1,0 +1,96 @@
+
+=== 01 · Árbol =====================================================================================
+fx respuesta.json                                           JSON · 29 líneas · modo interactivo
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  1  {                                                                                            │
+│  2    "users": [                                                                                 │
+│  3      {                                                                                        │
+│  4        "id": 42,                                                                              │
+│  5        "name": "Ada Lovelace",                                                                │
+│  6        "email": "ada@example.com",                                                            │
+│  7        "role": "admin",                                                                       │
+│  8        "active": true,                                                                        │
+│  9        "tags": ["math", "code"],                                                              │
+│ 10      },                                                                                       │
+│ 11      {                                                                                        │
+│ 12        "id": 43,                                                                              │
+│ 13        "name": "Grace Hopper",                                                                │
+│ 14        "email": "grace@example.com",                                                          │
+│ 15        "role": "admin",                                                                       │
+│ 16        "active": false,                                                                       │
+│ 17        "tags": ["navy", "cobol"],                                                             │
+│ 18      }                                                                                        │
+│ 19    ],                                                                                         │
+│ 20    "total": 2,                                                                                │
+│ 21    "next": null                                                                               │
+│ 22  }                                                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ↑↓ mover · ⏎ plegar · / buscar · . script · q salir
+
+
+
+
+=== 02 · Búsqueda ==================================================================================
+fx respuesta.json
+
+ / admin   7 coincidencias en 3 claves
+
+┌─ Resultados ─────────────────────────────────────────────────────────────────────────────────────┐
+│ 1  users[0].role              admin                                 línea 12                     │
+│                                                                                                  │
+│ 2  users[1].role              admin                                 línea 28                     │
+│                                                                                                  │
+│ 3  users[2].role              admin                                 línea 44                     │
+│                                                                                                  │
+│ 4  users[0].email             ada@example.com                       línea 13                     │
+│                                                                                                  │
+│ 5  users[1].email             grace@example.com                     línea 29                     │
+│                                                                                                  │
+│ 6  users[3].email             linus@example.com                     línea 45                     │
+│                                                                                                  │
+│ 7  meta.roles[]               admin · editor · reader               línea 61                     │
+│                                                                                                  │
+│ ↑↓ mover · ⏎ saltar a la línea · esc cerrar                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Contexto ───────────────────────────────────────────────────────────────────────────────────────┐
+│       "role": "admin",                                                                           │
+│                                                                                                  │
+│ La búsqueda no filtra el documento: salta a la línea.                                            │
+│ n siguiente · N anterior · esc cerrar                                                            │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+=== 03 · Script ====================================================================================
+fx respuesta.json                                                       pipeline · 3 pasos
+
+┌─ Entrada ────────────────────────────────────────────────────────────────────────────────────────┐
+│ users · 4 objetos · 24 campos                                                                    │
+│                                                                                                  │
+│ 1  Ada Lovelace         ada@example.com       activo true                                        │
+│ 2  Grace Hopper         grace@example.com     activo false                                       │
+│ 3  Linus Torvalds       linus@example.com     activo true                                        │
+│ 4  Margaret Hamilton    mh@example.com        activo true                                        │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Script ─────────────────────────────────────────────────────────────────────────────────────────┐
+│ .users  .filter(u => u.active)      .map(u => u.name)                                            │
+│                                                                                                  │
+│ ▲ los tres pasos se aplican sin volver a leer el fichero                                         │
+│   el resultado se puede guardar como nuevo JSON                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Salida ─────────────────────────────────────────────────────────────────────────────────────────┐
+│ [                                                                                                │
+│   "Ada Lovelace",                                                                                │
+│   "Linus Torvalds",                                                                              │
+│   "Margaret Hamilton"                                                                            │
+│ ]                                                                                                │
+│ 3 de 4 · Grace Hopper se descarta por active: false                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+

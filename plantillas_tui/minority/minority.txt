@@ -1,0 +1,192 @@
+
+=== 01 · Sala de mando ===============================================================================
+  DEPT. DE PRECRIME · DIVISIÓN WASHINGTON D.C.                              24 MAY 2054 · 06:12:44
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  P  R  E  C  R  I  M  E
+   sistema de anticipación de homicidios · v9.4 · acreditación federal 2054/07
+
+  ┌╌ PREDICCIONES DE HOY ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐  ┌╌ PRECOG · AGATHA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    06:12  HOMICIDIO 91 %  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓··       enlace neuronal         ESTABLE
+    mujer, 34 años · cuchillo                       ritmo                   92 lpm
+    precog: AGATHA · registro 24-0512-01            carga                   71 %
+                                                    deriva                  3 %
+    14:38  HOMICIDIO 72 %  ▓▓▓▓▓▓▓▓▓▓▓▓▓·····       sueño inducido          4 h 12 m
+    hombre, 51 años · vehículo
+    precog: AGATHA · registro 24-0512-02            actividad cortical · últimos 40 ciclos
+                                                    ▄▄▃▃▃▆▄▄▄▇▆▄▃▆▄▄▄▆▄▅▆▄▃▇▃▇▆▄▇▃▄▆▃▃▃▄▄▅▃▄▄▄
+    21:05  HOMICIDIO 44 %  ▓▓▓▓▓▓▓▓··········
+    mujer, 27 años · arma de fuego                  ▸ dos predicciones comparten el mismo autor.
+    precog: AGATHA · registro 24-0512-03            ▸ el tercer caso llegó con la visión…
+                                                    ▸ no se puede rebobinar: solo avanzar.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  ┌╌ SCRUB · CASO 24-0512-01 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    06:12:44  ▸ ████████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒······················  cuchillo · callejón
+    frame 1 214 / 3 400 · confianza 91 % · dos precogs de acuerdo
+
+    ▸ si los informes discrepan, el caso se detiene y se archiva.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  sala en espera · sin unidades despachadas
+  ⏎ abrir scrub    TAB cambiar precog    F filtrar    ESC salir
+
+=== 02 · Scrub =======================================================================================
+  CASO 24-0512-01 · HOMICIDIO ANTICIPADO                            FRAME 1 214 / 3 400 · 06:12:44
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  S  C  R  U  B       AGATHA · visión primaria · 24 MAY 2054
+
+  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐
+  │┊  ┊┊    ┊     │  │       ┊┊  ┊ ┊ │  │   ┊   ┊   ┊ ┊ │  │ ┊         ┊┊  │  │ ┊ ┊    ┊ ┊  ┊┊│
+  │    ▄ ▄ ▄ ▄    │  │          ▄    │  │    ▄ ▄ ▄ ▄ ▄ ▄│  │▄ ▄ ▄     ▄ ▄ ▄│  │▄ ▄ ▄ ▄ ▄   ▄ ▄│
+  │    █          │  │   █           │  │  █            │  │   █           │  │    █          │
+  │    █     █▒▒  │  │   █     █     │  │  █       █    │  │   █     █     │  │    █     █▒▒  │
+  │    █     █    │  │   █     █     │  │  █      ▬▬▬   │  │   █     █     │  │    █     █    │
+  │▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄│  │▄▄▄▀▄▄▄▄▄▀▄▄▄▄▄│  │▄▄▀▄▄▄▄▄▄▄▀▄▄▄▄│  │▄▄▄▀▄▄▄▄▄▀▄▄▄▄▄│  │▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄│
+  └───────────────┘  └───────────────┘  └───────────────┘  └───────────────┘  └───────────────┘
+  1 212              1 213              ▲ 1 214            1 215              1 216
+                                        ▲
+  ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────┤
+  ▸ arrastra con ←→ · 10 fotogramas por pulsación · SHIFT acelera                   1 214 / 3 400
+
+  ┌╌ EN ESTA ESCENA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐  ┌╌ LECTURA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    paraguas rojo         ▓▓▓▓▓▓▓▓▓▓▓▓▓·   94 %     ángulo      45° · picado
+                                                    estabilidad 0.82 · tiembla
+    callejón de servicio  ▓▓▓▓▓▓▓▓▓▓▓▓··   88 %     deriva      3 % por ciclo
+
+    coche blanco          ▓▓▓▓▓▓▓▓▓·····   61 %     ▸ esto es la precog, no una cámara.
+                                                    ▸ lo que falta se marca, no se rellena.
+    rostro del autor      ▓▓▓▓▓▓········   41 %     ▸ detener aquí exige dos firmas.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  caso detenido · ni despachado ni archivado
+  ←→ arrastrar    ⏎ detener aquí    Z zoom    TAB tilt
+
+=== 03 · Dosier cruzado ==============================================================================
+  DOSIER · CASO 24-0512-01                                       CONFIDENCIAL · NIVEL 3 · 06:14:02
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  D O S I E R   C R U Z A D O
+   las dos personas que la visión pone en el mismo callejón
+
+  ┌╌ VÍCTIMA · PRESUNTA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐    ┌╌ AUTOR · PRESUNTO ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    nombre                ELENA VOSS                  nombre                MARCUS ORR
+
+    edad                  34                          edad                  37
+
+    domicilio             sector 4, bloque 7          domicilio             sector 4, bloque 7
+
+    profesión             técnica de…                 profesión             técnico de…
+
+    antecedentes          ninguno                     antecedentes          una agresión, 2051
+
+    vínculo con el autor  compañera de…               vínculo con la…       compañero de…
+
+
+
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘    └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  ┌╌ CRUCE ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    3 coincidencias · 0 testigos · 0 denuncias previas entre ellos
+    ▸ el sistema no sabe por qué: solo anticipa cuándo y dónde.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+
+  ⏎ abrir ficha    C cruzar con archivo    ESC volver
+
+=== 04 · Visión ======================================================================================
+  VISIÓN RECONSTRUIDA · AGATHA                                    CONFIANZA GLOBAL 87 % · 06:14:40
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  V I S I Ó N
+   lo que la precog vio · reconstruido fotograma a fotograma
+
+  ┌────────────────────────────────────────────────────────────┐  ┌╌ DESGLOSE ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+  │ ░ ░  ░ ░ ▒▒▒▒░  ░▒░   ░▒ ▒░ ▒░▒▒░▒  ▒ ░▒░ ░░ ▒ ░  ▒   ▒▒▒░░│    escena    ▓▓▓▓▓▓▓▓▓▓▓·  92
+  │░░░▒░░░▒▒░ ░▒ ▒▒░░░▒▒  ░▒  ▒░▒▒   ▒░▒▒░  ░░▒░ ░  ░▒   ▒ ░▒░▒│
+  │ ▒ 1  ██████░░▒░░ ░▒░▒░▒▒░▒ ░▒▒░▒▒░▒  ░ ▒ ▒ ░░░▒ ░ ▒▒▒░ ▒▒▒░│    hora      ▓▓▓▓▓▓▓▓▓▓▓·  88
+  │▒ ░░░▀▀▀▀▀▀▀▒▒░░░▒░ ▒░▒░░▒▒░ ▒░░ ░   ░░▒  ▒▒░░ ░░░░▒ ▒░▒░ ▒░│
+  │▒▒░ ▒░   ▒▒▒░░░ ░░    ▒░ ▒░▒  ▒ ▒▒ ▒  ▒░    ░░░░░▒▒  ▒░ ░  ░│    lugar     ▓▓▓▓▓▓▓▓▓···  74
+  │░  ░░ ░░  ░▒░ ░ ░░ 2  ███▒░ ░   3  ███░▒ ▒▒░ ▒  ░▒░ ▒ ▒▒░ ░▒│
+  │▒▒░  ▒░ ░░░░▒░  ▒  ▒▒▀▀▀▀▒     ░▒ ▀▀▀▀░  ░░ ░ ░░▒ ░░░▒░░ ░  │    arma      ▓▓▓▓▓▓▓▓····  69
+  │░▒░▒▒ ░   ▒▒░▒ ▒░░▒ ░░░  ░▒░▒░░  ░░  ▒░░░ ▒▒▒░░░ ▒  ▒▒░░▒ ░░│
+  │▒░▒▒░▒ ▒░░░ ▒  ░▒░ ░░   ▒░  ░ ▒ ▒ ░ ▒▒▒ ░ 4  ███████ ▒ ▒░▒░▒│    rostro    ▓▓▓▓▓·······  41
+  │▒ ░░ ░   ░░░░░░░░▒▒ ▒░ ░▒░▒▒░░▒  ░  ░  ▒ ░▒ ▀▀▀▀▀▀▀▀▒░ ▒ ▒ ▒│
+  │░░ ▒░ ░▒▒░ ▒ ░░▒▒ ░  ░░░▒▒ ░▒░▒▒░░ ░▒   ▒▒   ░ ░░  ▒▒ ░░ ░▒ │  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+  │ ▒ ▒░▒▒░▒▒ ▒░░░ ░▒▒░▒▒ ▒ ▒ ▒░▒ ░ ▒▒▒  ▒▒   ░  ▒░░░▒▒ ░░░    │
+  │ ▒░▒░░  ░░   ▒░ ░░▒▒░▒░░░▒ ░ ░ ░  ▒▒░ ░░░░▒  ░░ ░ ▒   ░░ ▒ ░│  ┌╌ CONCORDANCIA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+  │1 paraguas 94%  2 fig. A 81%  3 fig. B 77%  4 coche 61%     │    AGATHA    de acuerdo
+  │sin resolver: el rostro del autor · 41 % · no se rellena    │    DASHIELL  de acuerdo
+  └────────────────────────────────────────────────────────────┘    ARTHUR    sin visión
+  ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐    ▸ 2 de 3 coinciden.
+    ▸ reconstruir es recordar, no ver: lo que falta, faltó.         ▸ el desacuerdo se guarda
+    ▸ lo que no se resolvió no se rellena a mano.                     como informe minoritario.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+
+  ⏎ ver informe minoritario    P comparar precogs    ESC volver
+
+=== 05 · Despacho ====================================================================================
+  DESPACHO · UNIDAD 12 Y 07                              TIEMPO HASTA EL HECHO 00:41:12 · 06:15:20
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  D E S P A C H O
+   sector 4 · el callejón está a dos manzanas de la comisaría
+
+  ┌──────────────────────────────────────────────────────────┐    ┌╌ UNIDADES ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+  │       │▒▒▒▒▒▒▒▒▒▒▒▒ │▒▒▒▒▒▒▒▒▒▒▒▒ │             │        │      U-12     a 0.8 km   00:02:10
+  │       │             │             │             │        │
+  │───────┼─────────────┼─────────────┼─────────────┼────────│      U-07     a 1.4 km   00:03:40
+  │       │             │             │▒▒▒▒▒▒▒▒▒▒▒▒ │        │
+  │       │             │             │▒▒▒▒▒▒▒▒▒▒▒▒ │        │      U-03     a 4.0 km   00:11:05
+  │       │             │             │             │        │
+  │───────┼─────────────┼────────◆─objetivo─────────┼────────│      médica   en base    —
+  │       │▒▒▒▒▒▒▒▒▒▒▒▒ │             │             │        │
+  │       │▒▒▒▒▒▒▒▒▒▒▒▒ │             │      ▲ U-07 │        │
+  │       │             │             │             │        │      ▸ sin orden de detención
+  │───────┼─────────────┼─────────────┼─────────────┼────────│        no hay delito todavía.
+  │       │     ▲ U-12  │             │▒▒▒▒▒▒▒▒▒▒▒▒ │        │      ▸ interceptar exige
+  │  callejón de servicio · sin salida por el norte │        │        mandato de precrime.
+  └──────────────────────────────────────────────────────────┘    └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  ┌╌ COMUNICACIONES ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    06:15:02  U-12  «llegamos al callejón, no hay nadie»
+    06:15:14  mando «esperad, faltan 41 minutos»
+    06:15:20  U-07  «el sujeto está aquí, solo. Sin arma.»
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+
+  ⏎ autorizar interceptación    M mandato    ESC volver
+
+=== 06 · Archivo =====================================================================================
+  ARCHIVO · INFORMES MINORITARIOS                                    6 AÑOS DE PRECRIME · 06:16:00
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+  A R C H I V O
+   lo que el sistema predijo y no ocurrió · lo que sí ocurrió y no predijo
+
+  ┌╌ HOMICIDIOS ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐  ┌╌ PRECOGS ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐  ┌╌ CADENA DE CUSTODIA ╌╌╌╌╌╌╌╌╌┐
+    0  en seis años                 AGATHA        4 h 12 m          soporte     cristal óptico
+                                    DASHIELL      4 h 03 m          copias      2 · sala y juzgado
+    predicciones        128         ARTHUR        3 h 40 m          revisión    semanal
+    despachos           96                                          borrado     nunca
+    informes minoritarios 4         descanso oblig.     6 h
+                                                                    ▸ el informe minoritario
+    ▸ sin homicidios desde 2050.    casos por año                     se guarda, se consulta
+                                    ▂▃▃▅▄▅▅▆▆                         y no se corrige.
+    ▸ nadie verificó el sin:        2050              2054
+      no hay con qué comparar.      ▸ sube y nadie la lee.          ▸ archivar no es juzgar.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+  ┌╌ LA PREGUNTA ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+    Esto es ficción. En la película, el sistema detiene a personas por algo que
+    todavía no han hecho, y el «informe minoritario» es la prueba de que el
+    futuro no siempre es único. La interfaz no opina: muestra la predicción, la
+    confianza y el desacuerdo en la misma pantalla, sin esconder ninguno.
+
+    ▸ un mockup también puede negarse a celebrar lo que dibuja.
+  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+
+  ⏎ abrir informe    I ver precog    ESC salir

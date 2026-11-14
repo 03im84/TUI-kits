@@ -1,0 +1,96 @@
+
+=== 01 · Status ====================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Unstaged Changes ──────────────────────────────────┐  ┌─ Diff · src/ui/draw.rs ─────────────────┐
+│ M src/main.rs                                       │  │@@ -41,7 +41,9 @@ fn draw                │
+│ M src/ui/draw.rs                                    │  │     let area = self.area();             │
+│ ? src/ui/theme.rs                                   │  │     let buf = &mut self.buf;            │
+│ M Cargo.toml                                        │  │-    let w = area.width;                 │
+│ A docs/imagenes.md                                  │  │+    let w = w.saturating_sub(2);        │
+│ M src/asyncgit/mod.rs                               │  │+    let h = h.saturating_sub(2);        │
+│ D src/viejo.rs                                      │  │     buf.set_string(x, y, "hola");       │
+│ M README.md                                         │  │                                         │
+│                                                     │  │     // el margen de 2 celdas            │
+│ 8 cambios · [space] preparar                        │  │     // viene del marco                  │
+└─────────────────────────────────────────────────────┘  │                                         │
+┌─ Staged Changes ────────────────────────────────────┐  │                                         │
+│ M src/main.rs                                       │  │                                         │
+│ A src/ui/theme.rs                                   │  │                                         │
+│                                                     │  │                                         │
+│ 2 ficheros listos                                   │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  │                                         │
+┌─ Commit · 1402/1408 ────────────────────────────────┐  │                                         │
+│ fix: no saludar dos veces                           │  │                                         │
+│ en draw()                                           │  │                                         │
+│                                                     │  │                                         │
+│ │                                                   │  │1 borrado · 2 añadidos · 1 fichero       │
+│ amendar con [c] · convención: fix: / feat:          │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [c] commit   [a] stage   [d] diff   [?] help
+
+
+=== 02 · Log =======================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Log · 1408 commits ────────────────────────────────┐  ┌─ detalle ───────────────────────────────┐
+│ f91c8c3 2021-08-22 Stephan Dilly                    │  │ author                                  │
+│ fix: tab msg not nagst in taglist                   │  │ Stephan Dilly <dilly@stan..>            │
+│ c9b8c21 2021-08-22 Stephan Dilly                    │  │                                         │
+│ update profiler dependency                          │  │ date                                    │
+│ 1c2b782 2021-08-22 Stephan Dilly                    │  │ 2021-08-22 17:23:06                     │
+│ fix: capacity                                       │  │                                         │
+│ 70e4a31 2021-08-22 Stephan Dilly                    │  │ commit                                  │
+│ update changelog                                    │  │ c9b8c2133741aa0d3e4b8f9c1d2a            │
+│ 49a185f 2021-08-22 Stephan Dilly                    │  │                                         │
+│ dont process abort on input                         │  │ message                                 │
+│ 8192f4b 2021-08-22 Stephan Dilly                    │  │ update profiler dependency              │
+│ show subject line of commits                        │  │                                         │
+│ 3db3b95 2021-08-22 Stephan Dilly                    │  │ files                                   │
+│ fix order of old/new to compare                     │  │ M CHANGELOG.md                          │
+│ 2f7a1c4 2021-08-21 Stephan Dilly                    │  │ M Cargo.lock                            │
+│ add diff stat to log                                │  │ M Cargo.toml                            │
+│ 8d0e5a2 2021-08-21 Stephan Dilly                    │  │ M src/asyncgit                          │
+│ fix: clippy warnings                                │  │                                         │
+│ 5b6c9f1 2021-08-20 Stephan Dilly                    │  │                                         │
+│ bump crossterm to 0.20                              │  │ stats                                   │
+│ e4a7d38 2021-08-20 Stephan Dilly                    │  │ +18 −4 · 4 ficheros                     │
+│ stash: pop by index                                 │  │                                         │
+│ a1b9c07 2021-08-19 Stephan Dilly                    │  │ body                                    │
+│ theme: load from file                               │  │ Bumps the profiler so the log           │
+│ 1408 commits · rama master · ↑2 ↓0                  │  │ no longer blocks the ui thread.         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [⏎] detalle   [b] ramas   [?] help
+
+
+=== 03 · Conflicto =================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Unstaged Changes · conflicto ──────────────────────┐  ┌─ Diff · src/ui/theme.rs ────────────────┐
+│ UU src/ui/theme.rs                                  │  │@@ -12,7 +12,11 @@                       │
+│ UU src/main.rs                                      │  │ let acento =                            │
+│ UU src/ui/nuevo.rs                                  │  │<<<<<<< HEAD                             │
+│                                                     │  │   Color::Rgb(122,162,247)               │
+│ git no deja preparar un fichero con                 │  │=======                                  │
+│ marcadores dentro: primero se resuelve.             │  │   Color::Rgb(187,154,247)               │
+│                                                     │  │>>>>>>> feature/tema                     │
+│                                                     │  │                                         │
+│                                                     │  │ // el resto del fichero sigue           │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  │ // igual: un conflicto no es un         │
+┌─ Resolución ────────────────────────────────────────┐  │ // error de formato, es una             │
+│ [o] quedarse con HEAD                               │  │ // decisión que hay que tomar.          │
+│ [t] quedarse con la rama                            │  │                                         │
+│ [e] editar a mano                                   │  │                                         │
+│                                                     │  │                                         │
+│ Los marcadores son de git, no de gitui:             │  │                                         │
+│ <<<<<<<  =======  >>>>>>>                           │  │                                         │
+│                                                     │  │                                         │
+│ No hay color que resuelva el conflicto.             │  │                                         │
+│ Se lee en el texto o no se resuelve.                │  │                                         │
+│                                                     │  │                                         │
+│                                                     │  │3 ficheros en conflicto                  │
+│                                                     │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [o] ours   [t] theirs   [?] help
+

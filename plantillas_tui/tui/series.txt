@@ -1,0 +1,700 @@
+
+####################################################################################################
+# BTOP · btop
+####################################################################################################
+
+=== 01 · Panel =====================================================================================
+ btop++ 1.3.2 · panel                                         mem 12.4G/31.2G · swap 0B/8.0G
+
+┌─ cpu  ·  amd ryzen 7 5800x ────────────────────┐  ┌─ memoria ────────────────────────────────────┐
+│  0 █████·························  18%  ▁▂▁▃▁  │  │ usada  ████████████··················  12.4G │
+│  1 █████████████·················  42%  ▁▂▁▃▁  │  │ cache  ████████······················  8.7G  │
+│  2 ███████████████████████·······  77%  ▁▄█▆▂  │  │ libre  ██████████····················  9.9G  │
+│  3 ████··························  12%  ▁▂▁▃▁  │  │                                              │
+│  4 ████████████████··············  55%  ▁▄█▆▂  │  │ swap   0B / 8.0G                             │
+│  5 ███████████████████████████···  91%  ▁▄█▆▂  │  └──────────────────────────────────────────────┘
+│  6 █████████·····················  30%  ▁▂▁▃▁  │  ┌─ red  ·  eth0 ───────────────────────────────┐
+│  7 ███████████████████···········  64%  ▁▄█▆▂  │  │ ▼ baja   1.2 MiB/s                           │
+│ cpu 41%  █████·······  52 °C  3.2 GHz 16 hilos │  │ ▲ sube   84 KiB/s                            │
+│                                                │  │ ▁▂▅▇▅▃▂▁▂▄▆▇▆▃▂▁▁▂▃▅▇▅▂▁▂▃▂▁▄▅▃▂▁▂▃▄▆▅▃      │
+│                                                │  │                                              │
+└────────────────────────────────────────────────┘  └──────────────────────────────────────────────┘
+
+┌─ procesos ───────────────────────────────────────────────────────────────────────────────────────┐
+│    pid programa                cpu%    mem user       estado                                     │
+│   1182 firefox                 31.2   2.1G ana        running                                    │
+│   2043 code                    12.8   1.4G ana        running                                    │
+│     88 systemd                  0.4    18M root       sleep                                      │
+│  31005 btop                     2.1    12M ana        running                                    │
+│   1290 pipewire                 0.9     9M ana        sleep                                      │
+│                                                                                                  │
+│ ordenado por cpu · 214 procesos · 1 102 hilos                                                    │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+ m menú   f filtrar   t árbol   q salir
+
+
+=== 02 · Proceso ===================================================================================
+ btop++ · detalle de proceso                                pid 1182 · firefox
+
+┌─ uso ──────────────────────────────────────────┐  ┌─ gráfica de cpu · 60 s ──────────────────────┐
+│ cpu   ██████████······················  31.2 % │  │                   ▄▄        ▄▄               │
+│ mem   █████████████···················  2.1 G  │  │           ▄▄    ██████    ▄▄██               │
+│                                                │  │           ██  ████████▄▄  ██████             │
+│ hilos                                          │  │         ████  ██████████▄▄████████           │
+│ 62 · 8 corriendo                               │  │         ████▄▄████████████████████▄▄         │
+│ 16 % del total de cpu                          │  │     ██  ████████████████████████████         │
+│                                                │  │   ▄▄██████████████████████████████████       │
+│ tiempo                                         │  │ ████████████████████████████████████████     │
+│ 04:12:33    abierto por ana · tty2             │  │ ████████████████████████████████████████     │
+│                                                │  │ 0s                  30s                  60s │
+└────────────────────────────────────────────────┘  └──────────────────────────────────────────────┘
+
+┌─ hilos ──────────────────────────────────────────────────────────────────────────────────────────┐
+│     tid estado      cpu%  tiempo     prioridad                                                   │
+│    1182 running     12.4  00:12:41   0                                                           │
+│    1183 sleep        3.1  00:12:41   0                                                           │
+│    1187 sleep        0.2  00:12:41   0                                                           │
+│    1191 running      8.8  00:12:41   0                                                           │
+│    1195 sleep        0.0  00:12:41   0                                                           │
+│    1201 sleep        0.4  00:12:41   0                                                           │
+│                                                                                                  │
+│ [k] terminar · [s] señales · [←→] hilos                                                          │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+ esc volver   f filtrar   q salir
+
+
+=== 03 · Temas =====================================================================================
+ btop++ · temas                                         29 temas leídos de /usr/share/btop/themes
+
+┌─ temas  ·  los colores son los del fichero, no una copia ────────────────────────────────────────┐
+│  night-owl      fondo #011627   acento #addb67  gradiente #22da6e #addb67 #ef5350                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│  monokai        fondo #060604   acento #f92672  gradiente #a6e22e #f8f8f2 #f92672                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│  tokyo-night    fondo #1a1b26   acento #7dcfff  gradiente #9ece6a #e0af68 #f7768e                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│  gruvbox_dark   fondo #1d2021   acento #d79921  gradiente #b8bb26 #d79921 #fb4934                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│  dusklight      fondo #04142e   acento #ff7f00  gradiente #00d4ff #fff86b #ff7f00                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│  dracula        fondo #282a36   acento #f8f8f2  gradiente #50fa7b #f1fa8c #ff5555                │
+│  ████████████████████████████                                                                    │
+│                                                                                                  │
+│                                                                                                  │
+│  cada fila es un fichero .theme: main_bg, hi_fg y los tres extremos del gradiente                │
+│                                                                                                  │
+│  las tiras son esos mismos valores, interpolados: no hay nada inventado                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+ ↑↓ tema   ⏎ aplicar   q salir
+
+
+####################################################################################################
+# NCDU · ncdu /etc
+####################################################################################################
+
+=== 01 · Directorio ================================================================================
+ ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help
+--- /etc ---------------------------------------------------------------------------------------
+     3,6 MiB [######### ] /brltty
+     1,8 MiB [####      ] /apparmor.d
+     1,1 MiB [###       ] /ssl
+   636,0 KiB [##        ] /asciidoc
+   524,0 KiB [##        ] /xdg
+   496,0 KiB [##        ] /X11
+   404,0 KiB [#         ] /init
+   392,0 KiB [#         ] /fonts
+   344,0 KiB [#         ] /ssh
+   332,0 KiB [#         ] /sane.d
+   328,0 KiB [#         ] /init.d
+   232,0 KiB [#         ] /ImageMagick-6
+   220,0 KiB [#         ] /dbus-1
+   168,0 KiB [#         ] /lynx
+   152,0 KiB [#         ] /java-8-openjdk
+   144,0 KiB [#         ] /console-setup
+   140,0 KiB [#         ] /default
+   136,0 KiB [#         ] /ld.so.cache
+   124,0 KiB [#         ] /terminfo
+   112,0 KiB [#         ] /pam.d
+    96,0 KiB [#         ] /security
+    88,0 KiB [#         ] /apt
+    76,0 KiB [#         ] /NetworkManager
+    64,0 KiB [#         ] /pki
+    52,0 KiB [#         ] /cron.d
+
+ Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311
+
+
+=== 02 · Borrar ====================================================================================
+ ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help
+--- /home/ana/Descargas ----------------------------------------------------------------------------
+     2,4 GiB [######### ] videos/
+   812,3 MiB [######    ] iso/
+    44,1 MiB [##        ] notas.txt
+    12,0 MiB [#         ] captura.png
+     8,2 MiB [#         ] musica/
+     4,0 MiB [#         ] fotos/
+     2,1 MiB [#         ] podcast/
+   900,0 KiB [#         ] cv.pdf
+   412,0 KiB [#         ] factura.pdf
+   190,0 KiB [#         ] notas-viejas.txt
+    88,0 KiB [#         ] lista.txt
+    12,0 KiB [#         ] leeme.md
+┌─ borrar ─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                  │
+│   Are you sure you want to delete                                                                │
+│   "/home/ana/Descargas/videos"                                                                   │
+│   which is 118 files?                                                                            │
+│                                                                                                  │
+│                                                                                                  │
+│                                        yes        no        [cancel]                             │
+│                                                                                                  │
+│   ←→ elegir · ⏎ confirmar · esc cancelar                                                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Total disk usage:  3,2 GiB   Apparent size:  3,1 GiB   Items: 4
+
+
+=== 03 · Escaneo ===================================================================================
+ ncdu 1.11 ~ escaneando
+
+  escaneando  /usr/lib/x86_64-linux-gnu/
+
+    ▸ /usr/lib/x86_64-linux-gnu/
+  ▸ /usr/lib/x86_64-linux-gnu/libc.so.6
+    ▸ /usr/share/
+  ▸ /usr/share/doc/
+    ▸ /usr/share/doc/python3/
+  ▸ /usr/share/doc/python3/html/
+ ▸ /usr/share/doc/python3/html/style.css
+    ▸ /usr/share/man/
+  ▸ /usr/share/man/man1/
+
+
+┌─ progreso ───────────────────────────────────────────────────────────────────────────────────────┐
+│ ficheros  128 402               directorios  9 110                                               │
+│                                                                                                  │
+│ #########################################################·······················  71 %           │
+│                                                                                                  │
+│ tiempo  00:00:04 · quedan 2 s                                                                    │
+│                                                                                                  │
+│                                                                                                  │
+│ [q] cancelar el escaneo                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311
+
+
+####################################################################################################
+# GITUI · gitui
+####################################################################################################
+
+=== 01 · Status ====================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Unstaged Changes ──────────────────────────────────┐  ┌─ Diff · src/ui/draw.rs ─────────────────┐
+│ M src/main.rs                                       │  │@@ -41,7 +41,9 @@ fn draw                │
+│ M src/ui/draw.rs                                    │  │     let area = self.area();             │
+│ ? src/ui/theme.rs                                   │  │     let buf = &mut self.buf;            │
+│ M Cargo.toml                                        │  │-    let w = area.width;                 │
+│ A docs/imagenes.md                                  │  │+    let w = w.saturating_sub(2);        │
+│ M src/asyncgit/mod.rs                               │  │+    let h = h.saturating_sub(2);        │
+│ D src/viejo.rs                                      │  │     buf.set_string(x, y, "hola");       │
+│ M README.md                                         │  │                                         │
+│                                                     │  │     // el margen de 2 celdas            │
+│ 8 cambios · [space] preparar                        │  │     // viene del marco                  │
+└─────────────────────────────────────────────────────┘  │                                         │
+┌─ Staged Changes ────────────────────────────────────┐  │                                         │
+│ M src/main.rs                                       │  │                                         │
+│ A src/ui/theme.rs                                   │  │                                         │
+│                                                     │  │                                         │
+│ 2 ficheros listos                                   │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  │                                         │
+┌─ Commit · 1402/1408 ────────────────────────────────┐  │                                         │
+│ fix: no saludar dos veces                           │  │                                         │
+│ en draw()                                           │  │                                         │
+│                                                     │  │                                         │
+│ │                                                   │  │1 borrado · 2 añadidos · 1 fichero       │
+│ amendar con [c] · convención: fix: / feat:          │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [c] commit   [a] stage   [d] diff   [?] help
+
+
+=== 02 · Log =======================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Log · 1408 commits ────────────────────────────────┐  ┌─ detalle ───────────────────────────────┐
+│ f91c8c3 2021-08-22 Stephan Dilly                    │  │ author                                  │
+│ fix: tab msg not nagst in taglist                   │  │ Stephan Dilly <dilly@stan..>            │
+│ c9b8c21 2021-08-22 Stephan Dilly                    │  │                                         │
+│ update profiler dependency                          │  │ date                                    │
+│ 1c2b782 2021-08-22 Stephan Dilly                    │  │ 2021-08-22 17:23:06                     │
+│ fix: capacity                                       │  │                                         │
+│ 70e4a31 2021-08-22 Stephan Dilly                    │  │ commit                                  │
+│ update changelog                                    │  │ c9b8c2133741aa0d3e4b8f9c1d2a            │
+│ 49a185f 2021-08-22 Stephan Dilly                    │  │                                         │
+│ dont process abort on input                         │  │ message                                 │
+│ 8192f4b 2021-08-22 Stephan Dilly                    │  │ update profiler dependency              │
+│ show subject line of commits                        │  │                                         │
+│ 3db3b95 2021-08-22 Stephan Dilly                    │  │ files                                   │
+│ fix order of old/new to compare                     │  │ M CHANGELOG.md                          │
+│ 2f7a1c4 2021-08-21 Stephan Dilly                    │  │ M Cargo.lock                            │
+│ add diff stat to log                                │  │ M Cargo.toml                            │
+│ 8d0e5a2 2021-08-21 Stephan Dilly                    │  │ M src/asyncgit                          │
+│ fix: clippy warnings                                │  │                                         │
+│ 5b6c9f1 2021-08-20 Stephan Dilly                    │  │                                         │
+│ bump crossterm to 0.20                              │  │ stats                                   │
+│ e4a7d38 2021-08-20 Stephan Dilly                    │  │ +18 −4 · 4 ficheros                     │
+│ stash: pop by index                                 │  │                                         │
+│ a1b9c07 2021-08-19 Stephan Dilly                    │  │ body                                    │
+│ theme: load from file                               │  │ Bumps the profiler so the log           │
+│ 1408 commits · rama master · ↑2 ↓0                  │  │ no longer blocks the ui thread.         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [⏎] detalle   [b] ramas   [?] help
+
+
+=== 03 · Conflicto =================================================================================
+ gitui   Status [1]  Log [2]     Files [3]   Stashing [4 Stashes [5]
+┌─ Unstaged Changes · conflicto ──────────────────────┐  ┌─ Diff · src/ui/theme.rs ────────────────┐
+│ UU src/ui/theme.rs                                  │  │@@ -12,7 +12,11 @@                       │
+│ UU src/main.rs                                      │  │ let acento =                            │
+│ UU src/ui/nuevo.rs                                  │  │<<<<<<< HEAD                             │
+│                                                     │  │   Color::Rgb(122,162,247)               │
+│ git no deja preparar un fichero con                 │  │=======                                  │
+│ marcadores dentro: primero se resuelve.             │  │   Color::Rgb(187,154,247)               │
+│                                                     │  │>>>>>>> feature/tema                     │
+│                                                     │  │                                         │
+│                                                     │  │ // el resto del fichero sigue           │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  │ // igual: un conflicto no es un         │
+┌─ Resolución ────────────────────────────────────────┐  │ // error de formato, es una             │
+│ [o] quedarse con HEAD                               │  │ // decisión que hay que tomar.          │
+│ [t] quedarse con la rama                            │  │                                         │
+│ [e] editar a mano                                   │  │                                         │
+│                                                     │  │                                         │
+│ Los marcadores son de git, no de gitui:             │  │                                         │
+│ <<<<<<<  =======  >>>>>>>                           │  │                                         │
+│                                                     │  │                                         │
+│ No hay color que resuelva el conflicto.             │  │                                         │
+│ Se lee en el texto o no se resuelve.                │  │                                         │
+│                                                     │  │                                         │
+│                                                     │  │3 ficheros en conflicto                  │
+│                                                     │  │                                         │
+│                                                     │  │                                         │
+└─────────────────────────────────────────────────────┘  └─────────────────────────────────────────┘
+ [q] quit   [o] ours   [t] theirs   [?] help
+
+
+####################################################################################################
+# BAGELS · bagels
+####################################################################################################
+
+=== 01 · Registro ==================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Accounts ─────┐  ┌─ View and add ───────┐  ┌─ Templates ────────────────────────────────────────┐
+│ Bank    4924.5 │  │  Expense     Income  │  │ Home-Uni     Monthly Rent Netflix      Weekly shop │
+│                │  │                      │  │ 1            2            3            4           │
+│ Card    80.0   │  │  <<< 17-23 Nov >>>   │  │                                                    │
+│                │  │                      │  │                                                    │
+└────────────────┘  └──────────────────────┘  └────────────────────────────────────────────────────┘
+
+┌─ Records ────────────────────────────────────────────────────────────────────────────────────────┐
+│ Category            Amount      Label                       Account                              │
+│ ● Salary            + 1200.0    Wage pay                    Bank                                 │
+│ ● Restaurants       - 50.0      Dinner with Sarah           Bank                                 │
+│     × Sarah         + 25.0      —                           —                                    │
+│     Self total      = 25.0      —                           —                                    │
+│ ● Rent              - 1200.0    Monthly Rent                Bank                                 │
+│ ● Public Transport  - 10.0      Home → School               Card                                 │
+│ ● Snacks            - 2.5       Bagels                      Bank                                 │
+│ ● Home-Uni          - 14.0      Weekly ticket               Card                                 │
+│ ● Groceries         - 62.5      Weekly shop                 Bank                                 │
+│ ● Netflix           - 12.99     Suscripción                 Card                                 │
+│ ● Café              - 3.2       Con Ana                     Bank                                 │
+│ ● Regalo            - 25.0      Cumpleaños                  Bank                                 │
+│                                                                                                  │
+│ 12 registros · filtro: 17-23 Nov                                                                 │
+│ ↑↓ elegir · ⏎ editar · / buscar · tab cambia de panel                                            │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ a add   d delete   e edit   t transfer   q quit
+
+
+=== 02 · Calendario ================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Period · Nov 2024 ──────────────────────────────┐  ┌─ Expense of 17 Nov - 23 Nov ───────────────┐
+│ <<< 17 Nov - 23 Nov >>>                          │  │ Total   1262.5                             │
+│                                                  │  │ Por día 180.36                             │
+│  S   M   T   W   T   F   S                       │  │                                            │
+│ 27  28  29  30  31   1   2                       │  │ ////////////////////////////////////       │
+│  3   4   5   6   7   8   9                       │  │ Un gasto grande y muchos pequeños.         │
+│ 10  11  12  13  14  15  16                       │  │                                            │
+│ 17  18  19  20  21  22  23                       │  │ 7 días · 9 registros                       │
+│ 24  25  26  27  28  29  30                       │  │                                            │
+│ Días con gasto marcados con ·                    │  └────────────────────────────────────────────┘
+│ ·   ·   ·   ·                                    │
+│                                                  │  ┌─ Insights ─────────────────────────────────┐
+│ gasto por día     máximo 1240.0 el 17            │  │ ● Housing   ███████████████████·   95%     │
+│                                                  │  │                                            │
+│   ████                                           │  │ ● Food      █···················    3%     │
+│   ████                                           │  │                                            │
+│   ████                                           │  │ ● Transport ····················    2%     │
+│   ████                                           │  │                                            │
+│   ████                                           │  │                                            │
+│   ████                                           │  │ El 95 % del gasto es el alquiler:          │
+│   ████                                           │  │ un solo registro decide la semana.         │
+│   ████  ████  ████  ████  ████  ████  ████       │  │                                            │
+│    17    18    19    20    21    22    23        │  │ ▸ filtrar por categoría con ⏎              │
+│ 18 Nov · 50.0 · Restaurants + 25.0 de Sarah      │  │                                            │
+│                                                  │  │                                            │
+└──────────────────────────────────────────────────┘  └────────────────────────────────────────────┘
+ ←→ periodo   ↑↓ día   q quit
+
+
+=== 03 · Resumen ===================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Gasto por día · Nov ────────────────────────────────────────────────────────────────────────────┐
+│ máximo 1240.0 · el 17                                                                            │
+│                                                                                                  │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│         █████         █████                       █████                              █████       │
+│   10     11     12     13     14     15     16     17     18     19     20     21     22     23  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Categorías ───────────────────────────────┐  ┌─ Resumen del periodo ────────────────────────────┐
+│ Housing     █████████████████████·  1200.0 │  │ ingresos        + 1200.0                         │
+│             95 % del total                 │  │ gastos          - 1262.5                         │
+│                                            │  │ balance         - 62.5                           │
+│ Groceries   █·····················  62.5   │  │                                                  │
+│             5 % del total                  │  │ Días con gasto  9 de 14                          │
+│                                            │  │                                                  │
+│ Transport   ······················  20.0   │  │ El periodo gasta más de lo que                   │
+│             2 % del total                  │  │ ingresa: la diferencia son los                   │
+│                                            │  │ 1200.0 del alquiler.                             │
+│ Snacks      ······················  2.5    │  │                                                  │
+│             1 % del total                  │  │ El color no explica el balance;                  │
+│                                            │  │ lo explica la resta.                             │
+└────────────────────────────────────────────┘  └──────────────────────────────────────────────────┘
+ q quit   p periodo   e exportar
+
+
+####################################################################################################
+# POSTING · posting
+####################################################################################################
+
+=== 01 · Petición ==================================================================================
+ atlas-api                                                            ◆ local     you@devbox
+
+  GET List users        POS Create user       DEL Delete user
+
+ GET ${BASE_URL}/users?page=1&per_page=20                              200               Send
+      → http://localhost:8000/users?page=1&per_page=20
+
+ Headers  Body     Path     Query    Auth     Options
+┌─ Headers ──────────────────────────────────────────────────────────┐  ┌─ Request ────────────────┐
+│ [x] Accept            application/json                          ×  │  │ método                   │
+│ [x] Authorization     Bearer ${API_TOKEN}                       ×  │  │ GET                      │
+│ [x] User-Agent        Posting/3.0                               ×  │  │                          │
+│ [x] Cache-Control     no-cache                                  ×  │  │ estado                   │
+│ [x] X-Request-ID      ${uuid}                                   ×  │  │ 200 OK                   │
+│ [x] X-Client-Version  2026.10                                   ×  │  │                          │
+│ [x] Origin            https://app.example.com                   ×  │  │ guardada en              │
+│ [ ] Accept-           ← escribiendo                             ×  │  │ users/                   │
+│                                                                    │  │   list-users.yaml        │
+│ sugerencias Accept-Charset  Accept-Encoding                        │  │                          │
+│                                                                    │  │                          │
+│ 8 cabeceras · 1 desactivada                                        │  │                          │
+│                                                                    │  │ Peticiones = ficheros:   │
+│ Ctrl+Space alterna · ^j envía · ^s guarda                          │  │ se versionan con git.    │
+│                                                                    │  │                          │
+│ ↑↓ mover · ^d duplicar · ⌫ borrar                                  │  │ × cierra la pestaña      │
+│                                                                    │  │                          │
+│                                                                    │  │                          │
+└────────────────────────────────────────────────────────────────────┘  └──────────────────────────┘
+ ^s guardar   ^j enviar   ^p comandos   F1 ayuda
+
+
+=== 02 · Respuesta =================================================================================
+ atlas-api                                                            ◆ local           200 OK
+
+ Body      Headers   Cookies   Trace                        335 B en 42.00 ms        200 OK
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ {                                                                                                │
+│   "users": [                                                                                     │
+│     {                                                                                            │
+│       "id": 42                                                                                   │
+│       "name": "Ada Lovelace"                                                                     │
+│       "email": "ada@example.com"                                                                 │
+│       "role": "admin"                                                                            │
+│       "active": true                                                                             │
+│       "tags": ["math", "code"]                                                                   │
+│     },                                                                                           │
+│     {                                                                                            │
+│       "id": 43                                                                                   │
+│       "name": "Grace Hopper"                                                                     │
+│       "email": "grace@example.com"                                                               │
+│       "role": "admin"                                                                            │
+│       "active": false                                                                            │
+│       "tags": ["navy", "cobol"]                                                                  │
+│     }                                                                                            │
+│   ],                                                                                             │
+│   "total": 2                                                                                     │
+│   "next": null                                                                                   │
+│ application/json · 22 líneas · 2 objetos · claves coloreadas por tipo                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+ ↑↓ línea   / buscar   y copiar   F1 ayuda
+
+
+=== 03 · Colección =================================================================================
+ atlas-api                                                                Requests · History
+
+┌─ Requests ───────────────────────────────┐  ┌─ GET List users ───────────────────────────────────┐
+│ / buscar petición                        │  │ GET ${BASE_URL}/users?page=1                       │
+│ ▾ auth/                                  │  │                                                    │
+│ GET Current user                     →   │  │ Headers   8                                        │
+│ POS Login                            →   │  │ Authorization  Bearer ${API_TOKEN}                 │
+│ POS Refresh session                  →   │  │ Accept  application/json                           │
+│ DEL Revoke session                   →   │  │                                                    │
+│ ▾ projects/                              │  │ Respuesta                                          │
+│ GET Get project                      →   │  │ 200 OK · 335 B · 42.00 ms                          │
+│ GET List projects                    →   │  │                                                    │
+│ POS Create project                   →   │  │ Última vez                                         │
+│ ▾ teams/                                 │  │ hoy 22:31:04                                       │
+│ GET List teams                       →   │  │                                                    │
+│ GET Team members                     →   │  │ Guardada en                                        │
+│ ▾ users/                                 │  │ users/list-users.yaml                              │
+│ GET Get user                         →   │  │                                                    │
+│ GET List users                       →   │  │ El árbol son ficheros YAML:                        │
+│ DEL Delete user                      →   │  │ se editan con cualquier editor                     │
+│                                          │  │ y se versionan con git.                            │
+│                                          │  │                                                    │
+│                                          │  │ Verbos  GET  POS  DEL                              │
+│                                          │  │                                                    │
+│                                          │  │ El color del verbo es lo único                     │
+│                                          │  │ que distingue una fila de otra.                    │
+│                                          │  │                                                    │
+└──────────────────────────────────────────┘  └────────────────────────────────────────────────────┘
+ ↑↓ petición   ⏎ abrir   ^n nueva   F1 ayuda
+
+
+####################################################################################################
+# CASTERO · castero
+####################################################################################################
+
+=== 01 · Feeds =====================================================================================
+castero · Paused [00:12:32/00:38:26]: Buying Attention (+5 in queue)
+
+Feeds                            Episodes                                     Metadata
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Embedded                         Tunnel Vision                                Buying Attention
+NPR Politics Podcast             Crickets and Cannibals                       Mon, 01 Jan 2018
+Bullseye with Jesse Thorn        The Lonely American Man
+Hidden Brain                     Radio Replay: The Mind of the Village        Description:
+Invisibilia                      Think Fast with Daniel Kahneman              Have you ever opened
+Tiny Desk Concerts               Men: 45, Women: 0                            your computer with the
+Alt.Latino                       Counting Other People's Blessings            intention of sending
+Song Travels Express             When Did Marriage Become So Hard?            one email - only to
+How To Do Everything             Why Now?                                     spend an hour scrollin
+Crosscurrents                    Lost in Translation                          through social media?
+Planet Money                     Radio Replay: The Power Hour
+Radiolab                         Give Me Your Tired...                        Copyright:
+99% Invisible                    The Science of Grit                          2015 NPR
+The Daily                        Peak Performance
+Reply All                        The Value of Solitude                        Duración:
+Switched on Pop                  Fighting the Status Quo                      00:38:26
+Song Exploder                    The Benefits of Not Belonging
+Code Switch                      What Makes a Good Life?                      Descargado:
+                                                                              sí · 24,1 MiB
+
+↑↓ feed · ⇥ episodios · ⏎ reproducir · d descargar
+r marcar escuchado · u actualizar feeds · / buscar
+
+
+
+Processed 25 feeds with 2687 total episodes -- Press h for help
+
+=== 02 · Reproductor ===============================================================================
+castero · Reproduciendo                                               volumen 72 %
+
+┌─ Buying Attention ───────────────────────────────────────────────────────────────────────────────┐
+│ Hidden Brain · Mon, 01 Jan 2018 21:00:00 -0500                                                   │
+│                                                                                                  │
+│ 00:12:32 ███████████████████████··············································· 00:38:26         │
+│                                                                                                  │
+│ ▶ reproduciendo   · velocidad 1.0×                                                               │
+│                                                                                                  │
+│ Espacio pausa · ← → 30 s · d descarga · q salir                                                  │
+│                                                                                                  │
+│ Descripción:                                                                                     │
+│ Have you ever opened your computer with the intention of sending one                             │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Cola · 5 episodios ─────────────────────────────────────┐  ┌─ Progreso ─────────────────────────┐
+│ 1 Radio Replay: Fresh Starts                    00:41:02 │  │ escuchado   12:32                  │
+│ 2 I'm Right, You're Wrong                       00:35:18 │  │ restante    25:54                  │
+│ 3 Radio Replay: Don't Panic!                    00:38:44 │  │                                    │
+│ 4 Never Go To Vegas                             00:29:51 │  │ marcas de posición                 │
+│ 5 Kinder-Gardening                              00:33:07 │  │ ◇◇◇◇◆◇◇◇◇◇                         │
+│                                                          │  │                                    │
+│                                                          │  │ guardado en                        │
+│ q quitar · J/K mover · ⏎ reproducir                      │  │ ~/.local/share/castero             │
+│                                                          │  │                                    │
+│                                                          │  │                                    │
+│                                                          │  │                                    │
+└──────────────────────────────────────────────────────────┘  └────────────────────────────────────┘
+
+[h] ayuda · [q] salir · [p] pausa
+
+=== 03 · Descargas =================================================================================
+castero · Descargas                                                     2 en curso · 1 en cola
+
+┌─ En curso ───────────────────────────────────────────────────────────────────────────────────────┐
+│ Buying Attention.mp3                  1,2 MiB/s   quedan 00:14:42   de 24,1 MiB                  │
+│ █████████████████████████████████████████·························   62 %                        │
+│                                                                                                  │
+│ Fresh Starts.mp3                      0,4 MiB/s   quedan 00:33:31   de 24,1 MiB                  │
+│ ████████████······················································   18 %                        │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Terminadas ─────────────────────────────────────────────────────────────────────────────────────┐
+│ [ok] Tunnel Vision.mp3                  00:34:18      8,1 MiB                                    │
+│ [ok] Crickets and Cannibals.mp3         00:34:18      8,1 MiB                                    │
+│ [ok] The Lonely American Man.mp3        00:35:02      8,1 MiB                                    │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ En cola ────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1  Why Now?.mp3                         esperando turno         0 %                              │
+│                                                                                                  │
+│ Solo se descarga uno a la vez: la cola respeta el orden del feed.                                │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+d descargar · x cancelar · h ayuda
+
+
+####################################################################################################
+# FX · fx respuesta.json
+####################################################################################################
+
+=== 01 · Árbol =====================================================================================
+fx respuesta.json                                           JSON · 29 líneas · modo interactivo
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  1  {                                                                                            │
+│  2    "users": [                                                                                 │
+│  3      {                                                                                        │
+│  4        "id": 42,                                                                              │
+│  5        "name": "Ada Lovelace",                                                                │
+│  6        "email": "ada@example.com",                                                            │
+│  7        "role": "admin",                                                                       │
+│  8        "active": true,                                                                        │
+│  9        "tags": ["math", "code"],                                                              │
+│ 10      },                                                                                       │
+│ 11      {                                                                                        │
+│ 12        "id": 43,                                                                              │
+│ 13        "name": "Grace Hopper",                                                                │
+│ 14        "email": "grace@example.com",                                                          │
+│ 15        "role": "admin",                                                                       │
+│ 16        "active": false,                                                                       │
+│ 17        "tags": ["navy", "cobol"],                                                             │
+│ 18      }                                                                                        │
+│ 19    ],                                                                                         │
+│ 20    "total": 2,                                                                                │
+│ 21    "next": null                                                                               │
+│ 22  }                                                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ↑↓ mover · ⏎ plegar · / buscar · . script · q salir
+
+
+
+
+=== 02 · Búsqueda ==================================================================================
+fx respuesta.json
+
+ / admin   7 coincidencias en 3 claves
+
+┌─ Resultados ─────────────────────────────────────────────────────────────────────────────────────┐
+│ 1  users[0].role              admin                                 línea 12                     │
+│                                                                                                  │
+│ 2  users[1].role              admin                                 línea 28                     │
+│                                                                                                  │
+│ 3  users[2].role              admin                                 línea 44                     │
+│                                                                                                  │
+│ 4  users[0].email             ada@example.com                       línea 13                     │
+│                                                                                                  │
+│ 5  users[1].email             grace@example.com                     línea 29                     │
+│                                                                                                  │
+│ 6  users[3].email             linus@example.com                     línea 45                     │
+│                                                                                                  │
+│ 7  meta.roles[]               admin · editor · reader               línea 61                     │
+│                                                                                                  │
+│ ↑↓ mover · ⏎ saltar a la línea · esc cerrar                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Contexto ───────────────────────────────────────────────────────────────────────────────────────┐
+│       "role": "admin",                                                                           │
+│                                                                                                  │
+│ La búsqueda no filtra el documento: salta a la línea.                                            │
+│ n siguiente · N anterior · esc cerrar                                                            │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+=== 03 · Script ====================================================================================
+fx respuesta.json                                                       pipeline · 3 pasos
+
+┌─ Entrada ────────────────────────────────────────────────────────────────────────────────────────┐
+│ users · 4 objetos · 24 campos                                                                    │
+│                                                                                                  │
+│ 1  Ada Lovelace         ada@example.com       activo true                                        │
+│ 2  Grace Hopper         grace@example.com     activo false                                       │
+│ 3  Linus Torvalds       linus@example.com     activo true                                        │
+│ 4  Margaret Hamilton    mh@example.com        activo true                                        │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Script ─────────────────────────────────────────────────────────────────────────────────────────┐
+│ .users  .filter(u => u.active)      .map(u => u.name)                                            │
+│                                                                                                  │
+│ ▲ los tres pasos se aplican sin volver a leer el fichero                                         │
+│   el resultado se puede guardar como nuevo JSON                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─ Salida ─────────────────────────────────────────────────────────────────────────────────────────┐
+│ [                                                                                                │
+│   "Ada Lovelace",                                                                                │
+│   "Linus Torvalds",                                                                              │
+│   "Margaret Hamilton"                                                                            │
+│ ]                                                                                                │
+│ 3 de 4 · Grace Hopper se descarta por active: false                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+

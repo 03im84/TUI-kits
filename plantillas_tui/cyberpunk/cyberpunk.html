@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="cian" data-crt="0">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEUROLINK · mockups de una TUI cyberpunk</title>
+<style>
+:root{--bg:#04070c;--fg:#9fe8ff;--dim:#4a7f8f;--ghost:#26404a;--grid:#17414f;
+ --title:#00f0ff;--mag:#ff2ec4;--ok:#39ff88;--warn:#ffd400;--error:#ff2e63;
+ --sel-fg:#04070c;--sel-bg:#00f0ff;--bar-fg:#04070c;--bar-bg:#00f0ff;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+html[data-pal="magenta"]{--bg:#0b040d;--fg:#ffd9f6;--dim:#8a4374;--ghost:#3a1a30;
+ --grid:#5a1b4a;--title:#ff2ec4;--mag:#00f0ff;--ok:#2effc8;--warn:#ffd400;
+ --error:#ff3355;--sel-bg:#ff2ec4;--sel-fg:#0b040d;--bar-bg:#ff2ec4;--bar-fg:#0b040d}
+html[data-pal="fosforo"]{--bg:#000;--fg:#7dff9d;--dim:#2f8f4c;--ghost:#123a20;
+ --grid:#1c6b34;--title:#7dff9d;--mag:#b6ff7a;--ok:#7dff9d;--warn:#d7ff5f;
+ --error:#ff5f5f;--sel-bg:#7dff9d;--sel-fg:#000;--bar-bg:#7dff9d;--bar-fg:#000}
+html[data-pal="ambar"]{--bg:#0a0703;--fg:#ffcf7a;--dim:#8a5f22;--ghost:#3a2a10;
+ --grid:#5c3d10;--title:#ffb000;--mag:#ff7043;--ok:#ffd75f;--warn:#ffb000;
+ --error:#ff5f3f;--sel-bg:#ffb000;--sel-fg:#0a0703;--bar-bg:#ffb000;--bar-fg:#0a0703}
+html[data-pal="mono"]{--bg:#0d0f13;--fg:#e6e6e6;--dim:#8a8a8a;--ghost:#4a4a4a;
+ --grid:#5a5a5a;--title:#fff;--mag:#d0d0d0;--ok:#fff;--warn:#d0d0d0;--error:#fff;
+ --sel-bg:#e6e6e6;--sel-fg:#0d0f13;--bar-bg:#e6e6e6;--bar-fg:#0d0f13}
+*{box-sizing:border-box}
+body{margin:0;background:#05070b;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:36px 0 24px;border-bottom:1px solid #14181f;margin-bottom:28px}
+h1{margin:0 0 8px;font-size:28px;letter-spacing:-.02em}
+h1 span{color:#00f0ff;font-family:var(--mono)}
+.sub{color:#7d8590;font-size:15px;line-height:1.65;margin:0;max-width:78ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:18px;font-size:13px;color:#7d8590;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#101319;color:#c9d1d9;border:1px solid #232a36;border-radius:7px;padding:6px 9px}
+label{display:flex;gap:7px;align-items:center;cursor:pointer;user-select:none}
+section{margin:0 0 46px}
+.head{display:flex;align-items:baseline;gap:11px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:#00f0ff;border:1px solid #12384a;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8590;font-size:13.5px;line-height:1.6;margin:0 0 12px;max-width:88ch}
+.nota code{font-family:var(--mono);background:#101319;border:1px solid #1b212b;border-radius:4px;padding:0 4px;color:#9fe8ff}
+.term{background:var(--bg);border-radius:10px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1d2530, 0 26px 60px -34px #000;position:relative}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.32;white-space:pre;color:var(--fg)}
+.c-dim{color:var(--dim)}
+.c-ghost{color:var(--ghost)}
+.c-grid{color:var(--grid)}
+.c-title{color:var(--title);font-weight:700}
+.c-mag{color:var(--mag)}
+.c-ok{color:var(--ok)}
+.c-warn{color:var(--warn)}
+.c-error{color:var(--error)}
+.c-sel{background:var(--sel-bg);color:var(--sel-fg);font-weight:700}
+.c-bar{background:var(--bar-bg);color:var(--bar-fg);font-weight:700}
+.c-bar_tecla{background:var(--sel-fg);color:var(--bar-bg);font-weight:700}
+html[data-crt="1"] .term::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;
+ background:repeating-linear-gradient(to bottom,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+html[data-crt="1"] .term{text-shadow:0 0 7px currentColor}
+html[data-crt="1"] .term::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;
+ background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.45) 100%)}
+footer{color:#7d8590;font-size:13.5px;line-height:1.75;border-top:1px solid #14181f;padding-top:20px}
+footer code{font-family:var(--mono);background:#101319;border:1px solid #1b212b;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:6px 0 0}
+th,td{text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid #14181f;vertical-align:top}
+th{color:#7d8590;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#9fe8ff;font-size:12.5px}
+.aviso{background:#0b1016;border-left:3px solid #ff2ec4;padding:12px 15px;border-radius:0 7px 7px 0;
+ color:#9aa7b4;font-size:13.5px;line-height:1.65;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>NEUROLINK <span>· mockups de una TUI cyberpunk</span></h1>
+  <p class="sub">Seis pantallas de una terminal que no existe, dibujadas sobre una rejilla
+  de <strong>100 × 30 celdas</strong>. Todo lo que ves son caracteres y colores: ningún
+  elemento de esta página es una imagen. El conmutador de paleta cambia el tema real; el
+  interruptor CRT es <em>decoración de la galería</em> y está desactivado por defecto,
+  porque una terminal de verdad no tiene curvatura ni líneas de barrido.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="cian">Cian neón</option><option value="magenta">Magenta Miami</option><option value="fosforo">Fósforo verde</option><option value="ambar">Ámbar tóxico</option><option value="mono">Sin color</option></select></label>
+    <label><input type="checkbox" id="crt"> efecto CRT (solo aquí, no es del TUI)</label>
+  </div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Arranque</h2></div>
+  <p class="nota">El logo son cinco filas de █ sobre una fuente de 4×5 que cabe en el propio código. Debajo, barras ▓/░ y una línea de bloques ▁▂▃▄▅▆▇█.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ NEUROLINK                                                  SECTOR 7 · TERMINAL 04 · 04:12:07 ▓▓ </span>
+  <span class="c-ok">▸ enlace NEURAL-3</span><span class="c-dim"> · cifrado AES-512 · latencia 12 ms · </span><span class="c-ok">proxy ON</span><span class="c-dim"> · </span><span class="c-warn">combustible 71 %</span>                
+                                                                                                    
+                                <span class="c-title">█  █</span> <span class="c-title">████</span> <span class="c-title">█  █</span> <span class="c-title">████</span> <span class="c-title">████</span> <span class="c-title">█   </span> <span class="c-title">████</span> <span class="c-title">█  █</span> <span class="c-title">█  █</span>                        
+                                <span class="c-title">██ █</span> <span class="c-title">█   </span> <span class="c-title">█  █</span> <span class="c-title">█  █</span> <span class="c-title">█  █</span> <span class="c-title">█   </span> <span class="c-title">  █ </span> <span class="c-title">██ █</span> <span class="c-title">█ █ </span>                        
+                                <span class="c-title">█ ██</span> <span class="c-title">███ </span> <span class="c-title">█  █</span> <span class="c-title">███ </span> <span class="c-title">█  █</span> <span class="c-title">█   </span> <span class="c-title">  █ </span> <span class="c-title">█ ██</span> <span class="c-title">██  </span>                        
+                                <span class="c-title">█  █</span> <span class="c-title">█   </span> <span class="c-title">█  █</span> <span class="c-title">█ █ </span> <span class="c-title">█  █</span> <span class="c-title">█   </span> <span class="c-title">  █ </span> <span class="c-title">█  █</span> <span class="c-title">█ █ </span>                        
+                                <span class="c-title">█  █</span> <span class="c-title">████</span> <span class="c-title">████</span> <span class="c-title">█  █</span> <span class="c-title">████</span> <span class="c-title">████</span> <span class="c-title">████</span> <span class="c-title">█  █</span> <span class="c-title">█  █</span>                        
+                                                                                                    
+                          <span class="c-dim">i m p l a n t e   d e   a c c e s o   c o r t i c a l</span>                     
+                                 <span class="c-ghost">v4.2.1 · núcleo 0x7F3A · parche 21 · build 2087-11</span>                 
+                                                                                                    
+    <span class="c-grid">┌─</span><span class="c-title"> AUTODIAGNÓSTICO </span><span class="c-grid">────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> BIOMÉTRICA </span><span class="c-grid">───────────────────┐</span>    
+    <span class="c-grid">│</span> <span class="c-ok">[OK]</span> núcleo motor         <span class="c-title">▓▓▓▓▓▓▓▓▓▓</span>  <span class="c-ok"> 98 %</span> <span class="c-ghost">▆▇▃▇▆▄</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">PULSO</span>         <span class="c-ok">64 lpm</span>           <span class="c-grid">│</span>    
+    <span class="c-grid">│</span>                                                      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-title">▇▇▅▆▅▇▇▇▆▇▅▆▇▅▅▇▇▅▄▅▆▇</span>         <span class="c-grid">│</span>    
+    <span class="c-grid">│</span> <span class="c-ok">[OK]</span> bus neuronal         <span class="c-title">▓▓▓▓▓▓▓▓▓░</span>  <span class="c-ok"> 92 %</span> <span class="c-ghost">▄▄▄▆▃▆</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">SUDOR</span>         12 %             <span class="c-grid">│</span>    
+    <span class="c-grid">│</span>                                                      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">CORTISOL</span>  <span class="c-warn">▓▓▓▓░░░░</span>  <span class="c-warn">48 %</span>       <span class="c-grid">│</span>    
+    <span class="c-grid">│</span> <span class="c-warn">[OK]</span> hielo defensivo      <span class="c-title">▓▓▓▓▓▓▓░░░</span>  <span class="c-warn"> 71 %</span> <span class="c-ghost">▃▆▅▅▃▄</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">ADN</span>           <span class="c-ok">✓ verificado</span>     <span class="c-grid">│</span>    
+    <span class="c-grid">│</span>                                                      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">SUEÑO</span>         <span class="c-error">3 h 12 m</span>         <span class="c-grid">│</span>    
+    <span class="c-grid">│</span> <span class="c-dim">[..]</span> <span class="c-dim">handshake ICE       </span> <span class="c-ghost">░░░░░░░░░░</span>  <span class="c-ghost">  -- %</span>         <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">IMPLANTES</span>     5 / 7            <span class="c-grid">│</span>    
+    <span class="c-grid">│</span>                                                      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">TOLERANCIA</span>  <span class="c-warn">▓▓▓▓░░</span>  <span class="c-warn">63 %</span>       <span class="c-grid">│</span>    
+    <span class="c-grid">│</span> <span class="c-warn">▸ el hielo defensivo caduca en 3 días hábiles.</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">▸ neurobloqueante: 18 % en…</span>    <span class="c-grid">│</span>    
+    <span class="c-grid">└──────────────────────────────────────────────────────┘</span>  <span class="c-grid">└────────────────────────────────┘</span>    
+                                                                                                    
+    <span class="c-title">CONECTANDO AL NODO 0x7F3A · capa 3 de 5</span>                                                  <span class="c-ok">67 %</span>   
+    <span class="c-title">████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span>
+    <span class="c-dim">tiempo estimado 00:07 · no cierres la sesión · ▮</span>                                                
+                                                                                                    
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[F1]</span><span class="c-bar"> ayuda   </span><span class="c-bar_tecla">[⏎]</span><span class="c-bar"> conectar   </span><span class="c-bar_tecla">[ESC]</span><span class="c-bar"> abortar   </span><span class="c-bar_tecla">[?]</span><span class="c-bar"> manifiesto                                         </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Intrusión</h2></div>
+  <p class="nota">Todo son pares hexadecimales en una rejilla de 6×8. El camino se marca invirtiendo el fondo de la celda: sin color, seguiría viéndose.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ NEUROLINK // INTRUSIÓN                                       ICE NEGRO · CAPA 2/5 · 04:12:31 ▓▓ </span>
+  <span class="c-mag">▸ objetivo 0x7F3A</span><span class="c-dim"> · </span><span class="c-warn">rastreo 34 %</span><span class="c-dim"> · </span><span class="c-ok">ram 6/12</span><span class="c-dim"> · </span><span class="c-error">tiempo 00:24</span>                                        
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> MATRIZ DE ACCESO </span><span class="c-grid">───────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> DAEMONS </span><span class="c-grid">──────────────────────────────────────┐</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ok">ICEPICK.EXE    </span> <span class="c-ok">▓▓▓░</span>    <span class="c-dim">3/4 ram</span>       <span class="c-ok">listo</span>    <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-dim">00</span>    35    6A    <span class="c-dim">9F</span>    C4    F9       <span class="c-grid">│</span>  <span class="c-grid">│</span>                                                <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ok">DATAMINE       </span> <span class="c-ok">▓▓░</span>     <span class="c-dim">2/3 ram</span>       <span class="c-ok">listo</span>    <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   71    <span class="c-dim">A6</span>    <span class="c-dim">DB</span>    <span class="c-dim">00</span>    <span class="c-dim">35</span>    <span class="c-dim">6A</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span>                                                <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">TURRET_SHUT    </span> <span class="c-warn">▓▓▓▓</span>    <span class="c-dim">4/4 ram</span>       <span class="c-warn">en cola</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-dim">E2</span>  <span class="c-ok">·</span> <span class="c-ok">17</span>  <span class="c-ok">·</span> <span class="c-ok">4C</span>    <span class="c-dim">71</span>    <span class="c-dim">A6</span>    <span class="c-dim">DB</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span>                                                <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">MASK_IDENTITY  </span> <span class="c-dim">▓░</span>      <span class="c-dim">1/2 ram</span>       <span class="c-dim">bloqueado</span><span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   53    88  <span class="c-mag">▸</span><span class="c-sel"> BD</span>  <span class="c-ok">·</span> <span class="c-ok">E2</span>    17    <span class="c-dim">4C</span>       <span class="c-grid">│</span>  <span class="c-grid">└────────────────────────────────────────────────┘</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>                                                      
+  <span class="c-grid">│</span>   <span class="c-dim">C4</span>    <span class="c-dim">F9</span>    <span class="c-dim">2E</span>  <span class="c-ok">·</span> <span class="c-ok">53</span>  <span class="c-ok">·</span> <span class="c-ok">88</span>    BD       <span class="c-grid">│</span>  <span class="c-grid">┌─</span><span class="c-title"> TRAZA </span><span class="c-grid">────────────────────────────────────────┐</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">rastreo del anfitrión</span>                 <span class="c-warn">34 %</span>     <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-dim">35</span>    <span class="c-dim">6A</span>    9F    <span class="c-dim">C4</span>  <span class="c-ok">·</span> <span class="c-ok">F9</span>    <span class="c-dim">2E</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span> <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span>                                                <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-dim">A6</span>    <span class="c-dim">DB</span>    00    <span class="c-dim">35</span>    <span class="c-dim">6A</span>    <span class="c-dim">9F</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:29</span>  <span class="c-dim">ping recibido desde 10.0.7.4</span>         <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:30</span>  <span class="c-dim">barrido de puertos :8080</span>             <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   17    4C    71    <span class="c-dim">A6</span>    DB    <span class="c-dim">00</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:31</span>  <span class="c-error">firma desconocida en RAM</span>             <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:31</span>  <span class="c-ok">contramedida: ruido blanco</span>           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ok">▸ ruta: 7F A3 91 C4 (marcada con ·)</span>      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:32</span>  <span class="c-ghost">▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒</span>         <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag">▸ siguiente: busca FF en la columna 4</span>    <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:32</span>  <span class="c-warn">paquete perdido · reintento 1/3</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">└──────────────────────────────────────────┘</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:33</span>  <span class="c-error">ICE negro olfatea la sesión</span>          <span class="c-grid">│</span>  
+                                                <span class="c-grid">└────────────────────────────────────────────────┘</span>  
+  <span class="c-error">TIEMPO 00:24</span>  <span class="c-error">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░</span>  <span class="c-mag">▸ quedan 2 capas · ICE negro</span>              
+                                                                                                    
+  <span class="c-dim">▸ cada segundo aquí dentro sube el rastreo un 2 %</span>                                                 
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[↑↓]</span><span class="c-bar"> matriz   </span><span class="c-bar_tecla">[⏎]</span><span class="c-bar"> inyectar   </span><span class="c-bar_tecla">[TAB]</span><span class="c-bar"> daemons   </span><span class="c-bar_tecla">[ESC]</span><span class="c-bar"> desconectar                                     </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Diagnóstico</h2></div>
+  <p class="nota">Barras horizontales y una serie temporal de un solo renglón. Cada estado lleva su porcentaje escrito al lado: el color nunca informa solo.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ NEUROLINK // DIAGNÓSTICO                                                   CUERPO · 04:13:02 ▓▓ </span>
+  <span class="c-mag">▸ sujeto K-117</span><span class="c-dim"> · </span><span class="c-ok">implantes 5/7</span><span class="c-dim"> · </span><span class="c-warn">rechazo 4 %</span><span class="c-dim"> · </span><span class="c-error">seguro médico: ninguno</span>                             
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> NEURAL </span><span class="c-grid">─────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> BIÓNICA </span><span class="c-grid">──────────────────────────────────┐</span>  
+  <span class="c-grid">│</span> <span class="c-dim">latencia al Net</span>               <span class="c-ok">12 ms</span>          <span class="c-grid">│</span>  <span class="c-grid">│</span> ojo izquierdo     <span class="c-ok">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░</span>  <span class="c-ok"> 96 %</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">ancho de banda</span>                940 Mb/s       <span class="c-grid">│</span>  <span class="c-grid">│</span> brazo derecho     <span class="c-ok">▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░</span>  <span class="c-ok"> 88 %</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">paquetes perdidos</span>             <span class="c-ok">0.02 %</span>         <span class="c-grid">│</span>  <span class="c-grid">│</span> columna L4        <span class="c-error">▓▓▓▓▓▓▓▓▓▓░░░░░░</span>  <span class="c-error"> 61 %</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                              <span class="c-grid">│</span>  <span class="c-grid">│</span> filtro hepático   <span class="c-warn">▓▓▓▓▓▓▓▓▓▓▓▓░░░░</span>  <span class="c-warn"> 74 %</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-title">▄▄▅▄▅▇▇▄▅▆▄▄▄▄▄▅▆▇▇▄▆▇▄▆▇▃▇▆▆▅▅▆▅▇▅▅▆▅▅▆▇▃</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> cortex auxiliar   <span class="c-ok">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</span>  <span class="c-ok"> 99 %</span>  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">últimos 60 s · tráfico sináptico</span>             <span class="c-grid">│</span>  <span class="c-grid">│</span>                                            <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                              <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">▸ columna L4: microfisura detectada</span>        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">sobrecarga cognitiva</span>   <span class="c-warn">▓▓▓░░░░░░░</span>  <span class="c-warn">28 %</span>      <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">▸ garantía de los 5 implantes: caducada</span>    <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">firewall cortical</span>             <span class="c-ok">activo</span>         <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">▸ próxima revisión: hace 40 días</span>           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">sincronía hemisférica</span>         0.7 ms         <span class="c-grid">│</span>  <span class="c-grid">│</span>                                            <span class="c-grid">│</span>  
+  <span class="c-grid">└──────────────────────────────────────────────┘</span>  <span class="c-grid">└────────────────────────────────────────────┘</span>  
+  <span class="c-grid">┌─</span><span class="c-title"> ENTORNO </span><span class="c-grid">────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> REGISTRO </span><span class="c-grid">─────────────────────────────────┐</span>  
+  <span class="c-grid">│</span> <span class="c-dim">temperatura</span>             <span class="c-warn">31 °C</span>                <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:09:12</span> <span class="c-warn">implante 3: microfisura sellada</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">radiación</span>               <span class="c-ok">0.4 mSv</span>              <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:10:44</span> neurobloqueante 20 ml             <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">calidad del aire</span>    <span class="c-error">▓▓░░░░░░░░</span>  <span class="c-error">18 %</span>         <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:11:58</span> <span class="c-ok">pico de cortisol normalizado</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">señal del sector</span>    <span class="c-title">▂▄▆█▆▄▂▁▃▅</span>               <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:12:50</span> <span class="c-error">seguro caducado hace 214 días</span>     <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">vecinos hostiles</span>        <span class="c-error">2 · a 40 m</span>           <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:13:01</span> <span class="c-ok">sincronía con NEURAL-3 completa</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">salida de emergencia</span>    <span class="c-error">bloqueada</span>            <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">04:13:02</span> <span class="c-dim">lectura de implantes: 5 de 7</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">▸ el aire empeora: 18 % (ayer 24 %)</span>          <span class="c-grid">│</span>  <span class="c-grid">│</span>                                            <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                              <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">▸ 6 eventos · el resto va al registro</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">└──────────────────────────────────────────────┘</span>  <span class="c-grid">└────────────────────────────────────────────┘</span>  
+                                                                                                    
+  <span class="c-dim">ESTADO GENERAL</span>  <span class="c-ok">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░</span>  <span class="c-ok">ESTABLE · revisión en 3 días</span>                  
+  <span class="c-warn">⚠ dos implantes por debajo del 70 % · garantía nula</span>                                               
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[↑↓]</span><span class="c-bar"> sistema   </span><span class="c-bar_tecla">[⏎]</span><span class="c-bar"> detalle   </span><span class="c-bar_tecla">[R]</span><span class="c-bar"> recalibrar   </span><span class="c-bar_tecla">[ESC]</span><span class="c-bar"> salir                                          </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>Mercado negro</h2></div>
+  <p class="nota">Tabla con columnas alineadas a la derecha, fila seleccionada por fondo invertido y panel de detalle a la derecha.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ MERCADO NEGRO                                                CANAL 7 · OFERTAS 41 · 04:13:40 ▓▓ </span>
+  <span class="c-ok">▸ saldo 12 480 ₡</span><span class="c-dim"> · </span><span class="c-mag">reputación 7.2</span><span class="c-dim"> · </span><span class="c-error">deuda 3 000 ₡</span><span class="c-dim"> · </span><span class="c-ok">rastreo 0 %</span>                                   
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> OFERTAS </span><span class="c-grid">──────────────────────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> DETALLE </span><span class="c-grid">────────────────┐</span>  
+  <span class="c-grid">│</span>   <span class="c-ghost">ARTÍCULO              RIESGO    STOCK      PRECIO</span>            <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-mag">ICE NEGRO (copia)</span>        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-grid">──────────────────────────────────────────────────────────────</span> <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">copia no verificada</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   DECK MK-IV            ▓▓░░░        3                4 200 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   CORTEX AUX 2.1        ▓▓▓▓░        1                3 100 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">Origen</span>                   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   NEUROBLOQ x50         ▓░░░░       12                  640 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> búnker 12, sin           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span><span class="c-sel"> &gt; ICE NEGRO (copia)     ▓▓▓▓▓        1                8 900 ₡  </span><span class="c-grid">│</span>  <span class="c-grid">│</span> procedencia              <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   MANUAL DE VUELO       ░░░░░        5                  120 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">Vendedor</span>                 <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   SANGRE SINT. 2 L      ▓░░░░        8                  310 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">◆ «el de la capa 4»</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   PISTOLA TÁSER         ▓▓▓░░        2                1 750 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   ID FALSA (nivel 4)    ▓▓▓▓░        1                5 400 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">RIESGO DE RASTREO</span>        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   ÓPTICA TÉRMICA        ▓▓░░░        4                2 250 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-error">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░</span> <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   FILTRO RENAL          ▓░░░░        6                  980 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-error">94 % · puede delatarte</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   COPIA DE LLAVE        ▓▓▓▓░        3                3 600 ₡  <span class="c-grid">│</span>  <span class="c-grid">└──────────────────────────┘</span>  
+  <span class="c-grid">│</span>   MUNICIÓN 9 mm         ▓▓▓░░       20                  480 ₡  <span class="c-grid">│</span>  <span class="c-grid">┌─</span><span class="c-title"> ACCIONES </span><span class="c-grid">───────────────┐</span>  
+  <span class="c-grid">│</span>   JAMMER PORTÁTIL       ▓▓▓▓░        2                6 700 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ok">COMPRAR      8 900 ₡</span>     <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   PARCHE DE HIELO       ▓▓░░░        9                1 100 ₡  <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                                                <span class="c-grid">│</span>  <span class="c-grid">│</span> NEGOCIAR                 <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-grid">──────────────────────────────────────────────────────────────</span> <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-warn">▸ los precios no incluyen el impuesto de tránsito (18 %)</span>       <span class="c-grid">│</span>  <span class="c-grid">│</span> VER VENDEDOR             <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">▸ stock orientativo: el vendedor miente una de cada tres veces</span> <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">▸ ◆ = identidad verificada · sin marca = sin firma</span>             <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">DENUNCIAR  [F]</span>           <span class="c-grid">│</span>  
+  <span class="c-grid">└────────────────────────────────────────────────────────────────┘</span>  <span class="c-grid">└──────────────────────────┘</span>  
+                                                                                                    
+  <span class="c-ghost">⏎ comprar · N negociar · F denunciar · ESC salir</span>                                                  
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[↑↓]</span><span class="c-bar"> oferta   </span><span class="c-bar_tecla">[⏎]</span><span class="c-bar"> comprar   </span><span class="c-bar_tecla">[N]</span><span class="c-bar"> negociar   </span><span class="c-bar_tecla">[F]</span><span class="c-bar"> denunciar                                           </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">05</span><h2>Comms</h2></div>
+  <p class="nota">Bandeja, lector y análisis en tres paneles. El texto corrompido son ▒ de verdad, no un efecto: lo que no se pudo descifrar no se inventa.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ COMMS // INTERCEPTOR                                       CANAL 7 · CIFRADO ROTO · 04:14:10 ▓▓ </span>
+  <span class="c-mag">▸ 3 sin leer</span><span class="c-dim"> · interceptados 128 · </span><span class="c-warn">confianza 61 %</span><span class="c-dim"> · </span><span class="c-error">trampa: posible</span>                               
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> BANDEJA </span><span class="c-grid">──────────────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> INTERCEPTO </span><span class="c-grid">─────────────────────┐</span>  
+  <span class="c-grid">│</span> <span class="c-mag">●</span>   <span class="c-ghost">04:14</span> ◆ V     re: entrega del paquete              <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">de: ◆ K  ·  para: V</span>              <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag">●</span>   <span class="c-ghost">04:11</span> <span class="c-warn">anon   </span> el cargamento no llegó               <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-title">asunto: no confíes en el de</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span><span class="c-sel"> ● &gt; 04:03 ◆ K     no confíes en el de la capa 4        </span><span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-title">        la capa 4</span>                <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">03:58</span> broker  precio cerrado: 8 900 ₡              <span class="c-grid">│</span>  <span class="c-grid">│</span>                                  <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">03:40</span> ◆ V     quema el deck cuando termines        <span class="c-grid">│</span>  <span class="c-grid">│</span> el de la capa 4 vendió tu        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">03:22</span> sistema parche de hielo disponible           <span class="c-grid">│</span>  <span class="c-grid">│</span> firma hace dos noches.           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">03:05</span> ◆ R     el médico quiere su parte            <span class="c-grid">│</span>  <span class="c-grid">│</span> si te pregunta por el            <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">02:59</span> <span class="c-warn">anon   </span> ▒▒▒▒▒▒ ▒▒▒▒▒                         <span class="c-grid">│</span>  <span class="c-grid">│</span> deck, no contestes.              <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">02:47</span> broker  el trato sigue en pie                <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-warn">y no vayas al bar solo.</span>          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">02:40</span> ◆ K     nos vemos en el bar                  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-mag">— K</span>                              <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">02:31</span> sistema reputación +0.1                      <span class="c-grid">│</span>  <span class="c-grid">└──────────────────────────────────┘</span>  
+  <span class="c-grid">│</span> <span class="c-mag"> </span>   <span class="c-ghost">02:18</span> <span class="c-warn">anon   </span> ¿sigues ahí?                         <span class="c-grid">│</span>                                        
+  <span class="c-grid">│</span>                                                        <span class="c-grid">│</span>  <span class="c-grid">┌─</span><span class="c-title"> ANÁLISIS </span><span class="c-grid">───────────────────────┐</span>  
+  <span class="c-grid">│</span>                                                        <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">cifrado</span>         <span class="c-error">ROTO  ▒▒▒▒</span>       <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-grid">──────────────────────────────────────────────────────</span> <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">firma</span>           <span class="c-warn">dudosa</span>           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">● sin leer · ◆ identidad verificada · anon = sin firma</span> <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">retransmisión</span>   14 saltos        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                                        <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">origen</span>          <span class="c-error">desconocido</span>      <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">▸ 12 de 128 · orden: más reciente primero</span>              <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">adjunto</span>         <span class="c-warn">1 archivo</span>        <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-warn">▸ 3 mensajes llevan la misma firma quebrada</span>            <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">trampa probable</span> <span class="c-warn">▓▓▓▓▓▓▓░░░░░</span>     <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">▸ el adjunto de ◆ K no se ha abierto todavía</span>           <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">▸ el adjunto no se ha abierto</span>    <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                                        <span class="c-grid">│</span>  <span class="c-grid">│</span>                                  <span class="c-grid">│</span>  
+  <span class="c-grid">└────────────────────────────────────────────────────────┘</span>  <span class="c-grid">└──────────────────────────────────┘</span>  
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[↑↓]</span><span class="c-bar"> mensaje   </span><span class="c-bar_tecla">[⏎]</span><span class="c-bar"> abrir   </span><span class="c-bar_tecla">[D]</span><span class="c-bar"> descargar   </span><span class="c-bar_tecla">[X]</span><span class="c-bar"> borrar   </span><span class="c-bar_tecla">[ESC]</span><span class="c-bar"> salir                                </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">06</span><h2>Visualizador</h2></div>
+  <p class="nota">62 columnas de espectro con █ y remates ▁▂▃▄▅▆▇: cada columna es una altura entera más un bloque parcial.</p>
+  <div class="term"><pre><span class="c-bar"> ▓▓ VHS DREAMS // REPRODUCTOR                                    SALIDA: JACK CRANEAL · 04:15:02 ▓▓ </span>
+  <span class="c-mag">▸ 118 BPM</span><span class="c-dim"> · vol 72 % · </span><span class="c-warn">fuente: cinta</span><span class="c-dim"> · </span><span class="c-ok">ruido -42 dB</span>                                               
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> SONANDO </span><span class="c-grid">────────────────────────────────────────────────────────────────────────────────────┐</span>  
+  <span class="c-grid">│</span> <span class="c-title">NIGHT_CITY.EXE</span>                                                                               <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-dim">VHS DREAMS · lado A · 1986 (remaster 2087)</span>                                                   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>                                                                                              <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-ghost">01:12</span> <span class="c-title">▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span>   <span class="c-ghost">04:38</span>    <span class="c-grid">│</span>  
+  <span class="c-grid">└──────────────────────────────────────────────────────────────────────────────────────────────┘</span>  
+                                                                                                    
+  <span class="c-grid">┌─</span><span class="c-title"> ESPECTRO </span><span class="c-grid">─────────────────────────────────────────────────────┐</span>  <span class="c-grid">┌─</span><span class="c-title"> MEDIDORES </span><span class="c-grid">──────────────┐</span>  
+  <span class="c-grid">│</span>       <span class="c-mag">██</span>                                                       <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">GRAVES      </span><span class="c-warn">▓▓▓▓▓▓▓░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>    <span class="c-mag">▃</span> <span class="c-title">███</span>            <span class="c-mag">█</span>    <span class="c-title">█</span>                                     <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">MEDIOS      </span><span class="c-warn">▓▓▓▓▓░░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>    <span class="c-title">█</span> <span class="c-title">███</span>   <span class="c-mag">█</span>   <span class="c-mag">▆</span>    <span class="c-title">█</span><span class="c-mag">█</span>   <span class="c-title">█</span>  <span class="c-mag">▆</span>                                  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">AGUDOS      </span><span class="c-ok">▓▓▓░░░░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-mag">▃</span><span class="c-title">█</span> <span class="c-title">███</span><span class="c-mag">█</span>  <span class="c-title">█</span><span class="c-mag">▃</span>  <span class="c-title">█</span>    <span class="c-title">██</span> <span class="c-mag">▃▃</span><span class="c-title">█</span>  <span class="c-title">█</span>                                  <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">REVERB      </span><span class="c-ok">▓▓▓▓░░░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-mag">██</span> <span class="c-mag">████</span>  <span class="c-mag">██</span> <span class="c-mag">▃█</span>    <span class="c-mag">██</span> <span class="c-mag">███</span> <span class="c-mag">▃█</span> <span class="c-mag">▆</span>                                <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">SATURACIÓN  </span><span class="c-error">▓▓▓▓▓▓▓▓▓░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>   <span class="c-title">███████</span>  <span class="c-title">██</span><span class="c-mag">▇</span><span class="c-title">██</span>  <span class="c-mag">▄</span> <span class="c-title">██</span> <span class="c-title">███</span> <span class="c-title">██</span> <span class="c-title">█</span><span class="c-mag">▂</span>                               <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">WOBBLE      </span><span class="c-ok">▓▓░░░░░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>  <span class="c-mag">▃</span><span class="c-title">███████</span>  <span class="c-title">█████</span> <span class="c-title">██</span> <span class="c-title">██</span><span class="c-mag">▃</span><span class="c-title">███</span> <span class="c-title">██</span> <span class="c-title">██</span>          <span class="c-mag">▆</span>                    <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">CINTA       </span><span class="c-warn">▓▓▓▓▓▓░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag">▃</span><span class="c-title">████████</span>  <span class="c-title">█████</span> <span class="c-title">██</span> <span class="c-title">██████</span> <span class="c-title">██</span><span class="c-mag">▄</span><span class="c-title">██</span><span class="c-mag">▅▄</span>        <span class="c-title">█</span>  <span class="c-mag">▅</span>                 <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">RUIDO       </span><span class="c-ok">▓▓▓░░░░░░░</span>   <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag">█████████</span> <span class="c-mag">▇█████▃██▆██████</span> <span class="c-mag">███████▇█</span>  <span class="c-mag">▄</span>  <span class="c-mag">██</span>  <span class="c-mag">█</span>                 <span class="c-grid">│</span>  <span class="c-grid">│</span>                          <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-title">█████████</span> <span class="c-title">████████████████</span> <span class="c-title">█████████</span> <span class="c-mag">▄</span><span class="c-title">██</span><span class="c-mag">▇</span><span class="c-title">██</span> <span class="c-mag">▇</span><span class="c-title">█</span> <span class="c-mag">▃</span>  <span class="c-mag">▇▄▃</span>          <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-grid">────────────────────────</span> <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-title">█████████</span> <span class="c-title">████████████████</span> <span class="c-title">█████████</span><span class="c-mag">▃</span><span class="c-title">██████</span> <span class="c-title">██</span><span class="c-mag">█</span><span class="c-title">█</span><span class="c-mag">▄</span> <span class="c-title">███</span><span class="c-mag">▃</span> <span class="c-mag">▅▄▄</span>     <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-ghost">SALIDA ESTÉREO</span>           <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-title">██████████████████████████</span><span class="c-mag">▆</span><span class="c-title">████████████████</span> <span class="c-title">█████</span><span class="c-mag">▇</span><span class="c-title">████████</span><span class="c-mag">▆▆</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-title">▮▮▮▮▮▮▮▯▯▯  L</span>            <span class="c-grid">│</span>  
+  <span class="c-grid">│</span> <span class="c-mag">████████████████████████████████████████████████████████████</span>   <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-title">▮▮▮▮▮▯▯▯▯▯  R</span>            <span class="c-grid">│</span>  
+  <span class="c-grid">│</span>  <span class="c-ghost">20 Hz                                               20 kHz</span>    <span class="c-grid">│</span>  <span class="c-grid">│</span> <span class="c-dim">compresor 4:1 · 8 ms</span>     <span class="c-grid">│</span>  
+  <span class="c-grid">└────────────────────────────────────────────────────────────────┘</span>  <span class="c-grid">└──────────────────────────┘</span>  
+                                                                                                    
+  <span class="c-warn">▸ cinta rebobinada a mano · la velocidad puede bailar</span>                                             
+                                                                                                    
+<span class="c-bar"> </span><span class="c-bar_tecla">[␣]</span><span class="c-bar"> pausa   </span><span class="c-bar_tecla">[←→]</span><span class="c-bar"> pista   </span><span class="c-bar_tecla">[S]</span><span class="c-bar"> shuffle   </span><span class="c-bar_tecla">[V]</span><span class="c-bar"> visual   </span><span class="c-bar_tecla">[ESC]</span><span class="c-bar"> salir                                    </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">07</span><h2>Por qué esto se puede construir de verdad</h2></div>
+  <p class="nota">El compromiso de estos mockups es que ninguno promete algo que una
+  terminal no pueda hacer. Cada pantalla se valida al generarse: si una línea se pasa de
+  100 columnas o aparece un carácter de doble ancho, el script falla.</p>
+  <table>
+    <tr><th>Lo que se ve</th><th>Cómo se consigue</th></tr>
+    <tr><td>Foto fija de 100×30</td><td><code>sys.stdout.write</code> de 30 líneas de 100 caracteres. Nada más</td></tr>
+    <tr><td>Colores neón</td><td>SGR <code>38;2;r;g;b</code> (color verdadero) con caída a <code>38;5;n</code> (256) y a los 16 clásicos</td></tr>
+    <tr><td>Bloques <code>█▓▒░</code></td><td>Caracteres de dibujo de bloques. Ancho uno en terminales occidentales</td></tr>
+    <tr><td>Serie <code>▁▂▃▄▅▆▇█</code></td><td>Ocho niveles de altura reales: se elige el nivel por valor, sin trucos</td></tr>
+    <tr><td>Filas resaltadas</td><td>Fondo invertido (<code>7m</code>) o color de fondo explícito. Nunca solo negrita</td></tr>
+    <tr><td>Marcos y paneles</td><td>Dibujo de caja <code>┌─┐│└┘</code>, o <code>+-|</code> en modo ASCII</td></tr>
+    <tr><td>Espectro "animado"</td><td>Repintado de celdas a 4–8 fotogramas por segundo; aquí va congelado</td></tr>
+  </table>
+  <div class="aviso"><strong>Lo que no hay, a propósito:</strong> ni imágenes, ni fuentes
+  incrustadas, ni transparencias, ni degradados suaves, ni texto de tamaño variable, ni
+  emoji a color. Un degradado real en terminal se hace con dithering de bloques o con
+  pasos de 256 colores — y se nota. Elegir el palo corto es lo que hace que el mockup
+  sea creíble.</div>
+</section>
+<footer>
+  Generado por <code>cyberpunk.py</code> · solo biblioteca estándar ·
+  misma rejilla de celdas que usa cualquier TUI: si cabe aquí, cabe en tu terminal.
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal'),crt=document.getElementById('crt');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+crt.addEventListener('change',e=>document.documentElement.dataset.crt=e.target.checked?'1':'0');
+</script>
+</body></html>

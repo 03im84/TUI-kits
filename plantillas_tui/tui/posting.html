@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>posting · TUI real</title>
+<style>
+:root{--texto:#d5d6e0;
+ --titulo:#c8c9e8;
+ --borde:#3e3162;
+ --tenue:#9192aa;
+ --pestana_activa:#3e3162;
+ --seleccion:#3e3162;
+ --acento:#ff69b4;
+ --metodo_get:#68f2d5;
+ --metodo_pos:#ffb86c;
+ --metodo_del:#ff6e6e;
+ --estado_ok:#68f2d5;
+ --estado_pildora:#195552;
+ --boton_enviar:#ff69b4;
+ --llave:#8f8fa8;
+ --cadena:#9ece6a;
+ --numero:#ffb86c;
+ --tecla:#ff69b4;--sel_fg:#ffffff;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-borde{color:var(--borde)}
+.c-tenue{color:var(--tenue)}
+.c-pestana_activa{color:var(--pestana_activa)}
+.c-acento{color:var(--acento)}
+.c-metodo_get{color:var(--metodo_get)}
+.c-metodo_pos{color:var(--metodo_pos)}
+.c-metodo_del{color:var(--metodo_del)}
+.c-estado_ok{color:var(--estado_ok)}
+.c-boton_enviar{color:var(--boton_enviar)}
+.c-llave{color:var(--llave)}
+.c-cadena{color:var(--cadena)}
+.c-numero{color:var(--numero)}
+.c-tecla{color:var(--tecla)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+.c-estado_pildora{background:var(--estado_pildora)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>posting <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Cliente HTTP en el terminal: guarda cada llamada como un YAML, las organiza en árbol y muestra la respuesta con el JSON coloreado. Es el más denso de los siete y el que mejor enseña la regla: <strong>el color va al verbo HTTP</strong> —verde GET, naranja POST, rojo DELETE— y al tipo del valor JSON, no al marco.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option></select></label>
+    <span><code>posting</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> <strong>Medido</strong> en un fotograma del GIF de presentación: fondo <code>#11131d</code> (47 % de los píxeles), barra lateral <code>#211e38</code>, campos <code>#282441</code> y <code>#3e3162</code>, rosa <code>#ff69b4</code> del botón Send y teal <code>#68f2d5</code> del código de respuesta con su fondo <code>#195552</code>. Los colores de sintaxis del JSON y los de cada verbo son <strong>derivados</strong> de esos acentos: en la captura se ven el rosa y el teal, no la escala entera.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Petición</h2></div>
+  <p class="nota">Pestañas de petición, la barra del método con su URL y la tabla de cabeceras con una escribiéndose.</p>
+  <div class="term"><pre><span class="c-titulo"> atlas-api</span>                                                            <span class="c-metodo_get">◆ local</span>     <span class="c-tenue">you@devbox</span>        
+                                                                                                    
+ <span class="c-pestana_activa"> GET List users </span>      <span class="c-tenue"> POS Create user </span>     <span class="c-tenue"> DEL Delete user </span>                                      
+                                                                                                    
+ <span class="c-metodo_get">GET</span> <span class="c-texto">${BASE_URL}/users?page=1&amp;per_page=20</span>                             <span class="c-estado_pildora"> </span><span class="c-estado_ok">200</span><span class="c-estado_pildora">   </span> <span class="c-estado_pildora">     </span>     <span class="c-boton_enviar"> Send </span>      
+      <span class="c-tenue">→ http://localhost:8000/users?page=1&amp;per_page=20</span>                                              
+                                                                                                    
+ <span class="c-titulo">Headers</span>  <span class="c-tenue">Body</span>     <span class="c-tenue">Path</span>     <span class="c-tenue">Query</span>    <span class="c-tenue">Auth</span>     <span class="c-tenue">Options</span>                                               
+<span class="c-borde">┌─</span><span class="c-titulo"> Headers </span><span class="c-borde">──────────────────────────────────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> Request </span><span class="c-borde">────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">Accept</span>            <span class="c-texto">application/json</span>                          <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">método</span>                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">Authorization</span>     <span class="c-texto">Bearer ${API_TOKEN}</span>                       <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-metodo_get">GET</span>                      <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">User-Agent</span>        <span class="c-texto">Posting/3.0</span>                               <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> </span><span class="c-metodo_get">[x]</span><span class="c-seleccion"> Cache-Control     no-cache                                  </span><span class="c-tenue">×</span><span class="c-seleccion">  </span><span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">estado</span>                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">X-Request-ID</span>      <span class="c-texto">${uuid}</span>                                   <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-estado_ok">200 OK</span>                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">X-Client-Version</span>  <span class="c-texto">2026.10</span>                                   <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">[x]</span> <span class="c-texto">Origin</span>            <span class="c-texto">https://app.example.com</span>                   <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">guardada en</span>              <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">[ ]</span> <span class="c-texto">Accept-</span>           <span class="c-texto">← escribiendo</span>                             <span class="c-tenue">×</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">users/</span>                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">  list-users.yaml</span>        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">sugerencias</span> <span class="c-acento">Accept-Charset  Accept-Encoding</span>                        <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">8 cabeceras · 1 desactivada</span>                                        <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">Peticiones = ficheros:</span>   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">Ctrl+Space alterna · ^j envía · ^s guarda</span>                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">se versionan con git.</span>    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">↑↓ mover · ^d duplicar · ⌫ borrar</span>                                  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">× cierra la pestaña</span>      <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                          <span class="c-borde">│</span>
+<span class="c-borde">└────────────────────────────────────────────────────────────────────┘</span>  <span class="c-borde">└──────────────────────────┘</span>
+ <span class="c-tecla">^s</span> <span class="c-texto">guardar  </span> <span class="c-tecla">^j</span> <span class="c-texto">enviar  </span> <span class="c-tecla">^p</span> <span class="c-texto">comandos  </span> <span class="c-tecla">F1</span> <span class="c-texto">ayuda  </span>                                                  
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Respuesta</h2></div>
+  <p class="nota">El JSON con su color por tipo de valor, el tamaño y el tiempo de la respuesta.</p>
+  <div class="term"><pre><span class="c-titulo"> atlas-api</span>                                                            <span class="c-metodo_get">◆ local</span>           <span class="c-estado_ok">200 OK</span>      
+                                                                                                    
+ <span class="c-titulo">Body</span>      <span class="c-tenue">Headers</span>   <span class="c-tenue">Cookies</span>   <span class="c-tenue">Trace</span>                        <span class="c-tenue">335 B en 42.00 ms</span>       <span class="c-estado_pildora"> </span><span class="c-estado_ok">200 OK</span><span class="c-estado_pildora"> </span>        
+<span class="c-borde">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-llave">{</span>                                                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span>   <span class="c-llave">&quot;users&quot;: [</span>                                                                                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>     <span class="c-llave">{</span>                                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;id&quot;:</span> <span class="c-numero">42</span>                                                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;name&quot;:</span> <span class="c-cadena">&quot;Ada Lovelace&quot;</span>                                                                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;email&quot;:</span> <span class="c-cadena">&quot;ada@example.com&quot;</span>                                                                 <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;role&quot;:</span> <span class="c-cadena">&quot;admin&quot;</span>                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;active&quot;:</span> <span class="c-numero">true</span>                                                                             <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;tags&quot;:</span> <span class="c-cadena">[&quot;math&quot;, &quot;code&quot;]</span>                                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>     <span class="c-llave">},</span>                                                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span>     <span class="c-llave">{</span>                                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;id&quot;:</span> <span class="c-numero">43</span>                                                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;name&quot;:</span> <span class="c-cadena">&quot;Grace Hopper&quot;</span>                                                                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;email&quot;:</span> <span class="c-cadena">&quot;grace@example.com&quot;</span>                                                               <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;role&quot;:</span> <span class="c-cadena">&quot;admin&quot;</span>                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;active&quot;:</span> <span class="c-numero">false</span>                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>       <span class="c-llave">&quot;tags&quot;:</span> <span class="c-cadena">[&quot;navy&quot;, &quot;cobol&quot;]</span>                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>     <span class="c-llave">}</span>                                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>   <span class="c-llave">],</span>                                                                                             <span class="c-borde">│</span>
+<span class="c-borde">│</span>   <span class="c-llave">&quot;total&quot;:</span> <span class="c-numero">2</span>                                                                                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>   <span class="c-llave">&quot;next&quot;:</span> <span class="c-tenue">null</span>                                                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">application/json · 22 líneas · 2 objetos · claves coloreadas por tipo</span>                            <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+ <span class="c-tecla">↑↓</span> <span class="c-texto">línea  </span> <span class="c-tecla">/</span> <span class="c-texto">buscar  </span> <span class="c-tecla">y</span> <span class="c-texto">copiar  </span> <span class="c-tecla">F1</span> <span class="c-texto">ayuda  </span>                                                        
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Colección</h2></div>
+  <p class="nota">El árbol de peticiones y el detalle de la elegida. Aquí el color clasifica verbos.</p>
+  <div class="term"><pre><span class="c-titulo"> atlas-api</span>                                                                <span class="c-tenue">Requests · History</span>        
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Requests </span><span class="c-borde">───────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> GET List users </span><span class="c-borde">───────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">/ buscar petición</span>                        <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">GET ${BASE_URL}/users?page=1</span>                       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">▾ auth/</span>                                  <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">Current user</span>                     <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">Headers</span>   <span class="c-numero">8</span>                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_pos">POS</span> <span class="c-texto">Login</span>                            <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">Authorization  Bearer ${API_TOKEN}</span>                 <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_pos">POS</span> <span class="c-texto">Refresh session</span>                  <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">Accept  application/json</span>                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_del">DEL</span> <span class="c-texto">Revoke session</span>                   <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">▾ projects/</span>                              <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">Respuesta</span>                                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">Get project</span>                      <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-estado_ok">200 OK · 335 B · 42.00 ms</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> GET List projects                    </span><span class="c-tenue">→</span><span class="c-seleccion">   </span><span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_pos">POS</span> <span class="c-texto">Create project</span>                   <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">Última vez</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">▾ teams/</span>                                 <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">hoy 22:31:04</span>                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">List teams</span>                       <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">Team members</span>                     <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">Guardada en</span>                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">▾ users/</span>                                 <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-cadena">users/list-users.yaml</span>                              <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">Get user</span>                         <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_get">GET</span> <span class="c-texto">List users</span>                       <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">El árbol son ficheros YAML:</span>                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-metodo_del">DEL</span> <span class="c-texto">Delete user</span>                      <span class="c-tenue">→</span>   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">se editan con cualquier editor</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">y se versionan con git.</span>                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">Verbos</span>  <span class="c-metodo_get">GET</span>  <span class="c-metodo_pos">POS</span>  <span class="c-metodo_del">DEL</span>                              <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">El color del verbo es lo único</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">que distingue una fila de otra.</span>                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────┘</span>  <span class="c-borde">└────────────────────────────────────────────────────┘</span>
+ <span class="c-tecla">↑↓</span> <span class="c-texto">petición  </span> <span class="c-tecla">⏎</span> <span class="c-texto">abrir  </span> <span class="c-tecla">^n</span> <span class="c-texto">nueva  </span> <span class="c-tecla">F1</span> <span class="c-texto">ayuda  </span>                                                      
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#11131d"></span><code>#11131d</code></td><td>fondo</td><td>fondo</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#d5d6e0"></span><code>#d5d6e0</code></td><td>texto</td><td>texto</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#c8c9e8"></span><code>#c8c9e8</code></td><td>titulo</td><td>pestaña activa y cabeceras</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#3e3162"></span><code>#3e3162</code></td><td>borde</td><td>marco de las cajas</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#9192aa"></span><code>#9192aa</code></td><td>tenue</td><td>ayudas</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#3e3162"></span><code>#3e3162</code></td><td>pestana_activa</td><td></td><td>medido</td></tr><tr><td><span class="swatch" style="background:#ff69b4"></span><code>#ff69b4</code></td><td>acento</td><td>autocompletado</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#68f2d5"></span><code>#68f2d5</code></td><td>metodo_get</td><td>GET</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#ffb86c"></span><code>#ffb86c</code></td><td>metodo_pos</td><td>POST</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#ff6e6e"></span><code>#ff6e6e</code></td><td>metodo_del</td><td>DELETE</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#68f2d5"></span><code>#68f2d5</code></td><td>estado_ok</td><td>código de respuesta</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#195552"></span><code>#195552</code></td><td>estado_pildora</td><td>fondo de la píldora 200 OK</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#ff69b4"></span><code>#ff69b4</code></td><td>boton_enviar</td><td>botón Send</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#8f8fa8"></span><code>#8f8fa8</code></td><td>llave</td><td>claves del JSON</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#9ece6a"></span><code>#9ece6a</code></td><td>cadena</td><td>cadenas</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#ffb86c"></span><code>#ffb86c</code></td><td>numero</td><td>números y booleanos</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#ff69b4"></span><code>#ff69b4</code></td><td>tecla</td><td></td><td>heredado de acento</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

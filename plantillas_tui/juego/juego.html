@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="arcade">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS-9 · TUI con la paleta de la referencia sci-fi</title>
+<style>
+:root{--bg:#131f2d;--panel:#082873;--fill:#0a2050;--fill-sel:#0d90fa;
+ --stroke:#2f8fe0;--cyan:#44c8f9;--blue:#0d90fa;--gold:#e5d818;--pink:#da1e7d;
+ --green:#05b769;--red:#fd4299;--text:#eaf4ff;--dim:#8fb2d4;--ghost:#4d6b8a;
+ --sel-bg:#44c8f9;--sel-fg:#08132b;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+html[data-pal="consola"]{--bg:#0d1622;--panel:#062046;--fill:#081a3a;--stroke:#1f6fac}
+html[data-pal="ambar"]{--bg:#1a1408;--panel:#3a2a06;--fill:#2a1e05;--stroke:#a86f10;
+ --cyan:#ffcf5f;--blue:#e5a318;--gold:#ffe45f;--text:#fff6de;--dim:#c0a070;--ghost:#6b5730}
+html[data-pal="mono"]{--bg:#0d0f13;--panel:#15181d;--fill:#1a1e24;--stroke:#9aa4b0;
+ --cyan:#ffffff;--blue:#c8d0d8;--gold:#e8e8e8;--pink:#d8d8d8;--green:#e8e8e8;
+ --red:#ffffff;--text:#f0f0f0;--dim:#9aa0a8;--ghost:#5a6068;--sel-bg:#e8e8e8;--sel-fg:#0d0f13}
+*{box-sizing:border-box}
+body{margin:0;background:#080c12;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:36px 0 24px;border-bottom:1px solid #17202b;margin-bottom:28px}
+h1{margin:0 0 8px;font-size:27px;letter-spacing:-.02em}
+h1 span{color:var(--cyan);font-family:var(--mono)}
+.sub{color:#7d8590;font-size:15px;line-height:1.68;margin:0;max-width:80ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:18px;font-size:13px;color:#7d8590;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#101822;color:#c9d1d9;border:1px solid #22303f;border-radius:7px;padding:6px 9px}
+label{display:flex;gap:7px;align-items:center;cursor:pointer;user-select:none}
+section{margin:0 0 46px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--cyan);border:1px solid #1d3346;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8590;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:90ch}
+.nota code{font-family:var(--mono);background:#101822;border:1px solid #1b2836;border-radius:4px;padding:0 4px;color:#9fd8ff}
+.term{background:var(--bg);border-radius:8px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1b2b3c, 0 26px 60px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.32;white-space:pre;color:var(--text)}
+.c-top{background:#0b1622}
+.c-top_marca{color:var(--cyan);font-weight:700}
+.c-top_dim{color:var(--dim)}
+.c-brand{color:var(--text);font-weight:700;letter-spacing:.06em}
+.c-dim{color:var(--dim)}
+.c-ghost{color:var(--ghost)}
+.c-text{color:var(--text)}
+.c-cyan{color:var(--cyan)}
+.c-blue{color:var(--blue)}
+.c-gold{color:var(--gold)}
+.c-pink{color:var(--pink)}
+.c-green{color:var(--green)}
+.c-red{color:var(--red)}
+.c-stroke{color:var(--stroke)}
+.c-panel{background:var(--panel)}
+.c-fill{background:var(--fill)}
+.c-fill_sel{background:var(--fill-sel)}
+.c-hud{background:#0a1a30}
+.c-modal{background:#0b1c33}
+.c-modal_borde{color:var(--cyan)}
+.c-field{color:#17456e}
+.c-field_sel{color:var(--cyan)}
+.c-track{color:#2a4a6b}
+.c-silueta{color:#16324f}
+.c-suelo{color:#1b3b5c}
+.c-fondo_puntos{color:#1a2634}
+.c-btn_blue{color:var(--stroke)}
+.c-btn_cyan{color:var(--cyan)}
+.c-btn_gold{color:var(--gold)}
+.c-btn_red{color:var(--red)}
+.c-btn_green{color:var(--green)}
+.c-btn_sel{color:var(--cyan)}
+.c-btn_texto{color:var(--text);background:var(--fill)}
+.c-btn_sel_texto{color:var(--sel-fg);background:var(--fill-sel);font-weight:700}
+.c-sel{background:var(--sel-bg);color:var(--sel-fg);font-weight:700}
+.c-key{background:var(--sel-bg);color:var(--sel-fg);font-weight:700}
+footer{color:#7d8590;font-size:13.5px;line-height:1.75;border-top:1px solid #17202b;padding-top:20px}
+footer code{font-family:var(--mono);background:#101822;border:1px solid #1b2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #17202b;vertical-align:top}
+th{color:#7d8590;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#9fd8ff;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff22}
+.aviso{background:#0b1420;border-left:3px solid var(--gold);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>NEXUS-9 <span>· TUI con la paleta de tu referencia</span></h1>
+  <p class="sub">Seis pantallas de consola de juego, en <strong>100 × 30 celdas</strong>, con
+  los colores <strong>medidos</strong> sobre la imagen de Alamy que enviaste: azul profundo
+  de fondo, contornos luminosos, y los tres acentos de sus barras —rosa, verde y amarillo—.
+  El lenguaje visual se traduce a lo que una terminal permite: contorno de doble línea
+  <code>╔═╗</code>, relleno azul sólido y botones biselados de tres filas.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="arcade">Arcade</option><option value="consola">Consola oscura</option><option value="ambar">Ámbar</option><option value="mono">Sin color</option></select></label>
+  </div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Acceso</h2></div>
+  <p class="nota">Los tres recursos de la referencia —vida rosa, créditos verdes, energía amarilla— en barras segmentadas ▮▯, y el botón biselado de tres filas ▛▀▜ / ▌ ▐ / ▙▄▟.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ NEXUS-9</span><span class="c-top">                                                     </span><span class="c-top_dim">TERMINAL 04 · SESIÓN 118 · 20:41:07</span><span class="c-top">  </span>
+  <span class="c-cyan">▄▄▄▄▄▄▄▄▄▄</span> <span class="c-blue">▄▄▄▄▄▄</span> <span class="c-gold">▄▄▄</span>                                                                             
+                                                                                                    
+  <span class="c-brand">N E X U S - 9</span>                                                                                     
+  <span class="c-dim">consola de mando · versión 4.2.1</span>                                                                  
+                                                                                                    
+  <span class="c-dim">MENÚ</span>                          <span class="c-stroke">╔═ ACCESO ═══════════════════════╗</span>    <span class="c-dim">SISTEMA</span>                       
+  <span class="c-btn_sel">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>    <span class="c-stroke">║</span><span class="c-panel">                                </span><span class="c-stroke">║</span>    <span class="c-btn_cyan">▛▀▀▀▀▀▀▜</span> <span class="c-btn_blue">▛▀▀▀▀▀▀▜</span> <span class="c-btn_blue">▛▀▀▀▀▀▀▜</span>    
+  <span class="c-btn_sel">▌</span><span class="c-btn_sel_texto">          PLAY          </span><span class="c-btn_sel">▐</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">NOMBRE</span><span class="c-panel">                         </span><span class="c-stroke">║</span>    <span class="c-btn_cyan">▌</span><span class="c-btn_texto">  &gt;   </span><span class="c-btn_cyan">▐</span> <span class="c-btn_blue">▌</span><span class="c-btn_texto">  II  </span><span class="c-btn_blue">▐</span> <span class="c-btn_blue">▌</span><span class="c-btn_texto">  =   </span><span class="c-btn_blue">▐</span>    
+  <span class="c-btn_sel">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field">┌────────────────────────────┐</span><span class="c-panel"> </span><span class="c-stroke">║</span>    <span class="c-btn_cyan">▙▄▄▄▄▄▄▟</span> <span class="c-btn_blue">▙▄▄▄▄▄▄▟</span> <span class="c-btn_blue">▙▄▄▄▄▄▄▟</span>    
+                                <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field">│ </span><span class="c-text">kestrel.04</span><span class="c-field">                 │</span><span class="c-panel"> </span><span class="c-stroke">║</span>                                  
+  <span class="c-btn_blue">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field">└────────────────────────────┘</span><span class="c-panel"> </span><span class="c-stroke">║</span>    <span class="c-btn_blue">▛▀▀▀▀▀▀▜</span> <span class="c-btn_red">▛▀▀▀▀▀▀▜</span> <span class="c-btn_green">▛▀▀▀▀▀▀▜</span>    
+  <span class="c-btn_blue">▌</span><span class="c-btn_texto">         RESUME         </span><span class="c-btn_blue">▐</span>    <span class="c-stroke">║</span><span class="c-panel">                                </span><span class="c-stroke">║</span>    <span class="c-btn_blue">▌</span><span class="c-btn_texto">  A   </span><span class="c-btn_blue">▐</span> <span class="c-btn_red">▌</span><span class="c-btn_texto">  x   </span><span class="c-btn_red">▐</span> <span class="c-btn_green">▌</span><span class="c-btn_texto">  v   </span><span class="c-btn_green">▐</span>    
+  <span class="c-btn_blue">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">CLAVE</span><span class="c-panel">                          </span><span class="c-stroke">║</span>    <span class="c-btn_blue">▙▄▄▄▄▄▄▟</span> <span class="c-btn_red">▙▄▄▄▄▄▄▟</span> <span class="c-btn_green">▙▄▄▄▄▄▄▟</span>    
+                                <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field_sel">┌────────────────────────────┐</span><span class="c-panel"> </span><span class="c-stroke">║</span>                                  
+  <span class="c-btn_blue">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field">│ </span><span class="c-text">••••••••••</span><span class="c-cyan">█</span><span class="c-field">                │</span><span class="c-panel"> </span><span class="c-stroke">║</span>                                  
+  <span class="c-btn_blue">▌</span><span class="c-btn_texto">        OPTIONS         </span><span class="c-btn_blue">▐</span>    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-field_sel">└────────────────────────────┘</span><span class="c-panel"> </span><span class="c-stroke">║</span>    <span class="c-dim">ESTADO</span>                        
+  <span class="c-btn_blue">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>    <span class="c-stroke">║</span><span class="c-panel">                                </span><span class="c-stroke">║</span>    <span class="c-dim">VIDA</span> <span class="c-pink">▮▮▮▮▮▮▮▮▮▯▯▯</span> <span class="c-text">72 %</span>        
+                                <span class="c-stroke">║</span><span class="c-panel">           </span><span class="c-btn_sel">▛▀▀▀▀▀▀▀▀▜</span><span class="c-panel">           </span><span class="c-stroke">║</span>                                  
+  <span class="c-btn_blue">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>    <span class="c-stroke">║</span><span class="c-panel">           </span><span class="c-btn_sel">▌</span><span class="c-btn_sel_texto">   OK   </span><span class="c-btn_sel">▐</span><span class="c-panel">           </span><span class="c-stroke">║</span>    <span class="c-dim">CRÉD</span> <span class="c-green">▮▮▮▮▮▮▯▯▯▯▯▯</span> <span class="c-text">4 210</span>       
+  <span class="c-btn_blue">▌</span><span class="c-btn_texto">          EXIT          </span><span class="c-btn_blue">▐</span>    <span class="c-stroke">║</span><span class="c-panel">           </span><span class="c-btn_sel">▙▄▄▄▄▄▄▄▄▟</span><span class="c-panel">           </span><span class="c-stroke">║</span>                                  
+  <span class="c-btn_blue">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>    <span class="c-stroke">║</span><span class="c-panel">                                </span><span class="c-stroke">║</span>    <span class="c-dim">ENER</span> <span class="c-gold">▮▮▮▮▮▮▮▮▮▮▯▯</span> <span class="c-text">86 %</span>        
+                                <span class="c-stroke">╚════════════════════════════════╝</span>                                  
+                                                                                                    
+                                                                      <span class="c-dim">canal</span>   <span class="c-track">▬▬▬▬▬▬▬▬▬▬▬</span><span class="c-cyan">▮</span><span class="c-track">▬▬▬▬▬▬</span>    
+                                                                                                    
+  <span class="c-ghost">▸ el sistema pide credenciales antes de cargar el sector.</span>                                         
+                                                                                                    
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ ⏎ ▜</span><span class="c-top"> </span><span class="c-top_dim">entrar   </span><span class="c-key">▛ ↑↓ ▜</span><span class="c-top"> </span><span class="c-top_dim">menú   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">salir   </span><span class="c-key">▛ F1 ▜</span><span class="c-top"> </span><span class="c-top_dim">ayuda   </span><span class="c-top">                                      </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Perfil</h2></div>
+  <p class="nota">Atributos con la misma barra segmentada y el panel de recursos con sus cifras a la derecha, siempre escritas: el color no informa solo.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ PERFIL</span><span class="c-top">                                                           </span><span class="c-top_dim">OPERADOR kestrel.04 · NIVEL 27</span><span class="c-top">  </span>
+  <span class="c-cyan">▄▄▄▄▄▄▄▄▄▄</span> <span class="c-blue">▄▄▄▄▄▄</span> <span class="c-gold">▄▄▄</span>                                                                             
+                                                                                                    
+  <span class="c-stroke">╔═ OPERADOR ═══════════════════════════════╗</span>  <span class="c-stroke">╔═ RECURSOS ═════════════════════════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                          </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-brand">K E S T R E L</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">VIDA</span><span class="c-panel"> </span><span class="c-pink">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯▯▯▯</span><span class="c-panel"> </span><span class="c-text">720 / 1 000</span><span class="c-panel">      </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">especialista en intrusión · sombra</span><span class="c-panel">       </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                          </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">CRÉDITOS</span><span class="c-panel"> </span><span class="c-green">▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯▯▯▯▯▯▯▯▯</span><span class="c-panel"> </span><span class="c-text">4 210 ₡</span><span class="c-panel">      </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">NIVEL</span><span class="c-panel">   </span><span class="c-gold">27</span><span class="c-panel">  </span><span class="c-dim">XP</span><span class="c-panel">                           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-cyan">████████████████████████░░░░░░░░░░░░░░</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">ENERGÍA</span><span class="c-panel"> </span><span class="c-gold">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯</span><span class="c-panel"> </span><span class="c-text">860 / 1 000</span><span class="c-panel">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">8 240 / 12 800 XP</span><span class="c-panel">                        </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                          </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ la energía se recupera en los nodos.</span><span class="c-panel">         </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">ATRIBUTOS</span><span class="c-panel">                                </span><span class="c-stroke">║</span>  <span class="c-stroke">╚════════════════════════════════════════════════╝</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span>cuerpo      <span class="c-panel"> </span><span class="c-pink">▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯</span><span class="c-panel">  </span><span class="c-text"> 78</span><span class="c-panel">       </span><span class="c-stroke">║</span>                                                      
+  <span class="c-stroke">║</span><span class="c-panel"> </span>reflejos    <span class="c-panel"> </span><span class="c-cyan">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯</span><span class="c-panel">  </span><span class="c-text"> 92</span><span class="c-panel">       </span><span class="c-stroke">║</span>  <span class="c-stroke">╔═ HISTORIAL ════════════════════════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span>tecnología  <span class="c-panel"> </span><span class="c-blue">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯</span><span class="c-panel">  </span><span class="c-text"> 85</span><span class="c-panel">       </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span>voluntad    <span class="c-panel"> </span><span class="c-gold">▮▮▮▮▮▮▮▮▮▮▯▯▯▯▯▯</span><span class="c-panel">  </span><span class="c-text"> 61</span><span class="c-panel">       </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">20:38</span><span class="c-panel">  </span><span class="c-green">sector 09 despejado</span><span class="c-panel">                     </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                          </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                          </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">20:31</span><span class="c-panel">  </span><span class="c-gold">compra: filo de plasma</span><span class="c-panel">                  </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">╚══════════════════════════════════════════╝</span>  <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+                                                <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">20:12</span><span class="c-panel">  </span><span class="c-red">alerta: rastreador activo</span><span class="c-panel">               </span><span class="c-stroke">║</span>  
+  <span class="c-dim">INSIGNIAS</span>                                     <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-cyan">◆</span>  <span class="c-gold">◆</span>  <span class="c-pink">◆</span>  <span class="c-dim">◇</span>  <span class="c-dim">◇</span>                                 <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">19:58</span><span class="c-panel">  </span><span class="c-cyan">nodo de descanso usado</span><span class="c-panel">                  </span><span class="c-stroke">║</span>  
+                                                <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+  <span class="c-dim">3 de 5</span>                                        <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">19:40</span><span class="c-panel">  </span><span class="c-blue">misión secundaria aceptada</span><span class="c-panel">              </span><span class="c-stroke">║</span>  
+                                                <span class="c-stroke">║</span><span class="c-panel">                                                </span><span class="c-stroke">║</span>  
+                                                <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ 5 de 128 · el resto, en el registro</span><span class="c-panel">          </span><span class="c-stroke">║</span>  
+                                                <span class="c-stroke">╚════════════════════════════════════════════════╝</span>  
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ TAB ▜</span><span class="c-top"> </span><span class="c-top_dim">inventario   </span><span class="c-key">▛ E ▜</span><span class="c-top"> </span><span class="c-top_dim">equipar   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">volver   </span><span class="c-top">                                            </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Tienda</h2></div>
+  <p class="nota">Tabla con precios en ═ de separación, fila elegida en invertido y panel de detalle a la derecha. El saldo se compara con el precio a la vista.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ MERCADO</span><span class="c-top">                                                             </span><span class="c-top_dim">PUESTO 7 · CRÉDITOS 4 210 ₡</span><span class="c-top">  </span>
+  <span class="c-cyan">▄▄▄▄▄▄▄▄▄▄</span> <span class="c-blue">▄▄▄▄▄▄</span> <span class="c-gold">▄▄▄</span>                                                                             
+                                                                                                    
+  <span class="c-stroke">╔═ CATÁLOGO ═══════════════════════════════════════════════════╗</span>  <span class="c-stroke">╔═ DETALLE ══════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                              </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">ARTÍCULO                  CLASE           PRECIO</span><span class="c-panel">             </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-brand">IMPULSO NEURAL</span><span class="c-panel">             </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-stroke">════════════════════════════════════════════════════════════</span><span class="c-panel"> </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">clase: reflejos</span><span class="c-panel">            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  FILO DE PLASMA          </span><span class="c-dim">cuerpo      </span><span class="c-panel">          </span><span class="c-gold">   1 200 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-sel"> &gt; IMPULSO NEURAL          reflejos                 2 400 ₡   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-green">+12 % velocidad</span><span class="c-panel">            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  DECK MK-IV              </span><span class="c-dim">tecnología  </span><span class="c-panel">          </span><span class="c-gold">   3 800 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-red">-4 % voluntad</span><span class="c-panel">              </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  FILTRO ÓPTICO           </span><span class="c-dim">voluntad    </span><span class="c-panel">          </span><span class="c-gold">     900 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  BLINDAJE LIGERO         </span><span class="c-dim">cuerpo      </span><span class="c-panel">          </span><span class="c-gold">   1 650 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">PRECIO</span><span class="c-panel">  </span><span class="c-gold">2 400 ₡</span><span class="c-panel">            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  PARCHE DE HIELO         </span><span class="c-dim">tecnología  </span><span class="c-panel">          </span><span class="c-gold">     600 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">SALDO</span><span class="c-panel">   </span><span class="c-green">4 210 ₡</span><span class="c-panel">            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-text">  SANGRE SINT. 2 L        </span><span class="c-dim">cuerpo      </span><span class="c-panel">          </span><span class="c-gold">     310 ₡</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                              </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ quedan 1 en el puesto.</span><span class="c-panel">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ 7 de 42 artículos · el precio cambia con la reputación.</span><span class="c-panel">    </span><span class="c-stroke">║</span>  <span class="c-stroke">╚════════════════════════════╝</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                              </span><span class="c-stroke">║</span>                                  
+  <span class="c-stroke">╚══════════════════════════════════════════════════════════════╝</span>  <span class="c-stroke">╔═ ACCIONES ═════════════════╗</span>  
+                                                                    <span class="c-stroke">║</span><span class="c-btn_sel">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span><span class="c-stroke">║</span>  
+                                                                    <span class="c-stroke">║</span><span class="c-btn_sel">▌</span><span class="c-btn_sel_texto">         COMPRAR          </span><span class="c-btn_sel">▐</span><span class="c-stroke">║</span>  
+                                                                    <span class="c-stroke">║</span><span class="c-btn_sel">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span><span class="c-stroke">║</span>  
+                                                                    <span class="c-stroke">║</span><span class="c-panel">                            </span><span class="c-stroke">║</span>  
+                                                                    <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">NEGOCIAR</span><span class="c-panel">    </span><span class="c-dim">SALIR</span><span class="c-panel">          </span><span class="c-stroke">║</span>  
+                                                                    <span class="c-stroke">╚════════════════════════════╝</span>  
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ ↑↓ ▜</span><span class="c-top"> </span><span class="c-top_dim">artículo   </span><span class="c-key">▛ ⏎ ▜</span><span class="c-top"> </span><span class="c-top_dim">comprar   </span><span class="c-key">▛ N ▜</span><span class="c-top"> </span><span class="c-top_dim">negociar   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">salir   </span><span class="c-top">                               </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>Mapa</h2></div>
+  <p class="nota">Rejilla de rutas con ┼─│, nodos ▣, el jugador ► y el rastreador ◆ en rosa. Leyenda explícita: ninguna forma se explica sola.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ SECTOR 09</span><span class="c-top">                                                   </span><span class="c-top_dim">POSICIÓN 41.2 / 08.7 · OXÍGENO 94 %</span><span class="c-top">  </span>
+  <span class="c-cyan">▄▄▄▄▄▄▄▄▄▄</span> <span class="c-blue">▄▄▄▄▄▄</span> <span class="c-gold">▄▄▄</span>                                                                             
+                                                                                                    
+  <span class="c-stroke">╔═ MAPA ═════════════════════════════════════════════════════════╗</span>  <span class="c-stroke">╔═ LEYENDA ════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-cyan">▣</span><span class="c-panel">  </span><span class="c-dim">nodo de descanso</span><span class="c-panel">      </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-green">▣</span><span class="c-panel">  </span><span class="c-dim">nodo seguro</span><span class="c-panel">           </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-gold">▣</span><span class="c-panel">  </span><span class="c-dim">puesto</span><span class="c-panel">                </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">┼───────────────┼───────────────┼───────────────┼</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-red">►</span><span class="c-panel">  </span><span class="c-dim">tú</span><span class="c-panel">                    </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-pink">◆</span><span class="c-panel">  </span><span class="c-dim">rastreador</span><span class="c-panel">            </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">  </span><span class="c-cyan">▣</span><span class="c-panel"> </span><span class="c-dim">nodo 3</span><span class="c-panel">     </span><span class="c-track">│</span><span class="c-panel">  </span><span class="c-green">▣</span><span class="c-panel"> </span><span class="c-dim">nodo 7</span><span class="c-panel">     </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel"> </span><span class="c-red">►</span><span class="c-panel"> </span><span class="c-red">tú</span><span class="c-panel">          </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">╚══════════════════════════╝</span>  
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">               </span><span class="c-track">│</span><span class="c-panel">           </span><span class="c-stroke">║</span>                                
+  <span class="c-stroke">║</span><span class="c-panel">    </span><span class="c-track">┼───────────────┼───────────────┼───────────────┼</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">╔═ DISTANCIA ══════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                             </span><span class="c-gold">▣</span><span class="c-panel"> </span><span class="c-dim">nodo 9</span><span class="c-panel">           </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">al nodo 9</span><span class="c-panel">       </span><span class="c-text">1.4 km</span><span class="c-panel">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">           </span><span class="c-cyan">▣</span><span class="c-panel"> </span><span class="c-dim">nodo 1</span><span class="c-panel">                                             </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">al nodo 7</span><span class="c-panel">       </span><span class="c-text">2.9 km</span><span class="c-panel">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                       </span><span class="c-pink">◆</span><span class="c-panel"> </span><span class="c-pink">rastreador</span><span class="c-panel">                             </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel">                          </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-dim">OXÍGENO</span><span class="c-panel">                  </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ el rastreador se mueve: hace 2 ciclos estaba en el nodo 3.</span><span class="c-panel">   </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-cyan">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯▯▯</span><span class="c-panel"> </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-panel">                                                                </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-panel"> </span><span class="c-ghost">▸ a este ritmo: 9 min.</span><span class="c-panel">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">╚════════════════════════════════════════════════════════════════╝</span>  <span class="c-stroke">╚══════════════════════════╝</span>  
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ ←→ ▜</span><span class="c-top"> </span><span class="c-top_dim">mover   </span><span class="c-key">▛ ⏎ ▜</span><span class="c-top"> </span><span class="c-top_dim">viajar   </span><span class="c-key">▛ M ▜</span><span class="c-top"> </span><span class="c-top_dim">marcar   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">salir   </span><span class="c-top">                                     </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">05</span><h2>HUD de combate</h2></div>
+  <p class="nota">La pantalla más densa: vida y energía arriba, radar a la derecha, objetivos con casillas [x] [&gt;] [ ] y tres botones de acción abajo.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ SECTOR 09 · COMBATE</span><span class="c-top">                                                         </span><span class="c-top_dim">OLAS 3/5 · 20:44:12</span><span class="c-top">  </span>
+                                                                                                    
+  <span class="c-dim">VIDA</span> <span class="c-pink">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯▯▯</span>  <span class="c-text">720</span>  <span class="c-dim">ENERGÍA</span> <span class="c-gold">▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▯▯▯▯</span> <span class="c-text">860</span>  <span class="c-dim">OLAS</span>  <span class="c-cyan">▮▮▮▯▯</span>                 
+                                                                                                    
+  <span class="c-stroke">╔═ ESCENA ═══════════════════════════════════════════════════╗</span>  <span class="c-stroke">╔═ RADAR ══════════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-hud">                                                            </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">     </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">   </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud">                                                            </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">    </span><span class="c-ghost">·</span><span class="c-hud">  </span><span class="c-red">◇</span><span class="c-hud">   </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">    </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">▀▀▀▀▀▀▀▀▀</span><span class="c-hud">                               </span><span class="c-silueta">▀▀▀▀▀▀▀▀▀▀▀▀</span><span class="c-hud">       </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">   </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">     </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">           </span><span class="c-silueta">▀▀▀▀▀▀▀▀▀▀</span><span class="c-hud">          </span><span class="c-silueta">████████████</span><span class="c-hud">       </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">  </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">    </span><span class="c-cyan">●</span><span class="c-hud"> </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">           </span><span class="c-silueta">██████████</span><span class="c-hud">          </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">▀▀▀</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">       </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">▀▀▀▀▀▀▀</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">          </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">       </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-red">◇</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud"> </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">███████</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">  </span><span class="c-silueta">▀▀▀▀▀▀</span><span class="c-hud">  </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-gold">►</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">      </span><span class="c-ghost">·</span><span class="c-hud">  </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">███████</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">  </span><span class="c-silueta">██████</span><span class="c-hud">  </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">╚══════════════════════════════╝</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">███████</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">  </span><span class="c-silueta">██████</span><span class="c-hud">  </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>                                    
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">███████</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">  </span><span class="c-silueta">██████</span><span class="c-hud">  </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">╔═ OBJETIVOS ══════════════════╗</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-silueta">█████████</span><span class="c-hud">  </span><span class="c-silueta">███████</span><span class="c-hud">  </span><span class="c-silueta">██████████</span><span class="c-hud">  </span><span class="c-silueta">██████</span><span class="c-hud">  </span><span class="c-silueta">████████████</span><span class="c-hud">  </span><span class="c-silueta">███</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">                              </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-suelo">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-green">[x]</span><span class="c-hud"> </span><span class="c-text">despejar el nodo 3</span><span class="c-hud">       </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud">   </span><span class="c-cyan">◆</span><span class="c-hud">             </span><span class="c-red">◇</span><span class="c-hud">                    </span><span class="c-gold">►</span><span class="c-hud">            </span><span class="c-red">◇</span><span class="c-hud">        </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">                              </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud">  </span><span class="c-cyan">◆ aliado</span><span class="c-hud">      </span><span class="c-red">◇ hostil</span><span class="c-hud">             </span><span class="c-gold">► tú</span><span class="c-hud">         </span><span class="c-red">◇ hostil</span><span class="c-hud">  </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-green">[x]</span><span class="c-hud"> </span><span class="c-text">recoger el paquete</span><span class="c-hud">       </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-ghost">▸ el hostil de la derecha está fuera de cobertura.</span><span class="c-hud">         </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud">                              </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">║</span><span class="c-hud">                                                            </span><span class="c-stroke">║</span>  <span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-gold">[&gt;]</span><span class="c-hud"> </span><span class="c-text">llegar al nodo 9</span><span class="c-hud">         </span><span class="c-stroke">║</span>  
+  <span class="c-stroke">╚════════════════════════════════════════════════════════════╝</span>  <span class="c-stroke">║</span><span class="c-hud">                              </span><span class="c-stroke">║</span>  
+  <span class="c-btn_sel">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>  <span class="c-btn_blue">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span>  <span class="c-btn_gold">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span><span class="c-stroke">║</span><span class="c-hud"> </span><span class="c-dim">[ ]</span><span class="c-hud"> </span><span class="c-dim">sobrevivir a la ola 5</span><span class="c-hud">    </span><span class="c-stroke">║</span>  
+  <span class="c-btn_sel">▌</span><span class="c-btn_sel_texto">     DISPARAR     </span><span class="c-btn_sel">▐</span>  <span class="c-btn_blue">▌</span><span class="c-btn_texto">     CUBRIRSE     </span><span class="c-btn_blue">▐</span>  <span class="c-btn_gold">▌</span><span class="c-btn_texto">     RECARGAR     </span><span class="c-btn_gold">▐</span><span class="c-stroke">╚══════════════════════════════╝</span>  
+  <span class="c-btn_sel">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>  <span class="c-btn_blue">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>  <span class="c-btn_gold">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span>                                  
+                                                                    <span class="c-dim">munición</span>  <span class="c-cyan">▮▮▮▮▮▮▮▯▯▯</span>  <span class="c-text">28</span>        
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ ESP ▜</span><span class="c-top"> </span><span class="c-top_dim">disparar   </span><span class="c-key">▛ E ▜</span><span class="c-top"> </span><span class="c-top_dim">cubrirse   </span><span class="c-key">▛ R ▜</span><span class="c-top"> </span><span class="c-top_dim">recargar   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">pausa   </span><span class="c-top">                             </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">06</span><h2>Pausa</h2></div>
+  <p class="nota">Un modal opaco sobre el fondo apagado con puntos ·. Sin trama dentro del panel: lo que se lee no lleva adornos encima.</p>
+  <div class="term"><pre><span class="c-top"> </span><span class="c-top_marca">◤ NEXUS-9</span><span class="c-top">                                                              </span><span class="c-top_dim">SESIÓN EN PAUSA · 20:45:03</span><span class="c-top">  </span>
+  <span class="c-cyan">▄▄▄▄▄▄▄▄▄▄</span> <span class="c-blue">▄▄▄▄▄▄</span> <span class="c-gold">▄▄▄</span>                                                                             
+                                                                                                    
+  <span class="c-fondo_puntos">· · · · · · · · · · · · · · · · · · · · · · · · </span>                                                  
+  <span class="c-fondo_puntos">· · · · · · · · · · · · · · · · · · · · · · · · </span>                                                  
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">╔═ PAUSA ══════════════════════════════════════╗</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">               </span><span class="c-brand">S E S I Ó N   E N   P A U S A</span><span class="c-modal">  </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">     </span><span class="c-dim">el sector sigue ahí fuera; aquí no corre</span><span class="c-modal"> </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">     </span><span class="c-dim">el tiempo.</span><span class="c-modal">                               </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_sel">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_sel">▌</span><span class="c-btn_sel_texto">               CONTINUE               </span><span class="c-btn_sel">▐</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_sel">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_blue">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_blue">▌</span><span class="c-btn_texto">               OPTIONS                </span><span class="c-btn_blue">▐</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_blue">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_red">▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_red">▌</span><span class="c-btn_texto">                 EXIT                 </span><span class="c-btn_red">▐</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-btn_red">▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟</span><span class="c-modal">   </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">   </span><span class="c-ghost">▸ salir pierde el progreso de esta oleada.</span><span class="c-modal"> </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">║</span><span class="c-modal">                                              </span><span class="c-modal_borde">║</span>                          
+  <span class="c-fondo_puntos">· · · · · · · · · · · · </span><span class="c-modal_borde">╚══════════════════════════════════════════════╝</span>                          
+                                                                                                    
+                                                                                                    
+<span class="c-top">  </span><span class="c-key">▛ ⏎ ▜</span><span class="c-top"> </span><span class="c-top_dim">continuar   </span><span class="c-key">▛ ↑↓ ▜</span><span class="c-top"> </span><span class="c-top_dim">elegir   </span><span class="c-key">▛ ESC ▜</span><span class="c-top"> </span><span class="c-top_dim">seguir jugando   </span><span class="c-top">                                       </span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">07</span><h2>De dónde salen estos colores</h2></div>
+  <p class="nota">No están elegidos a ojo. Se descargó la imagen de referencia y se midió
+  la mediana de color en nueve regiones (fondo, cuerpo y borde del panel, botón azul,
+  botón amarillo, las tres barras y los botones de validar y cancelar). Estos son los
+  valores medidos, tal cual:</p>
+  <table>
+    <tr><th>Color medido</th><th>De dónde se sacó</th></tr>
+    <tr><td><span class="swatch" style="background:#131f2d"></span><code>#131f2d</code></td><td>fondo</td></tr><tr><td><span class="swatch" style="background:#082873"></span><code>#082873</code></td><td>panel</td></tr><tr><td><span class="swatch" style="background:#1f6fac"></span><code>#1f6fac</code></td><td>borde</td></tr><tr><td><span class="swatch" style="background:#0d90fa"></span><code>#0d90fa</code></td><td>azul</td></tr><tr><td><span class="swatch" style="background:#44c8f9"></span><code>#44c8f9</code></td><td>cian</td></tr><tr><td><span class="swatch" style="background:#e5d818"></span><code>#e5d818</code></td><td>amarillo</td></tr><tr><td><span class="swatch" style="background:#da1e7d"></span><code>#da1e7d</code></td><td>rosa</td></tr><tr><td><span class="swatch" style="background:#05b769"></span><code>#05b769</code></td><td>verde</td></tr><tr><td><span class="swatch" style="background:#fd4299"></span><code>#fd4299</code></td><td>rojo</td></tr>
+  </table>
+  <div class="aviso"><strong>Aviso importante sobre el enlace:</strong> la página exacta
+  que enviaste (<code>…game-image539565602.html</code>) devuelve <em>404 · Page not found</em>
+  en Alamy, y su CDN ya no sirve ese identificador. Lo que se midió es la pieza hermana de
+  la misma serie y la misma autora (Yuliya Pauliukevich, «Game buttons and frames in sci fi
+  style… vector cartoon set», ID 2H0HNK8), que es de la misma familia visual: botones
+  biselados, barras de vida/dinero/energía y marcos con contorno luminoso. Si me pasas la
+  imagen exacta —basta con arrastrarla aquí— vuelvo a medir y ajusto la paleta al píxel.</div>
+</section>
+<footer>
+  Generado por <code>juego/juego.py</code> · motor de celdas en <code>mockups/celdas.py</code>
+  · solo biblioteca estándar · los colores de la imagen se usan como referencia de paleta,
+  no se reproduce la ilustración.
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

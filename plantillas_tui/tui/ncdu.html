@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ncdu · TUI real</title>
+<style>
+:root{--texto:#ffffff;
+ --titulo:#ffffff;
+ --tenue:#a06c92;
+ --barra:#ffffff;
+ --aviso:#963229;
+ --seleccion:#ffffff;
+ --inverso:#ffffff;
+ --borde:#490e24;--sel_fg:#300a24;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-tenue{color:var(--tenue)}
+.c-barra{color:var(--barra)}
+.c-aviso{color:var(--aviso)}
+.c-borde{color:var(--borde)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>ncdu <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Espacio en disco: un <code>du</code> por el que te mueves con las flechas. Es el más austero de los siete y el más honesto del grupo: <strong>ncdu no tiene paleta propia</strong>, hereda los colores del terminal. Su identidad es tipográfica —columnas de ancho fijo, barras dibujadas con <code>#</code>, la fila elegida en vídeo inverso— y eso es justo lo que nuestras series anteriores no podían permitirse.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option></select></label>
+    <span><code>ncdu /etc</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> <strong>Medida</strong> de una captura, porque aquí no hay nada que leer: ncdu no trae paleta, hereda la del terminal (aubergine <code>#300a24</code>, el esquema clásico de Ubuntu, y blanco puro para todo el texto). El rojo <code>#963229</code> es el del aviso del diálogo. El <code>tenue</code> es una derivación de ese fondo y va marcado como tal. Consecuencia honesta: ningún color de esta pantalla lo eligió ncdu.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Directorio</h2></div>
+  <p class="nota">La pantalla principal: tamaño, barra de <code>#</code> y ruta, con la fila elegida en vídeo inverso y el total en la última línea.</p>
+  <div class="term"><pre><span class="c-inverso"> ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help                                       </span>
+<span class="c-texto">--- /etc ---------------------------------------------------------------------------------------</span>    
+  <span class="c-texto">   3,6 MiB [</span><span class="c-barra">#########</span> <span class="c-texto">] /brltty</span>                                                                   
+  <span class="c-texto">   1,8 MiB [</span><span class="c-barra">####</span><span class="c-texto">     </span> <span class="c-texto">] /apparmor.d</span>                                                               
+<span class="c-seleccion">     1,1 MiB [###       ] /ssl                                                                      </span>
+  <span class="c-texto"> 636,0 KiB [</span><span class="c-barra">##</span><span class="c-texto">       </span> <span class="c-texto">] /asciidoc</span>                                                                 
+  <span class="c-texto"> 524,0 KiB [</span><span class="c-barra">##</span><span class="c-texto">       </span> <span class="c-texto">] /xdg</span>                                                                      
+  <span class="c-texto"> 496,0 KiB [</span><span class="c-barra">##</span><span class="c-texto">       </span> <span class="c-texto">] /X11</span>                                                                      
+  <span class="c-texto"> 404,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /init</span>                                                                     
+  <span class="c-texto"> 392,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /fonts</span>                                                                    
+  <span class="c-texto"> 344,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /ssh</span>                                                                      
+  <span class="c-texto"> 332,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /sane.d</span>                                                                   
+  <span class="c-texto"> 328,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /init.d</span>                                                                   
+  <span class="c-texto"> 232,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /ImageMagick-6</span>                                                            
+  <span class="c-texto"> 220,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /dbus-1</span>                                                                   
+  <span class="c-texto"> 168,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /lynx</span>                                                                     
+  <span class="c-texto"> 152,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /java-8-openjdk</span>                                                           
+  <span class="c-texto"> 144,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /console-setup</span>                                                            
+  <span class="c-texto"> 140,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /default</span>                                                                  
+  <span class="c-texto"> 136,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /ld.so.cache</span>                                                              
+  <span class="c-texto"> 124,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /terminfo</span>                                                                 
+  <span class="c-texto"> 112,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /pam.d</span>                                                                    
+  <span class="c-texto">  96,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /security</span>                                                                 
+  <span class="c-texto">  88,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /apt</span>                                                                      
+  <span class="c-texto">  76,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /NetworkManager</span>                                                           
+  <span class="c-texto">  64,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /pki</span>                                                                      
+  <span class="c-texto">  52,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] /cron.d</span>                                                                   
+                                                                                                    
+<span class="c-inverso"> Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311                                </span>
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Borrar</h2></div>
+  <p class="nota">El diálogo de borrado, a todo el ancho y tapando la lista: tres opciones y la elegida en vídeo inverso. Ni un color de más.</p>
+  <div class="term"><pre><span class="c-inverso"> ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help                                       </span>
+<span class="c-texto">--- /home/ana/Descargas ----------------------------------------------------------------------------</span>
+<span class="c-seleccion">     2,4 GiB [######### ] videos/                                                                   </span>
+  <span class="c-texto"> 812,3 MiB [</span><span class="c-barra">######</span><span class="c-texto">   </span> <span class="c-texto">] iso/</span>                                                                      
+  <span class="c-texto">  44,1 MiB [</span><span class="c-barra">##</span><span class="c-texto">       </span> <span class="c-texto">] notas.txt</span>                                                                 
+  <span class="c-texto">  12,0 MiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] captura.png</span>                                                               
+  <span class="c-texto">   8,2 MiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] musica/</span>                                                                   
+  <span class="c-texto">   4,0 MiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] fotos/</span>                                                                    
+  <span class="c-texto">   2,1 MiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] podcast/</span>                                                                  
+  <span class="c-texto"> 900,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] cv.pdf</span>                                                                    
+  <span class="c-texto"> 412,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] factura.pdf</span>                                                               
+  <span class="c-texto"> 190,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] notas-viejas.txt</span>                                                          
+  <span class="c-texto">  88,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] lista.txt</span>                                                                 
+  <span class="c-texto">  12,0 KiB [</span><span class="c-barra">#</span><span class="c-texto">        </span> <span class="c-texto">] leeme.md</span>                                                                  
+<span class="c-texto">┌─ borrar ─────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-texto">│</span><span class="c-fondo">                                                                                                  </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">   </span><span class="c-texto">Are you sure you want to delete</span><span class="c-fondo">                                                                </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">   </span><span class="c-aviso">&quot;/home/ana/Descargas/videos&quot;</span><span class="c-fondo">                                                                   </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">   </span><span class="c-texto">which is 118 files?</span><span class="c-fondo">                                                                            </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">                                                                                                  </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">                                                                                                  </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">                                       </span><span class="c-seleccion"> yes  </span><span class="c-fondo">      </span><span class="c-texto">no</span><span class="c-fondo">        </span><span class="c-texto">[cancel]</span><span class="c-fondo">                             </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">                                                                                                  </span><span class="c-texto">│</span>
+<span class="c-texto">│</span><span class="c-fondo">   </span><span class="c-tenue">←→ elegir · ⏎ confirmar · esc cancelar</span><span class="c-fondo">                                                         </span><span class="c-texto">│</span>
+<span class="c-texto">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-inverso"> Total disk usage:  3,2 GiB   Apparent size:  3,1 GiB   Items: 4                                    </span>
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Escaneo</h2></div>
+  <p class="nota">El escaneo con la ruta que está leyendo en ese momento y el progreso. Es la pantalla que demuestra que ncdu vive del texto y no del color.</p>
+  <div class="term"><pre><span class="c-inverso"> ncdu 1.11 ~ escaneando</span>                                                                             
+                                                                                                    
+  <span class="c-texto">escaneando  /usr/lib/x86_64-linux-gnu/</span>                                                            
+                                                                                                    
+    <span class="c-tenue">▸ /usr/lib/x86_64-linux-gnu/</span>                                                                    
+  <span class="c-tenue">▸ /usr/lib/x86_64-linux-gnu/libc.so.6</span>                                                             
+    <span class="c-tenue">▸ /usr/share/</span>                                                                                   
+  <span class="c-tenue">▸ /usr/share/doc/</span>                                                                                 
+    <span class="c-tenue">▸ /usr/share/doc/python3/</span>                                                                       
+  <span class="c-tenue">▸ /usr/share/doc/python3/html/</span>                                                                    
+ <span class="c-tenue">▸ /usr/share/doc/python3/html/style.css</span>                                                            
+    <span class="c-tenue">▸ /usr/share/man/</span>                                                                               
+  <span class="c-tenue">▸ /usr/share/man/man1/</span>                                                                            
+                                                                                                    
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> progreso </span><span class="c-borde">───────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">ficheros</span>  <span class="c-texto">128 402</span>               <span class="c-tenue">directorios</span>  <span class="c-texto">9 110</span>                                               <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-barra">#########################################################</span><span class="c-tenue">·······················</span>  <span class="c-titulo">71 %</span>           <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">tiempo</span>  <span class="c-texto">00:00:04 · quedan 2 s</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">[q] cancelar el escaneo</span>                                                                          <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+<span class="c-inverso"> Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311                                </span>
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#300a24"></span><code>#300a24</code></td><td>fondo</td><td>fondo del terminal</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>texto</td><td>todo el texto</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>titulo</td><td>énfasis</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#a06c92"></span><code>#a06c92</code></td><td>tenue</td><td>rutas y ayudas</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>barra</td><td>barras de tamaño</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#963229"></span><code>#963229</code></td><td>aviso</td><td>borrado</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>inverso</td><td>cabecera y pie a todo el ancho</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#490e24"></span><code>#490e24</code></td><td>borde</td><td>marco del diálogo</td><td>medido</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

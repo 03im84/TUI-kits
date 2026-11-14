@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siete TUIs reales · índice</title>
+<style>
+:root{--fondo:#0a0b0f;--texto:#c9d1d9;--tenue:#7d8996;--acento:#addb67;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:38px 0 24px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 10px;font-size:28px;letter-spacing:-.02em}
+h1 span{color:var(--acento);font-family:var(--mono)}
+.sub{color:var(--tenue);font-size:15px;line-height:1.7;margin:0;max-width:84ch}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:26px 0}
+.card{border:1px solid #1b2130;border-radius:9px;padding:18px 20px;background:#0d1017}
+.card h2{margin:0 0 6px;font-size:17px}
+.card h2 a{color:var(--texto);text-decoration:none}
+.card h2 a:hover{color:var(--acento)}
+.cmd{font-family:var(--mono);font-size:12px;color:var(--acento);background:#12161f;
+ border:1px solid #1e2836;border-radius:5px;padding:2px 6px}
+.card p{color:var(--tenue);font-size:13.5px;line-height:1.6;margin:10px 0 0}
+.chips{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11px;color:#9fb0c0;border:1px solid #24303f;
+ border-radius:20px;padding:2px 9px}
+.sw{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:var(--tenue);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+footer{color:var(--tenue);font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#12161f;border:1px solid #1e2836;border-radius:4px;padding:1px 5px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Siete TUIs reales <span>· 21 pantallas</span></h1>
+  <p class="sub">Siete aplicaciones de terminal que existen —las del artículo de How-To Geek—
+  dibujadas con el mismo motor de celdas que las otras seis series. Cada una en 100 × 30,
+  tres pantallas: lo que hace falta para reconocerla, no un catálogo de funciones.
+  La regla de esta serie es distinta: aquí <strong>la paleta no se inventa</strong>. btop
+  trae 29 ficheros de tema y los colores se leen; las demás se miden del histograma de una
+  captura real, que en una TUI plana sí da el color exacto. Y cuando un color es una
+  suposición, lo dice la tabla de cada página.</p>
+</header>
+<div class="grid">
+  <div class="card">
+    <h2><a href="btop.html">btop</a></h2>
+    <span class="cmd">btop</span>
+    <p>Monitor de sistema: CPU por núcleo con medidores, memoria, red y la lista de procesos.</p>
+    <div class="chips"><span class="sw" style="background:#011627" title="fondo #011627"></span><span class="sw" style="background:#d6deeb" title="texto #d6deeb"></span><span class="sw" style="background:#ffffff" title="titulo #ffffff"></span><span class="sw" style="background:#addb67" title="hi #addb67"></span><span class="sw" style="background:#575656" title="tenue #575656"></span><span class="sw" style="background:#22da6e" title="verde #22da6e"></span><span class="sw" style="background:#22da6e" title="cpu_bajo #22da6e"></span><span class="sw" style="background:#addb67" title="cpu_medio #addb67"></span><span class="sw" style="background:#ef5350" title="cpu_alto #ef5350"></span><span class="sw" style="background:#ef5350" title="rojo #ef5350"></span><span class="sw" style="background:#575656" title="borde #575656"></span><span class="sw" style="background:#ffffff" title="tecla #ffffff"></span></div>
+    <div class="chips">
+      <span class="chip">11 leídos</span>
+      <span class="chip">0 medidos</span>
+      <span class="chip">0 derivados</span>
+      <span class="chip">3 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="ncdu.html">ncdu</a></h2>
+    <span class="cmd">ncdu /etc</span>
+    <p>Espacio en disco: un <code>du</code> por el que te mueves con las flechas.</p>
+    <div class="chips"><span class="sw" style="background:#300a24" title="fondo #300a24"></span><span class="sw" style="background:#ffffff" title="texto #ffffff"></span><span class="sw" style="background:#ffffff" title="titulo #ffffff"></span><span class="sw" style="background:#a06c92" title="tenue #a06c92"></span><span class="sw" style="background:#ffffff" title="barra #ffffff"></span><span class="sw" style="background:#963229" title="aviso #963229"></span><span class="sw" style="background:#ffffff" title="inverso #ffffff"></span><span class="sw" style="background:#490e24" title="borde #490e24"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">7 medidos</span>
+      <span class="chip">1 derivado</span>
+      <span class="chip">2 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="gitui.html">gitui</a></h2>
+    <span class="cmd">gitui</span>
+    <p>Git en el terminal: pestañas arriba, dos listas de cambios a la izquierda y el diff a la derecha.</p>
+    <div class="chips"><span class="sw" style="background:#232c31" title="fondo #232c31"></span><span class="sw" style="background:#c3cccf" title="texto #c3cccf"></span><span class="sw" style="background:#d6deeb" title="titulo #d6deeb"></span><span class="sw" style="background:#7f8887" title="tenue #7f8887"></span><span class="sw" style="background:#484d79" title="pestana_activa #484d79"></span><span class="sw" style="background:#7ac8a0" title="verde #7ac8a0"></span><span class="sw" style="background:#e06c75" title="rojo #e06c75"></span><span class="sw" style="background:#e5c07b" title="amarillo #e5c07b"></span><span class="sw" style="background:#61afef" title="azul #61afef"></span><span class="sw" style="background:#e5c07b" title="hash #e5c07b"></span><span class="sw" style="background:#7f8887" title="borde #7f8887"></span><span class="sw" style="background:#d6deeb" title="tecla #d6deeb"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">4 medidos</span>
+      <span class="chip">6 derivados</span>
+      <span class="chip">4 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="bagels.html">bagels</a></h2>
+    <span class="cmd">bagels</span>
+    <p>Gestor de gastos: cuentas, plantillas, tabla de registros, calendario y gráficas.</p>
+    <div class="chips"><span class="sw" style="background:#1a1b26" title="fondo #1a1b26"></span><span class="sw" style="background:#c0caf5" title="texto #c0caf5"></span><span class="sw" style="background:#7aa2f7" title="titulo #7aa2f7"></span><span class="sw" style="background:#565f89" title="tenue #565f89"></span><span class="sw" style="background:#bb9af7" title="pestana_activa #bb9af7"></span><span class="sw" style="background:#bb9af7" title="violeta #bb9af7"></span><span class="sw" style="background:#ff9e64" title="naranja #ff9e64"></span><span class="sw" style="background:#9ece6a" title="verde #9ece6a"></span><span class="sw" style="background:#f7768e" title="rojo #f7768e"></span><span class="sw" style="background:#565f89" title="borde #565f89"></span><span class="sw" style="background:#7aa2f7" title="tecla #7aa2f7"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">4 medidos</span>
+      <span class="chip">5 derivados</span>
+      <span class="chip">4 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="posting.html">posting</a></h2>
+    <span class="cmd">posting</span>
+    <p>Cliente HTTP en el terminal: guarda cada llamada como un YAML, las organiza en árbol y muestra la respuesta con el JSON coloreado.</p>
+    <div class="chips"><span class="sw" style="background:#11131d" title="fondo #11131d"></span><span class="sw" style="background:#d5d6e0" title="texto #d5d6e0"></span><span class="sw" style="background:#c8c9e8" title="titulo #c8c9e8"></span><span class="sw" style="background:#3e3162" title="borde #3e3162"></span><span class="sw" style="background:#9192aa" title="tenue #9192aa"></span><span class="sw" style="background:#3e3162" title="pestana_activa #3e3162"></span><span class="sw" style="background:#ff69b4" title="acento #ff69b4"></span><span class="sw" style="background:#68f2d5" title="metodo_get #68f2d5"></span><span class="sw" style="background:#ffb86c" title="metodo_pos #ffb86c"></span><span class="sw" style="background:#ff6e6e" title="metodo_del #ff6e6e"></span><span class="sw" style="background:#68f2d5" title="estado_ok #68f2d5"></span><span class="sw" style="background:#195552" title="estado_pildora #195552"></span><span class="sw" style="background:#ff69b4" title="boton_enviar #ff69b4"></span><span class="sw" style="background:#8f8fa8" title="llave #8f8fa8"></span><span class="sw" style="background:#9ece6a" title="cadena #9ece6a"></span><span class="sw" style="background:#ffb86c" title="numero #ffb86c"></span><span class="sw" style="background:#ff69b4" title="tecla #ff69b4"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">9 medidos</span>
+      <span class="chip">7 derivados</span>
+      <span class="chip">3 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="castero.html">castero</a></h2>
+    <span class="cmd">castero</span>
+    <p>Cliente de podcasts con tres columnas —feeds, episodios, metadatos— que copia deliberadamente el diseño de las primeras versiones de iTunes.</p>
+    <div class="chips"><span class="sw" style="background:#282c34" title="fondo #282c34"></span><span class="sw" style="background:#abb2bf" title="texto #abb2bf"></span><span class="sw" style="background:#d19a66" title="titulo #d19a66"></span><span class="sw" style="background:#5c6370" title="tenue #5c6370"></span><span class="sw" style="background:#d19a66" title="naranja #d19a66"></span><span class="sw" style="background:#e5c07b" title="jugando #e5c07b"></span><span class="sw" style="background:#98c379" title="verde #98c379"></span><span class="sw" style="background:#5c6370" title="borde #5c6370"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">6 medidos</span>
+      <span class="chip">1 derivado</span>
+      <span class="chip">3 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2><a href="fx.html">fx</a></h2>
+    <span class="cmd">fx respuesta.json</span>
+    <p>Navegador de JSON con JavaScript: pliega y despliega, busca, y transforma con una línea de script sin salir del fichero.</p>
+    <div class="chips"><span class="sw" style="background:#282c34" title="fondo #282c34"></span><span class="sw" style="background:#abb2bf" title="texto #abb2bf"></span><span class="sw" style="background:#61afef" title="titulo #61afef"></span><span class="sw" style="background:#5c6370" title="tenue #5c6370"></span><span class="sw" style="background:#abb2bf" title="llave #abb2bf"></span><span class="sw" style="background:#61afef" title="clave #61afef"></span><span class="sw" style="background:#98c379" title="cadena #98c379"></span><span class="sw" style="background:#d19a66" title="numero #d19a66"></span><span class="sw" style="background:#5c6370" title="borde #5c6370"></span></div>
+    <div class="chips">
+      <span class="chip">0 leídos</span>
+      <span class="chip">0 medidos</span>
+      <span class="chip">9 derivados</span>
+      <span class="chip">2 heredados</span>
+      <span class="chip">3 pantallas</span>
+    </div>
+  </div></div>
+<section>
+  <h2 style="font-size:17px">Procedencia de cada paleta</h2>
+  <table>
+    <tr><th>app</th><th>comando</th><th>leídos</th><th>medidos</th><th>derivados</th>
+    <th>heredados</th><th>colores</th></tr>
+    <tr><td><code>btop</code></td><td>btop</td><td>11</td><td>0</td><td>0</td><td>3</td><td>14</td></tr><tr><td><code>ncdu</code></td><td>ncdu /etc</td><td>0</td><td>7</td><td>1</td><td>2</td><td>10</td></tr><tr><td><code>gitui</code></td><td>gitui</td><td>0</td><td>4</td><td>6</td><td>4</td><td>14</td></tr><tr><td><code>bagels</code></td><td>bagels</td><td>0</td><td>4</td><td>5</td><td>4</td><td>13</td></tr><tr><td><code>posting</code></td><td>posting</td><td>0</td><td>9</td><td>7</td><td>3</td><td>19</td></tr><tr><td><code>castero</code></td><td>castero</td><td>0</td><td>6</td><td>1</td><td>3</td><td>10</td></tr><tr><td><code>fx</code></td><td>fx respuesta.json</td><td>0</td><td>0</td><td>9</td><td>2</td><td>11</td></tr>
+  </table>
+  <p class="sub" style="margin-top:14px">«Leído» quiere decir copiado de un fichero de tema
+  de la propia aplicación. «Medido», sacado de una captura. «Derivado» es una suposición
+  razonada —y se marca para que no se confunda con las otras dos. «Heredado» es un color
+  que la app no declara pero necesita (el borde de las cajas, el color de las teclas) y que
+  se toma de otro color suyo ya justificado; va marcado para que se vea la costura.</p>
+</section>
+<footer>
+  Generado por <code>tui/series.py</code> · 21 pantallas de 100 × 30 ·
+  motor de celdas en <code>mockups/celdas.py</code> · solo biblioteca estándar.
+</footer>
+</div>
+</body></html>

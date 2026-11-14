@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gitui · TUI real</title>
+<style>
+:root{--texto:#c3cccf;
+ --titulo:#d6deeb;
+ --tenue:#7f8887;
+ --pestana_activa:#484d79;
+ --seleccion:#484d79;
+ --verde:#7ac8a0;
+ --rojo:#e06c75;
+ --amarillo:#e5c07b;
+ --azul:#61afef;
+ --hash:#e5c07b;
+ --borde:#7f8887;
+ --tecla:#d6deeb;--sel_fg:#ffffff;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-tenue{color:var(--tenue)}
+.c-pestana_activa{color:var(--pestana_activa)}
+.c-verde{color:var(--verde)}
+.c-rojo{color:var(--rojo)}
+.c-amarillo{color:var(--amarillo)}
+.c-azul{color:var(--azul)}
+.c-hash{color:var(--hash)}
+.c-borde{color:var(--borde)}
+.c-tecla{color:var(--tecla)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>gitui <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Git en el terminal: pestañas arriba, dos listas de cambios a la izquierda y el diff a la derecha. Su virtud es que <strong>el color clasifica estados de git</strong> —verde añadido, rojo borrado, amarillo marcador, azul cabecera de hunk— y no decora nada.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option></select></label>
+    <span><code>gitui</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> Fondo <code>#232c31</code>, fila elegida <code>#484d79</code>, atenuado <code>#7f8887</code> y el <code>#0d1b23</code> de los huecos: <strong>medidos</strong> del histograma de una captura, leyendo solo el rectángulo de la ventana porque el escritorio se cuela por los bordes. Los colores de diff son <strong>derivados</strong>: la captura era de la pestaña Status y no había diff que medir.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Status</h2></div>
+  <p class="nota">Los cambios sin preparar y preparados, el diff al lado y la caja de commit debajo: la pantalla del día a día.</p>
+  <div class="term"><pre><span class="c-titulo"> gitui</span>  <span class="c-pestana_activa"> Status [1] </span><span class="c-tenue"> Log [2] </span>   <span class="c-tenue"> Files [3] </span> <span class="c-tenue"> Stashing [4 Stashes [5] </span>                               
+<span class="c-borde">┌─</span><span class="c-titulo"> Unstaged Changes </span><span class="c-borde">──────────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> Diff · src/ui/draw.rs </span><span class="c-borde">─────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-rojo">M</span> <span class="c-texto">src/main.rs</span>                                       <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-azul">@@ -41,7 +41,9 @@ fn draw</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> </span><span class="c-verde">M</span><span class="c-seleccion"> src/ui/draw.rs                                    </span><span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-texto">     let area = self.area();</span>             <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-azul">?</span> <span class="c-texto">src/ui/theme.rs</span>                                   <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-texto">     let buf = &amp;mut self.buf;</span>            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">M</span> <span class="c-texto">Cargo.toml</span>                                        <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-rojo">-    let w = area.width;</span>                 <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">A</span> <span class="c-texto">docs/imagenes.md</span>                                  <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-verde">+    let w = w.saturating_sub(2);</span>        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">M</span> <span class="c-texto">src/asyncgit/mod.rs</span>                               <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-verde">+    let h = h.saturating_sub(2);</span>        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">D</span> <span class="c-texto">src/viejo.rs</span>                                      <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-texto">     buf.set_string(x, y, &quot;hola&quot;);</span>       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">M</span> <span class="c-texto">README.md</span>                                         <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-tenue">     // el margen de 2 celdas</span>            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">8 cambios · [space] preparar</span>                        <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-tenue">     // viene del marco</span>                  <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">┌─</span><span class="c-titulo"> Staged Changes </span><span class="c-borde">────────────────────────────────────┐</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">M src/main.rs</span>                                       <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">A src/ui/theme.rs</span>                                   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">2 ficheros listos</span>                                   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">┌─</span><span class="c-titulo"> Commit · 1402/1408 </span><span class="c-borde">────────────────────────────────┐</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">fix: no saludar dos veces</span>                           <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">en draw()</span>                                           <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">│</span>                                                   <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-tenue">1 borrado · 2 añadidos · 1 fichero</span>       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">amendar con [c] · convención: fix: / feat:</span>          <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">└─────────────────────────────────────────┘</span>
+ <span class="c-tecla">[q]</span> <span class="c-texto">quit  </span> <span class="c-tecla">[c]</span> <span class="c-texto">commit  </span> <span class="c-tecla">[a]</span> <span class="c-texto">stage  </span> <span class="c-tecla">[d]</span> <span class="c-texto">diff  </span> <span class="c-tecla">[?]</span> <span class="c-texto">help  </span>                                          
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Log</h2></div>
+  <p class="nota">El historial de commits y el detalle del seleccionado.</p>
+  <div class="term"><pre><span class="c-titulo"> gitui</span>  <span class="c-tenue"> Status [1] </span><span class="c-pestana_activa"> Log [2] </span>   <span class="c-tenue"> Files [3] </span> <span class="c-tenue"> Stashing [4 Stashes [5] </span>                               
+<span class="c-borde">┌─</span><span class="c-titulo"> Log · 1408 commits </span><span class="c-borde">────────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> detalle </span><span class="c-borde">───────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-hash">f91c8c3</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">author</span>                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">fix: tab msg not nagst in taglist</span>                   <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">Stephan Dilly &lt;dilly@stan..&gt;</span>            <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> c9b8c21 2021-08-22 Stephan Dilly                    </span><span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> update profiler dependency                          </span><span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">date</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">1c2b782</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">2021-08-22 17:23:06</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">fix: capacity</span>                                       <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">70e4a31</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">commit</span>                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">update changelog</span>                                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">c9b8c2133741aa0d3e4b8f9c1d2a</span>            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">49a185f</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">dont process abort on input</span>                         <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">message</span>                                 <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">8192f4b</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-titulo">update profiler dependency</span>              <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">show subject line of commits</span>                        <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">3db3b95</span> <span class="c-tenue">2021-08-22</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">files</span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">fix order of old/new to compare</span>                     <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">M</span> <span class="c-texto">CHANGELOG.md</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">2f7a1c4</span> <span class="c-tenue">2021-08-21</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">M</span> <span class="c-texto">Cargo.lock</span>                            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">add diff stat to log</span>                                <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">M</span> <span class="c-texto">Cargo.toml</span>                            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">8d0e5a2</span> <span class="c-tenue">2021-08-21</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">M</span> <span class="c-texto">src/asyncgit</span>                          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">fix: clippy warnings</span>                                <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">5b6c9f1</span> <span class="c-tenue">2021-08-20</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">bump crossterm to 0.20</span>                              <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">stats</span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">e4a7d38</span> <span class="c-tenue">2021-08-20</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">+18 −4 · 4 ficheros</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">stash: pop by index</span>                                 <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-hash">a1b9c07</span> <span class="c-tenue">2021-08-19</span> <span class="c-texto">Stephan Dilly</span>                    <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">body</span>                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">theme: load from file</span>                               <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">Bumps the profiler so the log</span>           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">1408 commits · rama master · ↑2 ↓0</span>                  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-texto">no longer blocks the ui thread.</span>         <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">└─────────────────────────────────────────┘</span>
+ <span class="c-tecla">[q]</span> <span class="c-texto">quit  </span> <span class="c-tecla">[⏎]</span> <span class="c-texto">detalle  </span> <span class="c-tecla">[b]</span> <span class="c-texto">ramas  </span> <span class="c-tecla">[?]</span> <span class="c-texto">help  </span>                                                    
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Conflicto</h2></div>
+  <p class="nota">Una fusión atascada: los marcadores de conflicto son texto, no color, y por eso se leen igual en una terminal de un tono.</p>
+  <div class="term"><pre><span class="c-titulo"> gitui</span>  <span class="c-pestana_activa"> Status [1] </span><span class="c-tenue"> Log [2] </span>   <span class="c-tenue"> Files [3] </span> <span class="c-tenue"> Stashing [4 Stashes [5] </span>                               
+<span class="c-borde">┌─</span><span class="c-titulo"> Unstaged Changes · conflicto </span><span class="c-borde">──────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> Diff · src/ui/theme.rs </span><span class="c-borde">────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-rojo">UU</span> <span class="c-rojo">src/ui/theme.rs</span>                                  <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-azul">@@ -12,7 +12,11 @@</span>                       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">UU</span> <span class="c-rojo">src/main.rs</span>                                      <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-texto"> let acento =</span>                            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-rojo">UU</span> <span class="c-rojo">src/ui/nuevo.rs</span>                                  <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-amarillo">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>                             <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-rojo">   Color::Rgb(122,162,247)</span>               <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">git no deja preparar un fichero con</span>                 <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-amarillo">=======</span>                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">marcadores dentro: primero se resuelve.</span>             <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-verde">   Color::Rgb(187,154,247)</span>               <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-amarillo">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/tema</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-tenue"> // el resto del fichero sigue</span>           <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">│</span><span class="c-tenue"> // igual: un conflicto no es un</span>         <span class="c-borde">│</span>
+<span class="c-borde">┌─</span><span class="c-titulo"> Resolución </span><span class="c-borde">────────────────────────────────────────┐</span>  <span class="c-borde">│</span><span class="c-tenue"> // error de formato, es una</span>             <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">[o] quedarse con HEAD</span>                               <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-tenue"> // decisión que hay que tomar.</span>          <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">[t] quedarse con la rama</span>                            <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">[e] editar a mano</span>                                   <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">Los marcadores son de git, no de gitui:</span>             <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-verde">&lt;&lt;&lt;&lt;&lt;&lt;&lt;  =======  &gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>                           <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">No hay color que resuelva el conflicto.</span>             <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">Se lee en el texto o no se resuelve.</span>                <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span><span class="c-rojo">3 ficheros en conflicto</span>                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                     <span class="c-borde">│</span>  <span class="c-borde">│</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">└─────────────────────────────────────────────────────┘</span>  <span class="c-borde">└─────────────────────────────────────────┘</span>
+ <span class="c-tecla">[q]</span> <span class="c-texto">quit  </span> <span class="c-tecla">[o]</span> <span class="c-texto">ours  </span> <span class="c-tecla">[t]</span> <span class="c-texto">theirs  </span> <span class="c-tecla">[?]</span> <span class="c-texto">help  </span>                                                      
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#232c31"></span><code>#232c31</code></td><td>fondo</td><td>fondo</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#c3cccf"></span><code>#c3cccf</code></td><td>texto</td><td>texto normal</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#d6deeb"></span><code>#d6deeb</code></td><td>titulo</td><td>títulos y pestaña activa</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#7f8887"></span><code>#7f8887</code></td><td>tenue</td><td>metadatos</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#484d79"></span><code>#484d79</code></td><td>pestana_activa</td><td>pestaña y fila elegidas</td><td>medido</td></tr><tr><td><span class="swatch" style="background:#7ac8a0"></span><code>#7ac8a0</code></td><td>verde</td><td>añadido</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#e06c75"></span><code>#e06c75</code></td><td>rojo</td><td>borrado</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#e5c07b"></span><code>#e5c07b</code></td><td>amarillo</td><td>marcadores de conflicto</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#61afef"></span><code>#61afef</code></td><td>azul</td><td>cabecera de hunk</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#e5c07b"></span><code>#e5c07b</code></td><td>hash</td><td>hash de commit</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#7f8887"></span><code>#7f8887</code></td><td>borde</td><td></td><td>heredado de tenue</td></tr><tr><td><span class="swatch" style="background:#d6deeb"></span><code>#d6deeb</code></td><td>tecla</td><td></td><td>heredado de titulo</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

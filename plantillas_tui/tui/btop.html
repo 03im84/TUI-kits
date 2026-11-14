@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>btop · TUI real</title>
+<style>
+:root{--texto:#d6deeb;
+ --titulo:#ffffff;
+ --hi:#addb67;
+ --tenue:#575656;
+ --verde:#22da6e;
+ --cpu_bajo:#22da6e;
+ --cpu_medio:#addb67;
+ --cpu_alto:#ef5350;
+ --seleccion:#000000;
+ --rojo:#ef5350;
+ --borde:#575656;
+ --tecla:#ffffff;--sel_fg:#ffeb95;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+html[data-pal="monokai"]{--fondo:#060604;--texto:#f8f8f2;--titulo:#f8f8f2;--hi:#f92672;--cpu_bajo:#a6e22e;--cpu_medio:#f8f8f2;--cpu_alto:#f92672;--seleccion:#7a1137}html[data-pal="tokyo-night"]{--fondo:#1a1b26;--texto:#cfc9c2;--titulo:#cfc9c2;--hi:#7dcfff;--cpu_bajo:#9ece6a;--cpu_medio:#e0af68;--cpu_alto:#f7768e;--seleccion:#414868}html[data-pal="dusklight"]{--fondo:#04142e;--texto:#99dfff;--titulo:#99ffff;--hi:#ff7f00;--cpu_bajo:#00d4ff;--cpu_medio:#fff86b;--cpu_alto:#ff7f00;--seleccion:#722b01}
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-hi{color:var(--hi)}
+.c-tenue{color:var(--tenue)}
+.c-verde{color:var(--verde)}
+.c-cpu_bajo{color:var(--cpu_bajo)}
+.c-cpu_medio{color:var(--cpu_medio)}
+.c-cpu_alto{color:var(--cpu_alto)}
+.c-rojo{color:var(--rojo)}
+.c-borde{color:var(--borde)}
+.c-tecla{color:var(--tecla)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>btop <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Monitor de sistema: CPU por núcleo con medidores, memoria, red y la lista de procesos. Es el más vistoso de los siete, y el único que se permite gradientes. Su paleta <strong>no hay que medirla</strong>: btop trae 29 temas en ficheros <code>.theme</code> y cada color está declarado con su nombre. La tabla de abajo está leída de <code>/usr/share/btop/themes/night-owl.theme</code>.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option><option value="monokai">monokai</option><option value="tokyo-night">tokyo-night</option><option value="dusklight">dusklight</option></select></label>
+    <span><code>btop</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> <strong>Leída</strong>, no medida: son las claves <code>main_bg</code>, <code>main_fg</code>, <code>title</code>, <code>hi_fg</code>, <code>inactive_fg</code>, <code>graph_text</code>, <code>cpu_start/mid/end</code>, <code>proc_misc</code> y <code>selected_*</code> de <code>night-owl.theme</code>, copiado a <code>refs/btop/</code>. Las tiras de la pantalla 03 son los tres extremos <code>*_start/mid/end</code> de cada tema interpolados con <code>rampa()</code>. Desviación declarada: btop dibuja sus cajas con <code>cpu_box</code> y <code>mem_box</code> (<code>#ffffff</code>), que a 100 columnas taparía el contenido; el marco usa <code>inactive_fg</code>.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Panel</h2></div>
+  <p class="nota">Los medidores de CPU por núcleo con el gradiente del tema —verde, amarillo, rojo según carga—, la memoria y la red.</p>
+  <div class="term"><pre> <span class="c-titulo">btop++ 1.3.2 · panel</span>                                         <span class="c-tenue">mem 12.4G/31.2G · swap 0B/8.0G</span>        
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> cpu  ·  amd ryzen 7 5800x </span><span class="c-borde">────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> memoria </span><span class="c-borde">────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 0</span> <span class="c-cpu_bajo">█████</span><span class="c-tenue">·························</span> <span class="c-texto"> 18%</span>  <span class="c-cpu_medio">▁▂▁▃▁</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">usada</span>  <span class="c-hi">████████████</span><span class="c-tenue">··················</span>  <span class="c-texto">12.4G</span> <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 1</span> <span class="c-cpu_medio">█████████████</span><span class="c-tenue">·················</span> <span class="c-texto"> 42%</span>  <span class="c-cpu_medio">▁▂▁▃▁</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">cache</span>  <span class="c-cpu_medio">████████</span><span class="c-tenue">······················</span>  <span class="c-texto">8.7G</span>  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 2</span> <span class="c-cpu_medio">███████████████████████</span><span class="c-tenue">·······</span> <span class="c-texto"> 77%</span>  <span class="c-cpu_medio">▁▄█▆▂</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">libre</span>  <span class="c-tenue">██████████····················</span>  <span class="c-texto">9.9G</span>  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 3</span> <span class="c-cpu_bajo">████</span><span class="c-tenue">··························</span> <span class="c-texto"> 12%</span>  <span class="c-cpu_medio">▁▂▁▃▁</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span>                                              <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 4</span> <span class="c-cpu_medio">████████████████</span><span class="c-tenue">··············</span> <span class="c-texto"> 55%</span>  <span class="c-cpu_medio">▁▄█▆▂</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">swap</span>   <span class="c-texto">0B / 8.0G</span>                             <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 5</span> <span class="c-cpu_alto">███████████████████████████</span><span class="c-tenue">···</span> <span class="c-texto"> 91%</span>  <span class="c-cpu_medio">▁▄█▆▂</span>  <span class="c-borde">│</span>  <span class="c-borde">└──────────────────────────────────────────────┘</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 6</span> <span class="c-cpu_bajo">█████████</span><span class="c-tenue">·····················</span> <span class="c-texto"> 30%</span>  <span class="c-cpu_medio">▁▂▁▃▁</span>  <span class="c-borde">│</span>  <span class="c-borde">┌─</span><span class="c-titulo"> red  ·  eth0 </span><span class="c-borde">───────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue"> 7</span> <span class="c-cpu_medio">███████████████████</span><span class="c-tenue">···········</span> <span class="c-texto"> 64%</span>  <span class="c-cpu_medio">▁▄█▆▂</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">▼ baja</span>   <span class="c-texto">1.2 MiB/s</span>                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-titulo">cpu</span> <span class="c-hi">41%</span>  <span class="c-hi">█████</span><span class="c-tenue">·······</span>  <span class="c-texto">52 °C</span>  <span class="c-texto">3.2 GHz</span> <span class="c-tenue">16 hilos</span> <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-rojo">▲ sube</span>   <span class="c-texto">84 KiB/s</span>                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-verde">▁▂▅▇▅▃▂▁▂▄▆▇▆▃▂▁▁▂▃▅▇▅▂▁▂▃▂▁▄▅▃▂▁▂▃▄▆▅▃</span>      <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                <span class="c-borde">│</span>  <span class="c-borde">│</span>                                              <span class="c-borde">│</span>
+<span class="c-borde">└────────────────────────────────────────────────┘</span>  <span class="c-borde">└──────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> procesos </span><span class="c-borde">───────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-titulo">   pid programa                cpu%    mem user       estado  </span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">  1182 firefox                 31.2   2.1G ana        running </span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion">   2043 code                    12.8   1.4G ana        running                                    </span><span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">    88 systemd                  0.4    18M root       sleep   </span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto"> 31005 btop                     2.1    12M ana        running </span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">  1290 pipewire                 0.9     9M ana        sleep   </span>                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">ordenado por cpu · 214 procesos · 1 102 hilos</span>                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+ <span class="c-tecla">m</span> <span class="c-texto">menú  </span> <span class="c-tecla">f</span> <span class="c-texto">filtrar  </span> <span class="c-tecla">t</span> <span class="c-texto">árbol  </span> <span class="c-tecla">q</span> <span class="c-texto">salir  </span>                                                           
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Proceso</h2></div>
+  <p class="nota">El detalle de un proceso: uso, gráfica de 60 s e hilos.</p>
+  <div class="term"><pre> <span class="c-titulo">btop++ · detalle de proceso</span>                                <span class="c-tenue">pid 1182 · firefox</span>                      
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> uso </span><span class="c-borde">──────────────────────────────────────────┐</span>  <span class="c-borde">┌─</span><span class="c-titulo"> gráfica de cpu · 60 s </span><span class="c-borde">──────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">cpu</span>   <span class="c-cpu_medio">██████████</span><span class="c-tenue">······················</span>  <span class="c-texto">31.2 %</span> <span class="c-borde">│</span>  <span class="c-borde">│</span>                   <span class="c-cpu_alto">▄▄</span>        <span class="c-cpu_alto">▄▄</span>               <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">mem</span>   <span class="c-hi">█████████████</span><span class="c-tenue">···················</span>  <span class="c-texto">2.1 G</span>  <span class="c-borde">│</span>  <span class="c-borde">│</span>           <span class="c-cpu_alto">▄▄</span>    <span class="c-cpu_alto">██████</span>    <span class="c-cpu_alto">▄▄██</span>               <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                <span class="c-borde">│</span>  <span class="c-borde">│</span>           <span class="c-cpu_medio">██</span>  <span class="c-cpu_medio">████████▄▄</span>  <span class="c-cpu_medio">██████</span>             <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">hilos</span>                                          <span class="c-borde">│</span>  <span class="c-borde">│</span>         <span class="c-cpu_medio">████</span>  <span class="c-cpu_medio">██████████▄▄████████</span>           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">62 · 8 corriendo</span>                               <span class="c-borde">│</span>  <span class="c-borde">│</span>         <span class="c-cpu_medio">████▄▄████████████████████▄▄</span>         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">16 % del total de cpu</span>                          <span class="c-borde">│</span>  <span class="c-borde">│</span>     <span class="c-cpu_bajo">██</span>  <span class="c-cpu_bajo">████████████████████████████</span>         <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                <span class="c-borde">│</span>  <span class="c-borde">│</span>   <span class="c-cpu_bajo">▄▄██████████████████████████████████</span>       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">tiempo</span>                                         <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-cpu_bajo">████████████████████████████████████████</span>     <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">04:12:33</span>    <span class="c-tenue">abierto por</span> <span class="c-texto">ana · tty2</span>             <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-cpu_bajo">████████████████████████████████████████</span>     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                <span class="c-borde">│</span>  <span class="c-borde">│</span> <span class="c-tenue">0s                  30s                  60s</span> <span class="c-borde">│</span>
+<span class="c-borde">└────────────────────────────────────────────────┘</span>  <span class="c-borde">└──────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> hilos </span><span class="c-borde">──────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-titulo">    tid estado      cpu%  tiempo     prioridad</span>                                                   <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1182 running     12.4  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1183 sleep        3.1  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1187 sleep        0.2  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1191 running      8.8  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1195 sleep        0.0  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-texto">   1201 sleep        0.4  00:12:41   0</span>                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">[k] terminar · [s] señales · [←→] hilos</span>                                                          <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+ <span class="c-tecla">esc</span> <span class="c-texto">volver  </span> <span class="c-tecla">f</span> <span class="c-texto">filtrar  </span> <span class="c-tecla">q</span> <span class="c-texto">salir  </span>                                                                 
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Temas</h2></div>
+  <p class="nota">Los temas reales de btop con sus valores reales: la pantalla que no existía en las otras series, porque aquí la paleta se lee y no se mide. Las tiras no cambian con el selector de la página: son datos de cada tema, no cromo de la app.</p>
+  <div class="term"><pre> <span class="c-titulo">btop++ · temas</span>                                         <span class="c-tenue">29 temas leídos de /usr/share/btop/themes</span>   
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> temas  ·  los colores son los del fichero, no una copia </span><span class="c-borde">────────────────────────────────────────┐</span>
+<span class="c-borde">│</span><span class="c-seleccion">  night-owl      </span><span class="c-tenue">fondo</span><span class="c-seleccion"> #011627   </span><span class="c-tenue">acento</span><span class="c-seleccion"> #addb67  </span><span class="c-tenue">gradiente</span><span class="c-seleccion"> #22da6e #addb67 #ef5350                </span><span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion">  </span><span style="color:#011627">█</span><span style="color:#052c2f">█</span><span style="color:#084237">█</span><span style="color:#0c573f">█</span><span style="color:#106d47">█</span><span style="color:#13834e">█</span><span style="color:#179956">█</span><span style="color:#1bae5e">█</span><span style="color:#1ec466">█</span><span style="color:#22da6e">█</span><span style="color:#31da6d">█</span><span style="color:#41da6c">█</span><span style="color:#50da6c">█</span><span style="color:#60da6b">█</span><span style="color:#6fdb6a">█</span><span style="color:#7fdb69">█</span><span style="color:#8edb69">█</span><span style="color:#9edb68">█</span><span style="color:#addb67">█</span><span style="color:#b4cc64">█</span><span style="color:#bcbd62">█</span><span style="color:#c3ae5f">█</span><span style="color:#ca9f5d">█</span><span style="color:#d28f5a">█</span><span style="color:#d98058">█</span><span style="color:#e07155">█</span><span style="color:#e86253">█</span><span style="color:#ef5350">█</span><span class="c-seleccion">                                                                    </span><span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-texto">monokai       </span> <span class="c-tenue">fondo</span> <span class="c-texto">#060604</span>   <span class="c-tenue">acento</span> <span class="c-texto">#f92672</span>  <span class="c-tenue">gradiente</span> <span class="c-texto">#a6e22e #f8f8f2 #f92672</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span style="color:#060604">█</span><span style="color:#181e09">█</span><span style="color:#2a370d">█</span><span style="color:#3b4f12">█</span><span style="color:#4d6817">█</span><span style="color:#5f801b">█</span><span style="color:#719920">█</span><span style="color:#82b125">█</span><span style="color:#94ca29">█</span><span style="color:#a6e22e">█</span><span style="color:#afe444">█</span><span style="color:#b8e75a">█</span><span style="color:#c1e96f">█</span><span style="color:#caec85">█</span><span style="color:#d4ee9b">█</span><span style="color:#ddf1b1">█</span><span style="color:#e6f3c6">█</span><span style="color:#eff6dc">█</span><span style="color:#f8f8f2">█</span><span style="color:#f8e1e4">█</span><span style="color:#f8c9d6">█</span><span style="color:#f8b2c7">█</span><span style="color:#f89bb9">█</span><span style="color:#f983ab">█</span><span style="color:#f96c9d">█</span><span style="color:#f9558e">█</span><span style="color:#f93d80">█</span><span style="color:#f92672">█</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-texto">tokyo-night   </span> <span class="c-tenue">fondo</span> <span class="c-texto">#1a1b26</span>   <span class="c-tenue">acento</span> <span class="c-texto">#7dcfff</span>  <span class="c-tenue">gradiente</span> <span class="c-texto">#9ece6a #e0af68 #f7768e</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span style="color:#1a1b26">█</span><span style="color:#292f2e">█</span><span style="color:#374335">█</span><span style="color:#46573d">█</span><span style="color:#556b44">█</span><span style="color:#637e4c">█</span><span style="color:#729253">█</span><span style="color:#81a65b">█</span><span style="color:#8fba62">█</span><span style="color:#9ece6a">█</span><span style="color:#a5cb6a">█</span><span style="color:#adc76a">█</span><span style="color:#b4c469">█</span><span style="color:#bbc069">█</span><span style="color:#c3bd69">█</span><span style="color:#cab969">█</span><span style="color:#d1b668">█</span><span style="color:#d9b268">█</span><span style="color:#e0af68">█</span><span style="color:#e3a96c">█</span><span style="color:#e5a270">█</span><span style="color:#e89c75">█</span><span style="color:#ea9679">█</span><span style="color:#ed8f7d">█</span><span style="color:#ef8981">█</span><span style="color:#f28386">█</span><span style="color:#f47c8a">█</span><span style="color:#f7768e">█</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-texto">gruvbox_dark  </span> <span class="c-tenue">fondo</span> <span class="c-texto">#1d2021</span>   <span class="c-tenue">acento</span> <span class="c-texto">#d79921</span>  <span class="c-tenue">gradiente</span> <span class="c-texto">#b8bb26 #d79921 #fb4934</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span style="color:#1d2021">█</span><span style="color:#2e3122">█</span><span style="color:#3f4222">█</span><span style="color:#515423">█</span><span style="color:#626523">█</span><span style="color:#737624">█</span><span style="color:#848724">█</span><span style="color:#969925">█</span><span style="color:#a7aa25">█</span><span style="color:#b8bb26">█</span><span style="color:#bbb725">█</span><span style="color:#bfb325">█</span><span style="color:#c2b024">█</span><span style="color:#c6ac24">█</span><span style="color:#c9a823">█</span><span style="color:#cda423">█</span><span style="color:#d0a122">█</span><span style="color:#d49d22">█</span><span style="color:#d79921">█</span><span style="color:#db9023">█</span><span style="color:#df8725">█</span><span style="color:#e37e27">█</span><span style="color:#e77529">█</span><span style="color:#eb6d2c">█</span><span style="color:#ef642e">█</span><span style="color:#f35b30">█</span><span style="color:#f75232">█</span><span style="color:#fb4934">█</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-texto">dusklight     </span> <span class="c-tenue">fondo</span> <span class="c-texto">#04142e</span>   <span class="c-tenue">acento</span> <span class="c-texto">#ff7f00</span>  <span class="c-tenue">gradiente</span> <span class="c-texto">#00d4ff #fff86b #ff7f00</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span style="color:#04142e">█</span><span style="color:#042945">█</span><span style="color:#033f5c">█</span><span style="color:#035474">█</span><span style="color:#02698b">█</span><span style="color:#027fa2">█</span><span style="color:#0194b9">█</span><span style="color:#01a9d1">█</span><span style="color:#00bfe8">█</span><span style="color:#00d4ff">█</span><span style="color:#1cd8ef">█</span><span style="color:#39dcde">█</span><span style="color:#55e0ce">█</span><span style="color:#71e4bd">█</span><span style="color:#8ee8ad">█</span><span style="color:#aaec9c">█</span><span style="color:#c6f08c">█</span><span style="color:#e3f47b">█</span><span style="color:#fff86b">█</span><span style="color:#ffeb5f">█</span><span style="color:#ffdd53">█</span><span style="color:#ffd047">█</span><span style="color:#ffc23b">█</span><span style="color:#ffb530">█</span><span style="color:#ffa724">█</span><span style="color:#ff9a18">█</span><span style="color:#ff8c0c">█</span><span style="color:#ff7f00">█</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-texto">dracula       </span> <span class="c-tenue">fondo</span> <span class="c-texto">#282a36</span>   <span class="c-tenue">acento</span> <span class="c-texto">#f8f8f2</span>  <span class="c-tenue">gradiente</span> <span class="c-texto">#50fa7b #f1fa8c #ff5555</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span style="color:#282a36">█</span><span style="color:#2c413e">█</span><span style="color:#315845">█</span><span style="color:#356f4d">█</span><span style="color:#3a8655">█</span><span style="color:#3e9e5c">█</span><span style="color:#43b564">█</span><span style="color:#47cc6c">█</span><span style="color:#4ce373">█</span><span style="color:#50fa7b">█</span><span style="color:#62fa7d">█</span><span style="color:#74fa7f">█</span><span style="color:#86fa81">█</span><span style="color:#98fa83">█</span><span style="color:#a9fa84">█</span><span style="color:#bbfa86">█</span><span style="color:#cdfa88">█</span><span style="color:#dffa8a">█</span><span style="color:#f1fa8c">█</span><span style="color:#f3e886">█</span><span style="color:#f4d580">█</span><span style="color:#f6c37a">█</span><span style="color:#f7b174">█</span><span style="color:#f99e6d">█</span><span style="color:#fa8c67">█</span><span style="color:#fc7a61">█</span><span style="color:#fd675b">█</span><span style="color:#ff5555">█</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-tenue">cada fila es un fichero .theme: main_bg, hi_fg y los tres extremos del gradiente</span>                <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>  <span class="c-verde">las tiras son esos mismos valores, interpolados: no hay nada inventado</span>                          <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+                                                                                                    
+ <span class="c-tecla">↑↓</span> <span class="c-texto">tema  </span> <span class="c-tecla">⏎</span> <span class="c-texto">aplicar  </span> <span class="c-tecla">q</span> <span class="c-texto">salir  </span>                                                                    
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#011627"></span><code>#011627</code></td><td>fondo</td><td>main_bg</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#d6deeb"></span><code>#d6deeb</code></td><td>texto</td><td>main_fg</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>titulo</td><td>title</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#addb67"></span><code>#addb67</code></td><td>hi</td><td>hi_fg</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#575656"></span><code>#575656</code></td><td>tenue</td><td>inactive_fg</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#22da6e"></span><code>#22da6e</code></td><td>verde</td><td>proc_misc</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#22da6e"></span><code>#22da6e</code></td><td>cpu_bajo</td><td>cpu_start</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#addb67"></span><code>#addb67</code></td><td>cpu_medio</td><td>cpu_mid</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#ef5350"></span><code>#ef5350</code></td><td>cpu_alto</td><td>cpu_end</td><td>leído</td></tr><tr><td><span class="swatch" style="background:#ef5350"></span><code>#ef5350</code></td><td>rojo</td><td></td><td>leído</td></tr><tr><td><span class="swatch" style="background:#575656"></span><code>#575656</code></td><td>borde</td><td></td><td>leído</td></tr><tr><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>tecla</td><td></td><td>heredado de titulo</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

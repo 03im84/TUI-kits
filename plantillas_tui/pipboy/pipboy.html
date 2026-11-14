@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="fosforo" data-crt="0">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROBCO TERMLINK · TUI tipo Pip-Boy</title>
+<style>
+:root{--fondo:#102e16;--tenue:#1c5626;--medio:#3d8a55;--claro:#64b887;--pico:#63e59f;
+ --inverso-fg:#0b2010;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+html[data-pal="ambar"]{--fondo:#2a1c08;--tenue:#5a3d10;--medio:#9a6a20;--claro:#e0a648;--pico:#ffcf6a;--inverso-fg:#1a1004}
+html[data-pal="azul"]{--fondo:#0a1a2e;--tenue:#123a5c;--medio:#2f6f9e;--claro:#7fc0e8;--pico:#a8e6ff;--inverso-fg:#06101c}
+html[data-pal="mono"]{--fondo:#0d0f13;--tenue:#3a3f46;--medio:#7a828c;--claro:#c8ced6;--pico:#ffffff;--inverso-fg:#0d0f13}
+*{box-sizing:border-box}
+body{margin:0;background:#070c08;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:36px 0 24px;border-bottom:1px solid #15241a;margin-bottom:28px}
+h1{margin:0 0 8px;font-size:27px;letter-spacing:-.02em}
+h1 span{color:var(--pico);font-family:var(--mono)}
+.sub{color:#7d8590;font-size:15px;line-height:1.68;margin:0;max-width:80ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:18px;font-size:13px;color:#7d8590;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#101a13;color:#c9d1d9;border:1px solid #25382a;border-radius:7px;padding:6px 9px}
+label{display:flex;gap:7px;align-items:center;cursor:pointer;user-select:none}
+section{margin:0 0 46px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--pico);border:1px solid #24402d;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8590;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:90ch}
+.nota code{font-family:var(--mono);background:#101a13;border:1px solid #1e2f24;border-radius:4px;padding:0 4px;color:#9fd8b0}
+.term{background:var(--fondo);border-radius:10px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #21382a, inset 0 0 60px #050b07, 0 26px 60px -34px #000;position:relative}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.32;white-space:pre;color:var(--claro)}
+.c-tenue{color:var(--tenue)}
+.c-medio{color:var(--medio)}
+.c-claro{color:var(--claro)}
+.c-pico{color:var(--pico);text-shadow:0 0 6px currentColor}
+.c-alerta{color:var(--pico);text-decoration:underline dotted}
+.c-inverso{background:var(--pico);color:var(--inverso-fg)}
+html[data-crt="1"] .term::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;
+ background:repeating-linear-gradient(to bottom,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
+html[data-crt="1"] .term::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;
+ background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.55) 100%)}
+footer{color:#7d8590;font-size:13.5px;line-height:1.75;border-top:1px solid #15241a;padding-top:20px}
+footer code{font-family:var(--mono);background:#101a13;border:1px solid #1e2f24;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #15241a;vertical-align:top}
+th{color:#7d8590;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:var(--claro);font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0b1410;border-left:3px solid var(--pico);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>ROBCO TERMLINK <span>· TUI tipo Pip-Boy</span></h1>
+  <p class="sub">Seis pantallas en <strong>100 × 30 celdas</strong> con un solo fósforo y
+  cinco niveles de brillo. Aquí no hay acentos de color: la jerarquía se hace
+  <em>subiendo o bajando el brillo</em>, como en un tubo de rayos catódicos de verdad.
+  Los verdes están <strong>medidos</strong> sobre una captura real del Pip-Boy 3000.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="fosforo">Fósforo verde</option><option value="ambar">Ámbar</option><option value="azul">Azul</option><option value="mono">Sin color</option></select></label>
+    <label><input type="checkbox" id="crt"> efecto CRT (solo aquí, no es del TUI)</label>
+  </div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>STATS</h2></div>
+  <p class="nota">El muñeco de los puntos de habilidad, dibujado con bloques, con sus etiquetas y su barra PWR con escala └──┴──┘, como la captura original.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">STATS</span>                                                     <span class="c-tenue">RAM 58.30 % · SWP 26.60 % · CPU 4.08 %</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+  <span class="c-inverso">  STATS  </span>  <span class="c-tenue"> ITEMS </span>   <span class="c-tenue"> DATA </span>                                                                       
+                                                                                                    
+   <span class="c-tenue">RAD</span> <span class="c-pico">████······</span>                       <span class="c-pico">     ▄▄▄▄▄     </span>                                             
+                          <span class="c-claro">SHUT DOWN</span>     <span class="c-pico">    █▀▀▀▀▀█    </span>   <span class="c-claro">Sunday</span>                                    
+   <span class="c-tenue">HP</span>  <span class="c-pico">█████████·</span> <span class="c-claro">94/100</span>  <span class="c-tenue">Today</span>         <span class="c-pico">    █ ◉ ◉ █    </span>   <span class="c-pico">███████·····</span> <span class="c-tenue">9</span>    <span class="c-claro">█ GMAIL</span>                 
+                          <span class="c-pico">██··········</span> <span class="c-tenue">3</span><span class="c-pico">    █  ▿  █    </span>                     <span class="c-pico">████████████······</span>      
+   <span class="c-tenue">AP</span>  <span class="c-pico">███████···</span> <span class="c-claro">72/100</span>                <span class="c-pico">     ▀▀▀▀▀     </span>                                             
+                          <span class="c-claro">RESTART</span>       <span class="c-pico">   ▄▄█▀▀▀█▄▄   </span>   <span class="c-claro">Saturday</span>          <span class="c-claro">█ DIARIO</span>                
+                          <span class="c-pico">█···········</span> <span class="c-tenue">1</span><span class="c-pico">  ███████████  </span>   <span class="c-pico">█████·······</span> <span class="c-tenue">7</span>    <span class="c-pico">███████···········</span>      
+                                        <span class="c-pico">  █ ███████ █  </span>                                             
+                                        <span class="c-pico">  █ ███████ █  </span>                                             
+                          <span class="c-claro">SLEEP</span>         <span class="c-pico">    ███████    </span>   <span class="c-claro">Friday</span>                                    
+                          <span class="c-pico">███·········</span> <span class="c-tenue">5</span><span class="c-pico">    ███████    </span>   <span class="c-pico">█████████···</span> <span class="c-tenue">2</span>                            
+                                        <span class="c-pico">     ██ ██     </span>                                             
+                                        <span class="c-pico">     ██ ██     </span>                                             
+   <span class="c-pico">ESTADO</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━</span>       <span class="c-pico">    ▄██ ██▄    </span>                                             
+   <span class="c-tenue">salud</span>       <span class="c-claro">ESTABLE</span>                                   <span class="c-tenue">50 %</span>                   <span class="c-tenue">100 %</span>               
+   <span class="c-tenue">radiación</span>   <span class="c-claro">12 RAD</span>                                                                               
+   <span class="c-tenue">hambre</span>      <span class="c-claro">—</span>                    <span class="c-tenue">└────────────┴────────────┴────────────┴────────</span><span class="c-pico">▲</span><span class="c-tenue">──┘</span>            
+   <span class="c-tenue">sueño</span>       <span class="c-claro">—</span>                    <span class="c-claro">PWR</span>  <span class="c-pico">184/200</span>    <span class="c-tenue">consumo 0.6 kW</span>                                  
+   <span class="c-tenue">efectos</span>     <span class="c-claro">2 activos</span>                                                                            
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">[A/D]</span><span class="c-tenue">pestaña   </span><span class="c-pico">[↑↓]</span><span class="c-tenue">selección   </span><span class="c-pico">[TAB]</span><span class="c-tenue">subpestaña   </span><span class="c-pico">[ESC]</span><span class="c-tenue">salir   </span>                                   
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>ITEMS</h2></div>
+  <p class="nota">Inventario con columnas de peso, valor y cantidad, y panel de detalle con barras de daño/alcance. La cifra siempre al lado de la barra.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">ITEMS</span>                                                               <span class="c-tenue">PESO 84.5 / 150 · CAPS 1 284</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+   <span class="c-tenue"> STATS </span>  <span class="c-inverso">  ITEMS  </span>  <span class="c-tenue"> DATA </span>                                                                       
+                                                                                                    
+   <span class="c-pico">ARMAS</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>  <span class="c-tenue">PESO</span>   <span class="c-tenue">VALOR</span>  <span class="c-tenue">CANT</span>   <span class="c-tenue">┌────────────────────────────────────┐</span>   
+   <span class="c-claro">RIFLE DE CAZA</span>                      <span class="c-tenue">   4.0</span> <span class="c-pico">    32</span> <span class="c-claro">   1</span>   <span class="c-tenue">│</span> <span class="c-pico">RIFLE DE CAZA</span>                      <span class="c-tenue">│</span>   
+   <span class="c-claro">PISTOLA 10MM</span>                       <span class="c-tenue">   3.0</span> <span class="c-pico">    95</span> <span class="c-claro">   1</span>   <span class="c-tenue">│</span> <span class="c-tenue">arma · dos manos</span>                   <span class="c-tenue">│</span>   
+   <span class="c-claro">CUCHILLO DE COMBATE</span>                <span class="c-tenue">   1.0</span> <span class="c-pico">    25</span> <span class="c-claro">   2</span>   <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+   <span class="c-claro">GRANADA DE FRAG.</span>                   <span class="c-tenue">   0.5</span> <span class="c-pico">    40</span> <span class="c-claro">   3</span>   <span class="c-tenue">│</span> <span class="c-tenue">DAÑO      24</span>                       <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span> <span class="c-pico">██████████····</span>                     <span class="c-tenue">│</span>   
+   <span class="c-pico">MUNICIÓN</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━</span>  <span class="c-tenue">PESO</span>          <span class="c-tenue">CANT</span>   <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+   <span class="c-claro">.308</span>                               <span class="c-tenue">   0.1</span>        <span class="c-pico">  24</span>   <span class="c-tenue">│</span> <span class="c-tenue">ALCANCE   68</span>                       <span class="c-tenue">│</span>   
+   <span class="c-claro">10mm</span>                               <span class="c-tenue">   0.1</span>        <span class="c-pico">  68</span>   <span class="c-tenue">│</span> <span class="c-pico">███████·······</span>                     <span class="c-tenue">│</span>   
+   <span class="c-claro">célula</span>                             <span class="c-tenue">   0.4</span>        <span class="c-pico">  12</span>   <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span> <span class="c-tenue">CADENCIA   6</span>                       <span class="c-tenue">│</span>   
+   <span class="c-pico">AUXILIO</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━</span>  <span class="c-tenue">PESO</span>          <span class="c-tenue">CANT</span>   <span class="c-tenue">│</span> <span class="c-pico">███···········</span>                     <span class="c-tenue">│</span>   
+   <span class="c-claro">STIMPAK</span>                            <span class="c-tenue">   0.5</span>        <span class="c-pico">   6</span>   <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+   <span class="c-claro">RAD-AWAY</span>                           <span class="c-tenue">   0.5</span>        <span class="c-pico">   3</span>   <span class="c-tenue">│</span> <span class="c-claro">Una carabina vieja,</span>                <span class="c-tenue">│</span>   
+   <span class="c-claro">NUKA-COLA</span>                          <span class="c-tenue">   0.5</span>        <span class="c-pico">   8</span>   <span class="c-tenue">│</span> <span class="c-claro">pero nunca falla.</span>                  <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span> <span class="c-tenue">cargada: 5 / 5</span>                     <span class="c-tenue">│</span>   
+   <span class="c-claro">PESO</span> <span class="c-pico">█████████████████·············</span> <span class="c-claro"> 56 %</span>               <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span> <span class="c-tenue">valor venta 32 caps</span>                <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">│</span>                                    <span class="c-tenue">│</span>   
+                                                           <span class="c-tenue">└────────────────────────────────────┘</span>   
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">[↑↓]</span><span class="c-tenue">objeto   </span><span class="c-pico">[⏎]</span><span class="c-tenue">usar/equipar   </span><span class="c-pico">[X]</span><span class="c-tenue">soltar   </span><span class="c-pico">[ESC]</span><span class="c-tenue">salir   </span>                                         
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>DATA</h2></div>
+  <p class="nota">Misiones con casillas [ ] [&gt;], barra de avance y diario. El karma es la única línea que se permite un tono distinto: el pico.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">DATA</span>                                                                  <span class="c-tenue">MISIONES 3 / 12 · DÍA 2041</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+   <span class="c-tenue"> STATS </span>   <span class="c-tenue"> ITEMS </span>  <span class="c-inverso">  DATA  </span>                                                                      
+                                                                                                    
+   <span class="c-pico">MISIONES ACTIVAS</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>   
+   <span class="c-pico">[ ]</span> <span class="c-claro">LA FUENTE DE LA VIDA</span>                                                                         
+       <span class="c-tenue">refugio 101</span>            <span class="c-pico">██████····</span>  <span class="c-claro">60 %</span>                                                      
+       <span class="c-tenue">habla con el alcalde</span>                                                                         
+                                                                                                    
+   <span class="c-pico">[&gt;]</span> <span class="c-claro">SANGRE LLAMANDO</span>                                                                              
+       <span class="c-tenue">torres de megatón</span>      <span class="c-pico">██········</span>  <span class="c-claro">25 %</span>                                                      
+       <span class="c-tenue">sube a la antena</span>                                                                             
+                                                                                                    
+   <span class="c-pico">[ ]</span> <span class="c-claro">EL ÁRBOL DE LA CIUDAD</span>                                                                        
+       <span class="c-tenue">harold</span>                 <span class="c-pico">█·········</span>  <span class="c-claro">10 %</span>                                                      
+       <span class="c-tenue">riega el árbol</span>                                                                               
+                                                                                                    
+   <span class="c-pico">REGISTRO</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>   
+   <span class="c-tenue">2041.05.12</span>  <span class="c-claro">saliste del refugio 101</span>                        <span class="c-tenue">KARMA</span>                                 
+   <span class="c-tenue">2041.05.13</span>  <span class="c-claro">llegaste a megatón</span>                             <span class="c-pico">███·················</span>                  
+   <span class="c-tenue">2041.05.14</span>  <span class="c-pico">mataste un saqueador</span>                           <span class="c-claro">BUENO</span>                                 
+   <span class="c-tenue">2041.05.14</span>  <span class="c-claro">Buen Karma +2</span>                                                                        
+   <span class="c-tenue">2041.05.15</span>  <span class="c-tenue">encontraste a tres perros</span>                      <span class="c-pico">NIVEL 4</span>                               
+                                                              <span class="c-tenue">xp 1 240 / 2 500</span>                      
+                                                                                                    
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">[↑↓]</span><span class="c-tenue">misión   </span><span class="c-pico">[⏎]</span><span class="c-tenue">marcar   </span><span class="c-pico">[D]</span><span class="c-tenue">diario   </span><span class="c-pico">[ESC]</span><span class="c-tenue">salir   </span>                                               
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>RADIO</h2></div>
+  <p class="nota">Emisoras, señal medida y la canción sonando con su escala. La estática también es un estado de la interfaz, no un error.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">RADIO</span>                                                                      <span class="c-tenue">SEÑAL 62 % · BANDA FM</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+   <span class="c-tenue"> STATS </span>   <span class="c-tenue"> ITEMS </span>   <span class="c-tenue"> DATA </span>  <span class="c-inverso">  RADIO  </span>                                                            
+                                                                                                    
+   <span class="c-pico">EMISORAS</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>   
+  <span class="c-inverso"> &gt; GALAXY NEWS              noticias              SONANDO                                       </span>  
+   <span class="c-pico">████████████········</span>   <span class="c-tenue">62 %</span>                                                                      
+                                                                                                    
+   <span class="c-claro">  DIAMOND CITY RADIO</span>       <span class="c-tenue">música</span>                                                                
+   <span class="c-tenue">█████████···········</span>   <span class="c-tenue">45 %</span>                                                                      
+                                                                                                    
+   <span class="c-claro">  ENCLAVE RADIO</span>            <span class="c-tenue">propaganda</span>                                                            
+   <span class="c-tenue">██████··············</span>   <span class="c-tenue">30 %</span>                                                                      
+                                                                                                    
+   <span class="c-tenue">  — estática —</span>                                                                                   
+   <span class="c-tenue">████················</span>   <span class="c-tenue">18 %</span>                                                                      
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">AHORA SUENA</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>   
+   <span class="c-pico">«I DON&#x27;T WANT TO SET THE WORLD ON FIRE»</span>                                                          
+   <span class="c-tenue">The Ink Spots · 1941 · 78 rpm</span>                                                                    
+                                                                                                    
+   <span class="c-tenue">└────────┴─────────┴────────┴────────┴─────────┴───────┘</span>                                         
+   <span class="c-claro">01:12</span>                                              <span class="c-claro">04:38</span>                                         
+   <span class="c-pico">───────────────█────────────────────────────────────────</span>                                         
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">[↑↓]</span><span class="c-tenue">emisora   </span><span class="c-pico">[⏎]</span><span class="c-tenue">sintonizar   </span><span class="c-pico">[M]</span><span class="c-tenue">silenciar   </span><span class="c-pico">[ESC]</span><span class="c-tenue">salir   </span>                                       
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">05</span><h2>STATUS</h2></div>
+  <p class="nota">Daño por zonas: las heridas se marcan con ◄ herido además de bajar el brillo. Sin color, la señal sigue estando.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">STATUS</span>                                                                <span class="c-tenue">CONDICIÓN 78 % · EFECTOS 2</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+   <span class="c-tenue"> STATS </span>   <span class="c-tenue"> ITEMS </span>   <span class="c-tenue"> DATA </span>   <span class="c-tenue"> STATUS </span>                                                            
+                                                                                                    
+      <span class="c-pico">     ▄▄▄▄▄     </span>       <span class="c-tenue">CABEZA        </span> <span class="c-pico">███████████·</span>  <span class="c-claro"> 92 %</span>                                      
+      <span class="c-pico">    █▀▀▀▀▀█    </span>                                                                               
+      <span class="c-pico">    █ ◉ ◉ █    </span>       <span class="c-tenue">TORSO         </span> <span class="c-alerta">████████····</span>  <span class="c-claro"> 64 %</span>  <span class="c-alerta">◄ herido</span>                            
+      <span class="c-pico">    █  ▿  █    </span>                                                                               
+      <span class="c-pico">     ▀▀▀▀▀     </span>       <span class="c-tenue">BRAZO IZQ.    </span> <span class="c-pico">███████████·</span>  <span class="c-claro"> 88 %</span>                                      
+      <span class="c-pico">  ▄▄██▀▀▀██▄▄   </span>                                                                              
+      <span class="c-pico"> █████████████  </span>      <span class="c-tenue">BRAZO DER.    </span> <span class="c-alerta">█████·······</span>  <span class="c-claro"> 41 %</span>  <span class="c-alerta">◄ herido</span>                            
+      <span class="c-pico"> ██ ███████ ██  </span>                                                                              
+      <span class="c-pico"> ██ ███████ ██  </span>      <span class="c-tenue">PIERNA IZQ.   </span> <span class="c-pico">█████████···</span>  <span class="c-claro"> 79 %</span>                                      
+      <span class="c-pico">    ███████     </span>                                                                              
+      <span class="c-pico">    ███████     </span>      <span class="c-tenue">PIERNA DER.   </span> <span class="c-pico">███████████·</span>  <span class="c-claro"> 95 %</span>                                      
+      <span class="c-pico">     ██ ██      </span>                                                                              
+      <span class="c-pico">     ██ ██      </span>                                                                              
+      <span class="c-pico">    ▄██ ██▄     </span>      <span class="c-pico">EFECTOS ACTIVOS</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>    
+                            <span class="c-claro">RADIACIÓN     </span> <span class="c-alerta">12 RAD · -1 RESISTENCIA</span>                                  
+                                                                                                    
+                            <span class="c-claro">HAMBRE        </span> <span class="c-tenue">leve · -1 CARISMA</span>                                        
+                                                                                                    
+                            <span class="c-pico">RESISTENCIA</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>    
+                            <span class="c-tenue">DAÑO</span>                  <span class="c-tenue">RAD</span>                   <span class="c-tenue">VENENO</span>                      
+                            <span class="c-pico">████████████</span>          <span class="c-pico">████████····</span>          <span class="c-pico">█████·······</span>                
+                                                                                                    
+                                                                                                    
+   <span class="c-pico">[TAB]</span><span class="c-tenue">zona   </span><span class="c-pico">[⏎]</span><span class="c-tenue">curar   </span><span class="c-pico">[ESC]</span><span class="c-tenue">salir   </span>                                                             
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">06</span><h2>Arranque</h2></div>
+  <p class="nota">El tubo calentando: degradado ▒▒▓▓███ y pasos de inicialización de una máquina que ya no existe.</p>
+  <div class="term"><pre><span class="c-tenue">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+  <span class="c-claro">ROBCO INDUSTRIES (TM) TERMLINK</span>                                                     <span class="c-tenue">PIP-OS v7.1.0</span>  
+ <span class="c-tenue">──────────────────────────────────────────────────────────────────────────────────────────────────</span> 
+                                                                                                    
+    <span class="c-pico">▒▒▓▓████████████████████████████████████████████████████████████████████████████████████▓▓▒▒</span>    
+    <span class="c-tenue">··························▒▒▓▓███▓▓▒▒··························</span>                                 
+                                                                                                    
+                                                                                                    
+                              <span class="c-pico">R O B C O</span>                                                             
+                          <span class="c-claro">I N D U S T R I E S  (TM)</span>                                                 
+                                                                                                    
+                        <span class="c-tenue">TERMLINK PROTOCOL · v7.1.0</span>                                                  
+                                                                                                    
+                                                                                                    
+            <span class="c-pico">INICIALIZANDO</span> <span class="c-tenue">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>            
+                <span class="c-pico">[OK]</span>  <span class="c-claro">memoria base  640 K</span>                                                           
+                <span class="c-pico">[OK]</span>  <span class="c-claro">tubo de fósforo  verde</span>                                                        
+                <span class="c-pico">[OK]</span>  <span class="c-claro">enlace con el refugio 101</span>                                                     
+                <span class="c-tenue">[..]</span>  <span class="c-tenue">calibrando la aguja</span>                                                           
+                                                                                                    
+                                                                                                    
+            <span class="c-tenue">ULTIMA CONEXION: 23.10.2077</span>                                                             
+            <span class="c-claro">INTRODUCE LA CONTRASEÑA PARA CONTINUAR</span>                                                  
+                                                                                                    
+            <span class="c-pico">&gt; </span><span class="c-tenue">     ██   █  █   █ ███   ██    █   ████</span>                                               
+                                                                                                    
+            <span class="c-tenue">el cursor parpadea 2 veces por segundo</span>                                                  
+                                                                                                    
+   <span class="c-pico">[⏎]</span><span class="c-tenue">entrar   </span><span class="c-pico">[ESC]</span><span class="c-tenue">apagar   </span><span class="c-pico">[F1]</span><span class="c-tenue">ayuda   </span>                                                           
+<span class="c-tenue">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span></pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">07</span><h2>El fósforo, medido</h2></div>
+  <p class="nota">Se contaron los píxeles verdes de la captura y se ordenaron por
+  brillo. Los cinco niveles del sistema salen de esos percentiles: no se eligió ningún
+  color a ojo.</p>
+  <table>
+    <tr><th>Medido</th><th>Uso</th></tr>
+    <tr><td><span class="swatch" style="background:#102e16"></span><code>#102e16</code></td><td>fondo del tubo</td></tr><tr><td><span class="swatch" style="background:#1c5626"></span><code>#1c5626</code></td><td>fósforo tenue</td></tr><tr><td><span class="swatch" style="background:#3d8a55"></span><code>#3d8a55</code></td><td>fósforo medio</td></tr><tr><td><span class="swatch" style="background:#64b887"></span><code>#64b887</code></td><td>fósforo claro</td></tr><tr><td><span class="swatch" style="background:#63e59f"></span><code>#63e59f</code></td><td>pico de brillo</td></tr>
+  </table>
+  <div class="aviso"><strong>Lo que no se puede copiar de un tubo:</strong> el
+  <em>bloom</em> (el halo que sangra alrededor de las letras), la curvatura del cristal,
+  las líneas de barrido y el parpadeo. Un terminal puede simular el color, no la
+  óptica. El brillo de fósforo y el CRT de esta página son decoración de la galería y
+  vienen apagados por eso. Lo que sí es del diseño: un solo tono, cinco niveles, y
+  todo el texto legible sin depender del color.</div>
+</section>
+<footer>
+  Generado por <code>pipboy/pipboy.py</code> · motor de celdas en
+  <code>mockups/celdas.py</code> · solo biblioteca estándar.
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal'),crt=document.getElementById('crt');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+crt.addEventListener('change',e=>document.documentElement.dataset.crt=e.target.checked?'1':'0');
+</script>
+</body></html>

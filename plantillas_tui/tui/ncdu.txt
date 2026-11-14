@@ -1,0 +1,96 @@
+
+=== 01 · Directorio ================================================================================
+ ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help
+--- /etc ---------------------------------------------------------------------------------------
+     3,6 MiB [######### ] /brltty
+     1,8 MiB [####      ] /apparmor.d
+     1,1 MiB [###       ] /ssl
+   636,0 KiB [##        ] /asciidoc
+   524,0 KiB [##        ] /xdg
+   496,0 KiB [##        ] /X11
+   404,0 KiB [#         ] /init
+   392,0 KiB [#         ] /fonts
+   344,0 KiB [#         ] /ssh
+   332,0 KiB [#         ] /sane.d
+   328,0 KiB [#         ] /init.d
+   232,0 KiB [#         ] /ImageMagick-6
+   220,0 KiB [#         ] /dbus-1
+   168,0 KiB [#         ] /lynx
+   152,0 KiB [#         ] /java-8-openjdk
+   144,0 KiB [#         ] /console-setup
+   140,0 KiB [#         ] /default
+   136,0 KiB [#         ] /ld.so.cache
+   124,0 KiB [#         ] /terminfo
+   112,0 KiB [#         ] /pam.d
+    96,0 KiB [#         ] /security
+    88,0 KiB [#         ] /apt
+    76,0 KiB [#         ] /NetworkManager
+    64,0 KiB [#         ] /pki
+    52,0 KiB [#         ] /cron.d
+
+ Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311
+
+
+=== 02 · Borrar ====================================================================================
+ ncdu 1.11 ~ Use the arrow keys to navigate, press ? for help
+--- /home/ana/Descargas ----------------------------------------------------------------------------
+     2,4 GiB [######### ] videos/
+   812,3 MiB [######    ] iso/
+    44,1 MiB [##        ] notas.txt
+    12,0 MiB [#         ] captura.png
+     8,2 MiB [#         ] musica/
+     4,0 MiB [#         ] fotos/
+     2,1 MiB [#         ] podcast/
+   900,0 KiB [#         ] cv.pdf
+   412,0 KiB [#         ] factura.pdf
+   190,0 KiB [#         ] notas-viejas.txt
+    88,0 KiB [#         ] lista.txt
+    12,0 KiB [#         ] leeme.md
+┌─ borrar ─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                  │
+│   Are you sure you want to delete                                                                │
+│   "/home/ana/Descargas/videos"                                                                   │
+│   which is 118 files?                                                                            │
+│                                                                                                  │
+│                                                                                                  │
+│                                        yes        no        [cancel]                             │
+│                                                                                                  │
+│   ←→ elegir · ⏎ confirmar · esc cancelar                                                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Total disk usage:  3,2 GiB   Apparent size:  3,1 GiB   Items: 4
+
+
+=== 03 · Escaneo ===================================================================================
+ ncdu 1.11 ~ escaneando
+
+  escaneando  /usr/lib/x86_64-linux-gnu/
+
+    ▸ /usr/lib/x86_64-linux-gnu/
+  ▸ /usr/lib/x86_64-linux-gnu/libc.so.6
+    ▸ /usr/share/
+  ▸ /usr/share/doc/
+    ▸ /usr/share/doc/python3/
+  ▸ /usr/share/doc/python3/html/
+ ▸ /usr/share/doc/python3/html/style.css
+    ▸ /usr/share/man/
+  ▸ /usr/share/man/man1/
+
+
+┌─ progreso ───────────────────────────────────────────────────────────────────────────────────────┐
+│ ficheros  128 402               directorios  9 110                                               │
+│                                                                                                  │
+│ #########################################################·······················  71 %           │
+│                                                                                                  │
+│ tiempo  00:00:04 · quedan 2 s                                                                    │
+│                                                                                                  │
+│                                                                                                  │
+│ [q] cancelar el escaneo                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+ Total disk usage:  14,9 MiB   Apparent size:  9,2 MiB   Items: 3311
+

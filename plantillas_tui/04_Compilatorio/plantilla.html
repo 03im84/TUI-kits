@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<title>plantilla · TUI</title><style>
+body{background:#0b0f14;color:#d8dee6;font-family:system-ui,sans-serif;margin:0;padding:40px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:26px;font-weight:500;margin:0 0 6px}
+.sub{color:#7c8894;margin:0 0 34px}
+h2{font-size:14px;font-weight:600;color:#8fd6ff;margin:34px 0 4px}
+p{color:#7c8894;font-size:13px;margin:0 0 10px}
+pre{background:#101418;border:1px solid #1d2733;border-radius:8px;
+padding:18px 20px;overflow-x:auto;line-height:1.32;
+font-family:"DejaVu Sans Mono",monospace;font-size:12px}
+section{page-break-inside:avoid}
+.c-fondo{color:#101418}
+.c-texto{color:#d8dee6}
+.c-tenue{color:#7c8894}
+.c-titulo{color:#8fd6ff}
+.c-borde{color:#2c3946}
+.c-acento{color:#4fb3e8}
+.c-ok{color:#5fd39a}
+.c-aviso{color:#e8b455}
+.c-error{color:#e06c75}
+.c-{color:#101418}
+</style></head><body><div class="wrap">
+<h1>plantilla · TUI mínima</h1>
+<p class="sub">Tres pantallas, nueve colores, un verificador. Copiar y cambiar los datos.</p>
+<section><h2>01 · Lista</h2><p>El estado por defecto: el relleno va antes que el texto.</p><pre><i class="c-titulo"> copias                                                                    </i><i class="c-"> </i><i class="c-tenue">5 carpetas · 79 ficheros</i>
+<i class="c-borde">────────────────────────────────────────────────────────────────────────────────────────────────────</i>
+<i class="c-">                                                                                                    </i>
+<i class="c-"> </i><i class="c-borde">┌─</i><i class="c-titulo"> carpetas </i><i class="c-borde">─────────────────────────────────────────────────┐</i><i class="c-">  </i><i class="c-borde">┌─</i><i class="c-titulo"> resumen </i><i class="c-borde">──────────────────────┐</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">backups/2026-11                   </i><i class="c-"> </i><i class="c-tenue">12 ficheros  </i><i class="c-">     </i><i class="c-ok">●</i><i class="c-">     </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-tenue">total</i><i class="c-">                          </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-acento"> </i><i class="c-fondo">backups/2026-10                   </i><i class="c-acento"> </i><i class="c-fondo">9 ficheros   </i><i class="c-acento">     </i><i class="c-fondo">●</i><i class="c-acento">     </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">79 ficheros</i><i class="c-">                    </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">backups/2026-09                   </i><i class="c-"> </i><i class="c-tenue">0 ficheros   </i><i class="c-">     </i><i class="c-aviso">◐</i><i class="c-">     </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-tenue">última copia</i><i class="c-">                   </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">hace 2 h</i><i class="c-">                       </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">backups/2026-08                   </i><i class="c-"> </i><i class="c-tenue">31 ficheros  </i><i class="c-">     </i><i class="c-error">○</i><i class="c-">     </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-tenue">con incidencias</i><i class="c-">                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">backups/2026-07                   </i><i class="c-"> </i><i class="c-tenue">27 ficheros  </i><i class="c-">     </i><i class="c-ok">●</i><i class="c-">     </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-aviso">2 carpetas</i><i class="c-">                     </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                            </i><i class="c-borde">│</i><i class="c-">  </i><i class="c-borde">│</i><i class="c-">                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">└────────────────────────────────────────────────────────────┘</i><i class="c-">  </i><i class="c-borde">└────────────────────────────────┘</i><i class="c-"> </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">  </i><i class="c-acento">↑↓</i><i class="c-"> </i><i class="c-tenue">mover</i><i class="c-">    </i><i class="c-acento">⏎</i><i class="c-"> </i><i class="c-tenue">abrir</i><i class="c-">    </i><i class="c-acento">q</i><i class="c-"> </i><i class="c-tenue">salir</i><i class="c-">                                                                    </i>
+<i class="c-">                                                                                                    </i></pre></section><section><h2>02 · Detalle</h2><p>Lo elegido, con su pie de teclas propio.</p><pre><i class="c-titulo"> backups/2026-10 · 9 ficheros                                                          </i><i class="c-"> </i><i class="c-tenue">hace 30 días</i>
+<i class="c-borde">────────────────────────────────────────────────────────────────────────────────────────────────────</i>
+<i class="c-">                                                                                                    </i>
+<i class="c-"> </i><i class="c-borde">┌─</i><i class="c-titulo"> contenido </i><i class="c-borde">────────────────────────────────────────────────────────────────────────────────────┐</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_01.tar.zst                </i><i class="c-">   </i><i class="c-tenue">1.2 MiB     </i><i class="c-">   </i><i class="c-aviso">verificar</i><i class="c-">                                  </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_02.tar.zst                </i><i class="c-">   </i><i class="c-tenue">1.6 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_03.tar.zst                </i><i class="c-">   </i><i class="c-tenue">2.0 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_04.tar.zst                </i><i class="c-">   </i><i class="c-tenue">2.4 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_05.tar.zst                </i><i class="c-">   </i><i class="c-tenue">2.8 MiB     </i><i class="c-">   </i><i class="c-aviso">verificar</i><i class="c-">                                  </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_06.tar.zst                </i><i class="c-">   </i><i class="c-tenue">3.2 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_07.tar.zst                </i><i class="c-">   </i><i class="c-tenue">3.6 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_08.tar.zst                </i><i class="c-">   </i><i class="c-tenue">4.0 MiB     </i><i class="c-">   </i><i class="c-ok">ok</i><i class="c-">                                         </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">fichero_09.tar.zst                </i><i class="c-">   </i><i class="c-tenue">4.4 MiB     </i><i class="c-">   </i><i class="c-aviso">verificar</i><i class="c-">                                  </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">│</i><i class="c-">                                                                                                </i><i class="c-borde">│</i><i class="c-"> </i>
+<i class="c-"> </i><i class="c-borde">└────────────────────────────────────────────────────────────────────────────────────────────────┘</i><i class="c-"> </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">  </i><i class="c-acento">↑↓</i><i class="c-"> </i><i class="c-tenue">mover</i><i class="c-">    </i><i class="c-acento">⏎</i><i class="c-"> </i><i class="c-tenue">restaurar</i><i class="c-">    </i><i class="c-acento">Esc</i><i class="c-"> </i><i class="c-tenue">volver</i><i class="c-">                                                             </i>
+<i class="c-">                                                                                                    </i></pre></section><section><h2>03 · Diálogo</h2><p>Confirmación con el foco lejos de lo destructivo.</p><pre><i class="c-titulo"> copias · restauración                                                                             </i><i class="c-"> </i>
+<i class="c-borde">────────────────────────────────────────────────────────────────────────────────────────────────────</i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                  </i><i class="c-borde">┌─</i><i class="c-titulo"> CONFIRMAR </i><i class="c-borde">──────────────────────────────────────────────────┐</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-">                                                              </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">Se van a restaurar 9 ficheros sobre</i><i class="c-">                          </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">el directorio actual.</i><i class="c-">                                        </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-">                                                              </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-tenue">Escribe restaurar para confirmar:</i><i class="c-">                            </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-texto">restaurar▌</i><i class="c-">                                                   </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-">                                                              </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-"> </i><i class="c-acento"> </i><i class="c-fondo">▸ cancelar</i><i class="c-acento">     </i><i class="c-">        </i><i class="c-tenue">  restaurar</i><i class="c-">                          </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">│</i><i class="c-">                                                              </i><i class="c-borde">│</i><i class="c-">                  </i>
+<i class="c-">                  </i><i class="c-borde">└──────────────────────────────────────────────────────────────┘</i><i class="c-">                  </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">                                                                                                    </i>
+<i class="c-">  </i><i class="c-acento">Esc</i><i class="c-"> </i><i class="c-tenue">cerrar</i><i class="c-">    </i><i class="c-acento">⏎</i><i class="c-"> </i><i class="c-tenue">confirmar</i><i class="c-">                                                                         </i>
+<i class="c-">                                                                                                    </i></pre></section>
+</div></body></html>

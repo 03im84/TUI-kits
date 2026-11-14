@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" data-pal="original">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fx · TUI real</title>
+<style>
+:root{--texto:#abb2bf;
+ --titulo:#61afef;
+ --tenue:#5c6370;
+ --llave:#abb2bf;
+ --clave:#61afef;
+ --cadena:#98c379;
+ --numero:#d19a66;
+ --seleccion:#3e4451;
+ --borde:#5c6370;--sel_fg:#ffffff;
+ --mono:"Cascadia Mono","JetBrains Mono","Consolas","DejaVu Sans Mono",Menlo,monospace;
+ --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+
+*{box-sizing:border-box}
+body{margin:0;background:#0a0b0f;color:#c9d1d9;font-family:var(--sans);padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{padding:34px 0 22px;border-bottom:1px solid #1b2130;margin-bottom:26px}
+h1{margin:0 0 8px;font-size:26px;letter-spacing:-.02em}
+h1 span{color:var(--titulo);font-family:var(--mono)}
+.sub{color:#7d8996;font-size:15px;line-height:1.68;margin:0;max-width:84ch}
+.controls{display:flex;gap:18px;align-items:center;margin-top:16px;font-size:13px;color:#7d8996;flex-wrap:wrap}
+select{font-family:var(--mono);font-size:12.5px;background:#0f1420;color:#c9d1d9;border:1px solid #24303f;border-radius:7px;padding:6px 9px}
+section{margin:0 0 44px}
+.head{display:flex;align-items:baseline;gap:12px;margin-bottom:5px}
+.num{font-family:var(--mono);font-size:11px;color:var(--titulo);border:1px solid #24303f;border-radius:5px;padding:4px 7px}
+h2{font-size:18px;margin:0;font-weight:600}
+.nota{color:#7d8996;font-size:13.5px;line-height:1.65;margin:0 0 12px;max-width:92ch}
+.nota code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:0 4px;color:#9fd0e0}
+.term{background:var(--fondo);border-radius:7px;padding:12px 14px;overflow-x:auto;
+ box-shadow:0 0 0 1px #1e2836, 0 24px 55px -34px #000}
+.term pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:pre;color:var(--texto)}
+.c-texto{color:var(--texto)}
+.c-titulo{color:var(--titulo)}
+.c-tenue{color:var(--tenue)}
+.c-llave{color:var(--llave)}
+.c-clave{color:var(--clave)}
+.c-cadena{color:var(--cadena)}
+.c-numero{color:var(--numero)}
+.c-borde{color:var(--borde)}
+.c-seleccion{background:var(--seleccion);color:var(--sel_fg)}
+.c-inverso{background:var(--inverso);color:var(--fondo)}
+.c-fondo{background:var(--fondo)}
+footer{color:#7d8996;font-size:13.5px;line-height:1.75;border-top:1px solid #1b2130;padding-top:20px}
+footer code{font-family:var(--mono);background:#0f1420;border:1px solid #1e2836;border-radius:4px;padding:1px 5px;color:#a9b6c9}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 0}
+th,td{text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid #1b2130;vertical-align:top}
+th{color:#7d8996;font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td code{font-family:var(--mono);color:#d8e2e6;font-size:12.5px}
+.swatch{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px #ffffff18}
+.aviso{background:#0d1420;border-left:3px solid var(--titulo);padding:13px 16px;border-radius:0 7px 7px 0;
+ color:#96a4b2;font-size:13.5px;line-height:1.68;margin-top:16px}
+</style></head>
+<body>
+<div class="wrap">
+<header>
+  <h1>fx <span>· TUI real, tres pantallas</span></h1>
+  <p class="sub">Navegador de JSON con JavaScript: pliega y despliega, busca, y transforma con una línea de script sin salir del fichero. <strong>No trae paleta</strong>: usa los colores de tu terminal, que es exactamente el argumento de ncdu llevado al otro extremo.</p>
+  <div class="controls">
+    <label>Paleta <select id="pal"><option value="original">original</option></select></label>
+    <span><code>fx respuesta.json</code></span>
+  </div>
+  <div class="aviso"><strong>De dónde sale el color.</strong> Aquí no hay nada medido y conviene decirlo: de <code>fx</code> no teníamos captura y la app no define colores propios, así que la paleta es <strong>derivada</strong> del esquema por defecto del terminal del autor (One Dark). Es la única de las siete cuyo color no procede ni de un fichero ni de un píxel.</div>
+</header>
+
+<section>
+  <div class="head"><span class="num">01</span><h2>Árbol</h2></div>
+  <p class="nota">El documento con números de línea, plegable y con la fila elegida marcada. Sin adornos: es JSON.</p>
+  <div class="term"><pre><span class="c-titulo">fx respuesta.json</span>                                           <span class="c-tenue">JSON · 29 líneas · modo interactivo</span>     
+                                                                                                    
+<span class="c-borde">┌──────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span><span class="c-tenue">  1</span>  <span class="c-llave">{</span>                                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  2</span>  <span class="c-llave">  &quot;users&quot;: [</span>                                                                                 <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  3</span>  <span class="c-llave">    {</span>                                                                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  4</span>  <span class="c-clave">      &quot;id&quot;: 42,</span>                                                                              <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  5</span>  <span class="c-clave">      &quot;name&quot;: &quot;Ada Lovelace&quot;,</span>                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  6</span>  <span class="c-clave">      &quot;email&quot;: &quot;ada@example.com&quot;,</span>                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  7</span>  <span class="c-clave">      &quot;role&quot;: &quot;admin&quot;,</span>                                                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  8</span>  <span class="c-clave">      &quot;active&quot;: true,</span>                                                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue">  9</span>  <span class="c-clave">      &quot;tags&quot;: [&quot;math&quot;, &quot;code&quot;],</span>                                                              <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 10</span>  <span class="c-llave">    },</span>                                                                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 11</span>  <span class="c-llave">    {</span>                                                                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 12</span>  <span class="c-clave">      &quot;id&quot;: 43,</span>                                                                              <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 13</span><span class="c-seleccion">        &quot;name&quot;: &quot;Grace Hopper&quot;,                                                                </span><span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 14</span>  <span class="c-clave">      &quot;email&quot;: &quot;grace@example.com&quot;,</span>                                                          <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 15</span>  <span class="c-clave">      &quot;role&quot;: &quot;admin&quot;,</span>                                                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 16</span>  <span class="c-clave">      &quot;active&quot;: false,</span>                                                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 17</span>  <span class="c-clave">      &quot;tags&quot;: [&quot;navy&quot;, &quot;cobol&quot;],</span>                                                             <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 18</span>  <span class="c-llave">    }</span>                                                                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 19</span>  <span class="c-llave">  ],</span>                                                                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 20</span>  <span class="c-clave">  &quot;total&quot;: 2,</span>                                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 21</span>  <span class="c-clave">  &quot;next&quot;: null</span>                                                                               <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-tenue"> 22</span>  <span class="c-llave">}</span>                                                                                            <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+ <span class="c-tenue">↑↓ mover · ⏎ plegar · / buscar · . script · q salir</span>                                                
+                                                                                                    
+                                                                                                    
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">02</span><h2>Búsqueda</h2></div>
+  <p class="nota">Una búsqueda con sus coincidencias y el contexto. fx no filtra: salta a la línea.</p>
+  <div class="term"><pre><span class="c-titulo">fx respuesta.json</span>                                                                                   
+                                                                                                    
+ <span class="c-titulo">/</span> <span class="c-cadena">admin</span> <span class="c-tenue">  7 coincidencias en 3 claves</span>                                                              
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Resultados </span><span class="c-borde">─────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-tenue">1</span>  <span class="c-clave">users[0].role</span>              <span class="c-cadena">admin</span>                                 <span class="c-tenue">línea 12</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span><span class="c-seleccion"> </span><span class="c-tenue">2</span><span class="c-seleccion">  users[1].role              admin                                 </span><span class="c-tenue">línea 28</span><span class="c-seleccion">                     </span><span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">3</span>  <span class="c-clave">users[2].role</span>              <span class="c-cadena">admin</span>                                 <span class="c-tenue">línea 44</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">4</span>  <span class="c-clave">users[0].email</span>             <span class="c-cadena">ada@example.com</span>                       <span class="c-tenue">línea 13</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">5</span>  <span class="c-clave">users[1].email</span>             <span class="c-cadena">grace@example.com</span>                     <span class="c-tenue">línea 29</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">6</span>  <span class="c-clave">users[3].email</span>             <span class="c-cadena">linus@example.com</span>                     <span class="c-tenue">línea 45</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">7</span>  <span class="c-clave">meta.roles[]</span>               <span class="c-cadena">admin · editor · reader</span>               <span class="c-tenue">línea 61</span>                     <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">↑↓ mover · ⏎ saltar a la línea · esc cerrar</span>                                                      <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Contexto </span><span class="c-borde">───────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-clave">      &quot;role&quot;: &quot;admin&quot;,</span>                                                                           <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">La búsqueda no filtra el documento: salta a la línea.</span>                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">n siguiente · N anterior · esc cerrar</span>                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">03</span><h2>Script</h2></div>
+  <p class="nota">Entrada, script y salida: la ventaja real de fx sobre un visor de JSON.</p>
+  <div class="term"><pre><span class="c-titulo">fx respuesta.json</span>                                                       <span class="c-tenue">pipeline · 3 pasos</span>          
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Entrada </span><span class="c-borde">────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-clave">users</span> <span class="c-tenue">· 4 objetos · 24 campos</span>                                                                    <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">1</span>  <span class="c-texto">Ada Lovelace        </span> <span class="c-cadena">ada@example.com     </span>  <span class="c-numero">activo true</span>                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">2</span>  <span class="c-texto">Grace Hopper        </span> <span class="c-cadena">grace@example.com   </span>  <span class="c-numero">activo false</span>                                       <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">3</span>  <span class="c-texto">Linus Torvalds      </span> <span class="c-cadena">linus@example.com   </span>  <span class="c-numero">activo true</span>                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">4</span>  <span class="c-texto">Margaret Hamilton   </span> <span class="c-cadena">mh@example.com      </span>  <span class="c-numero">activo true</span>                                        <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Script </span><span class="c-borde">─────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-clave">.users</span>  <span class="c-cadena">.filter(u =&gt; u.active)</span>      <span class="c-cadena">.map(u =&gt; u.name)</span>                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">▲ los tres pasos se aplican sin volver a leer el fichero</span>                                         <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">  el resultado se puede guardar como nuevo JSON</span>                                                  <span class="c-borde">│</span>
+<span class="c-borde">│</span>                                                                                                  <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+<span class="c-borde">┌─</span><span class="c-titulo"> Salida </span><span class="c-borde">─────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span class="c-borde">│</span> <span class="c-llave">[</span>                                                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-cadena">  &quot;Ada Lovelace&quot;,</span>                                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-cadena">  &quot;Linus Torvalds&quot;,</span>                                                                              <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-cadena">  &quot;Margaret Hamilton&quot;</span>                                                                            <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-llave">]</span>                                                                                                <span class="c-borde">│</span>
+<span class="c-borde">│</span> <span class="c-tenue">3 de 4 · Grace Hopper se descarta por active: false</span>                                              <span class="c-borde">│</span>
+<span class="c-borde">└──────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+                                                                                                    
+                                                                                                    </pre></div>
+</section>
+<section>
+  <div class="head"><span class="num">04</span><h2>El color, y de dónde sale</h2></div>
+  <table>
+    <tr><th>Color</th><th>Nombre</th><th>Uso</th><th>Origen</th></tr>
+    <tr><td><span class="swatch" style="background:#282c34"></span><code>#282c34</code></td><td>fondo</td><td>fondo</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#abb2bf"></span><code>#abb2bf</code></td><td>texto</td><td>llaves y puntuación</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#61afef"></span><code>#61afef</code></td><td>titulo</td><td>barra de estado</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#5c6370"></span><code>#5c6370</code></td><td>tenue</td><td>números de línea</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#abb2bf"></span><code>#abb2bf</code></td><td>llave</td><td></td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#61afef"></span><code>#61afef</code></td><td>clave</td><td>claves y rutas</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#98c379"></span><code>#98c379</code></td><td>cadena</td><td>valores</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#d19a66"></span><code>#d19a66</code></td><td>numero</td><td>números y booleanos</td><td>derivado</td></tr><tr><td><span class="swatch" style="background:#5c6370"></span><code>#5c6370</code></td><td>borde</td><td></td><td>heredado de tenue</td></tr>
+  </table>
+</section>
+<footer>
+  Generado por <code>tui/</code> · motor de celdas en <code>mockups/celdas.py</code> ·
+  <a href="indice.html" style="color:var(--titulo)">volver al índice de la serie</a>
+</footer>
+</div>
+<script>
+const pal=document.getElementById('pal');
+pal.addEventListener('change',e=>document.documentElement.dataset.pal=e.target.value);
+</script>
+</body></html>

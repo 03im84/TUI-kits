@@ -1,0 +1,192 @@
+
+=== 01 · Arranque ====================================================================================
+ ▓▓ NEUROLINK                                                  SECTOR 7 · TERMINAL 04 · 04:12:07 ▓▓
+  ▸ enlace NEURAL-3 · cifrado AES-512 · latencia 12 ms · proxy ON · combustible 71 %
+
+                                █  █ ████ █  █ ████ ████ █    ████ █  █ █  █
+                                ██ █ █    █  █ █  █ █  █ █      █  ██ █ █ █
+                                █ ██ ███  █  █ ███  █  █ █      █  █ ██ ██
+                                █  █ █    █  █ █ █  █  █ █      █  █  █ █ █
+                                █  █ ████ ████ █  █ ████ ████ ████ █  █ █  █
+
+                          i m p l a n t e   d e   a c c e s o   c o r t i c a l
+                                 v4.2.1 · núcleo 0x7F3A · parche 21 · build 2087-11
+
+    ┌─ AUTODIAGNÓSTICO ────────────────────────────────────┐  ┌─ BIOMÉTRICA ───────────────────┐
+    │ [OK] núcleo motor         ▓▓▓▓▓▓▓▓▓▓   98 % ▆▇▃▇▆▄   │  │ PULSO         64 lpm           │
+    │                                                      │  │ ▇▇▅▆▅▇▇▇▆▇▅▆▇▅▅▇▇▅▄▅▆▇         │
+    │ [OK] bus neuronal         ▓▓▓▓▓▓▓▓▓░   92 % ▄▄▄▆▃▆   │  │ SUDOR         12 %             │
+    │                                                      │  │ CORTISOL  ▓▓▓▓░░░░  48 %       │
+    │ [OK] hielo defensivo      ▓▓▓▓▓▓▓░░░   71 % ▃▆▅▅▃▄   │  │ ADN           ✓ verificado     │
+    │                                                      │  │ SUEÑO         3 h 12 m         │
+    │ [..] handshake ICE        ░░░░░░░░░░    -- %         │  │ IMPLANTES     5 / 7            │
+    │                                                      │  │ TOLERANCIA  ▓▓▓▓░░  63 %       │
+    │ ▸ el hielo defensivo caduca en 3 días hábiles.       │  │ ▸ neurobloqueante: 18 % en…    │
+    └──────────────────────────────────────────────────────┘  └────────────────────────────────┘
+
+    CONECTANDO AL NODO 0x7F3A · capa 3 de 5                                                  67 %
+    ████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    tiempo estimado 00:07 · no cierres la sesión · ▮
+
+
+ [F1] ayuda   [⏎] conectar   [ESC] abortar   [?] manifiesto
+
+=== 02 · Intrusión ===================================================================================
+ ▓▓ NEUROLINK // INTRUSIÓN                                       ICE NEGRO · CAPA 2/5 · 04:12:31 ▓▓
+  ▸ objetivo 0x7F3A · rastreo 34 % · ram 6/12 · tiempo 00:24
+
+  ┌─ MATRIZ DE ACCESO ───────────────────────┐  ┌─ DAEMONS ──────────────────────────────────────┐
+  │                                          │  │ ICEPICK.EXE     ▓▓▓░    3/4 ram       listo    │
+  │   00    35    6A    9F    C4    F9       │  │                                                │
+  │                                          │  │ DATAMINE        ▓▓░     2/3 ram       listo    │
+  │   71    A6    DB    00    35    6A       │  │                                                │
+  │                                          │  │ TURRET_SHUT     ▓▓▓▓    4/4 ram       en cola  │
+  │   E2  · 17  · 4C    71    A6    DB       │  │                                                │
+  │                                          │  │ MASK_IDENTITY   ▓░      1/2 ram       bloqueado│
+  │   53    88  ▸ BD  · E2    17    4C       │  └────────────────────────────────────────────────┘
+  │                                          │
+  │   C4    F9    2E  · 53  · 88    BD       │  ┌─ TRAZA ────────────────────────────────────────┐
+  │                                          │  │ rastreo del anfitrión                 34 %     │
+  │   35    6A    9F    C4  · F9    2E       │  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ │
+  │                                          │  │                                                │
+  │   A6    DB    00    35    6A    9F       │  │ 04:12:29  ping recibido desde 10.0.7.4         │
+  │                                          │  │ 04:12:30  barrido de puertos :8080             │
+  │   17    4C    71    A6    DB    00       │  │ 04:12:31  firma desconocida en RAM             │
+  │                                          │  │ 04:12:31  contramedida: ruido blanco           │
+  │ ▸ ruta: 7F A3 91 C4 (marcada con ·)      │  │ 04:12:32  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         │
+  │ ▸ siguiente: busca FF en la columna 4    │  │ 04:12:32  paquete perdido · reintento 1/3      │
+  └──────────────────────────────────────────┘  │ 04:12:33  ICE negro olfatea la sesión          │
+                                                └────────────────────────────────────────────────┘
+  TIEMPO 00:24  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░  ▸ quedan 2 capas · ICE negro
+
+  ▸ cada segundo aquí dentro sube el rastreo un 2 %
+
+ [↑↓] matriz   [⏎] inyectar   [TAB] daemons   [ESC] desconectar
+
+=== 03 · Diagnóstico =================================================================================
+ ▓▓ NEUROLINK // DIAGNÓSTICO                                                   CUERPO · 04:13:02 ▓▓
+  ▸ sujeto K-117 · implantes 5/7 · rechazo 4 % · seguro médico: ninguno
+
+  ┌─ NEURAL ─────────────────────────────────────┐  ┌─ BIÓNICA ──────────────────────────────────┐
+  │ latencia al Net               12 ms          │  │ ojo izquierdo     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   96 %  │
+  │ ancho de banda                940 Mb/s       │  │ brazo derecho     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░   88 %  │
+  │ paquetes perdidos             0.02 %         │  │ columna L4        ▓▓▓▓▓▓▓▓▓▓░░░░░░   61 %  │
+  │                                              │  │ filtro hepático   ▓▓▓▓▓▓▓▓▓▓▓▓░░░░   74 %  │
+  │ ▄▄▅▄▅▇▇▄▅▆▄▄▄▄▄▅▆▇▇▄▆▇▄▆▇▃▇▆▆▅▅▆▅▇▅▅▆▅▅▆▇▃   │  │ cortex auxiliar   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   99 %  │
+  │ últimos 60 s · tráfico sináptico             │  │                                            │
+  │                                              │  │ ▸ columna L4: microfisura detectada        │
+  │ sobrecarga cognitiva   ▓▓▓░░░░░░░  28 %      │  │ ▸ garantía de los 5 implantes: caducada    │
+  │ firewall cortical             activo         │  │ ▸ próxima revisión: hace 40 días           │
+  │ sincronía hemisférica         0.7 ms         │  │                                            │
+  └──────────────────────────────────────────────┘  └────────────────────────────────────────────┘
+  ┌─ ENTORNO ────────────────────────────────────┐  ┌─ REGISTRO ─────────────────────────────────┐
+  │ temperatura             31 °C                │  │ 04:09:12 implante 3: microfisura sellada   │
+  │ radiación               0.4 mSv              │  │ 04:10:44 neurobloqueante 20 ml             │
+  │ calidad del aire    ▓▓░░░░░░░░  18 %         │  │ 04:11:58 pico de cortisol normalizado      │
+  │ señal del sector    ▂▄▆█▆▄▂▁▃▅               │  │ 04:12:50 seguro caducado hace 214 días     │
+  │ vecinos hostiles        2 · a 40 m           │  │ 04:13:01 sincronía con NEURAL-3 completa   │
+  │ salida de emergencia    bloqueada            │  │ 04:13:02 lectura de implantes: 5 de 7      │
+  │ ▸ el aire empeora: 18 % (ayer 24 %)          │  │                                            │
+  │                                              │  │ ▸ 6 eventos · el resto va al registro      │
+  └──────────────────────────────────────────────┘  └────────────────────────────────────────────┘
+
+  ESTADO GENERAL  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░  ESTABLE · revisión en 3 días
+  ⚠ dos implantes por debajo del 70 % · garantía nula
+
+ [↑↓] sistema   [⏎] detalle   [R] recalibrar   [ESC] salir
+
+=== 04 · Mercado negro ===============================================================================
+ ▓▓ MERCADO NEGRO                                                CANAL 7 · OFERTAS 41 · 04:13:40 ▓▓
+  ▸ saldo 12 480 ₡ · reputación 7.2 · deuda 3 000 ₡ · rastreo 0 %
+
+  ┌─ OFERTAS ──────────────────────────────────────────────────────┐  ┌─ DETALLE ────────────────┐
+  │   ARTÍCULO              RIESGO    STOCK      PRECIO            │  │ ICE NEGRO (copia)        │
+  │ ────────────────────────────────────────────────────────────── │  │ copia no verificada      │
+  │   DECK MK-IV            ▓▓░░░        3                4 200 ₡  │  │                          │
+  │   CORTEX AUX 2.1        ▓▓▓▓░        1                3 100 ₡  │  │ Origen                   │
+  │   NEUROBLOQ x50         ▓░░░░       12                  640 ₡  │  │ búnker 12, sin           │
+  │ > ICE NEGRO (copia)     ▓▓▓▓▓        1                8 900 ₡  │  │ procedencia              │
+  │   MANUAL DE VUELO       ░░░░░        5                  120 ₡  │  │ Vendedor                 │
+  │   SANGRE SINT. 2 L      ▓░░░░        8                  310 ₡  │  │ ◆ «el de la capa 4»      │
+  │   PISTOLA TÁSER         ▓▓▓░░        2                1 750 ₡  │  │                          │
+  │   ID FALSA (nivel 4)    ▓▓▓▓░        1                5 400 ₡  │  │ RIESGO DE RASTREO        │
+  │   ÓPTICA TÉRMICA        ▓▓░░░        4                2 250 ₡  │  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ │
+  │   FILTRO RENAL          ▓░░░░        6                  980 ₡  │  │ 94 % · puede delatarte   │
+  │   COPIA DE LLAVE        ▓▓▓▓░        3                3 600 ₡  │  └──────────────────────────┘
+  │   MUNICIÓN 9 mm         ▓▓▓░░       20                  480 ₡  │  ┌─ ACCIONES ───────────────┐
+  │   JAMMER PORTÁTIL       ▓▓▓▓░        2                6 700 ₡  │  │ COMPRAR      8 900 ₡     │
+  │   PARCHE DE HIELO       ▓▓░░░        9                1 100 ₡  │  │                          │
+  │                                                                │  │ NEGOCIAR                 │
+  │ ────────────────────────────────────────────────────────────── │  │                          │
+  │ ▸ los precios no incluyen el impuesto de tránsito (18 %)       │  │ VER VENDEDOR             │
+  │ ▸ stock orientativo: el vendedor miente una de cada tres veces │  │                          │
+  │ ▸ ◆ = identidad verificada · sin marca = sin firma             │  │ DENUNCIAR  [F]           │
+  └────────────────────────────────────────────────────────────────┘  └──────────────────────────┘
+
+  ⏎ comprar · N negociar · F denunciar · ESC salir
+
+ [↑↓] oferta   [⏎] comprar   [N] negociar   [F] denunciar
+
+=== 05 · Comms =======================================================================================
+ ▓▓ COMMS // INTERCEPTOR                                       CANAL 7 · CIFRADO ROTO · 04:14:10 ▓▓
+  ▸ 3 sin leer · interceptados 128 · confianza 61 % · trampa: posible
+
+  ┌─ BANDEJA ──────────────────────────────────────────────┐  ┌─ INTERCEPTO ─────────────────────┐
+  │ ●   04:14 ◆ V     re: entrega del paquete              │  │ de: ◆ K  ·  para: V              │
+  │ ●   04:11 anon    el cargamento no llegó               │  │ asunto: no confíes en el de      │
+  │ ● > 04:03 ◆ K     no confíes en el de la capa 4        │  │         la capa 4                │
+  │     03:58 broker  precio cerrado: 8 900 ₡              │  │                                  │
+  │     03:40 ◆ V     quema el deck cuando termines        │  │ el de la capa 4 vendió tu        │
+  │     03:22 sistema parche de hielo disponible           │  │ firma hace dos noches.           │
+  │     03:05 ◆ R     el médico quiere su parte            │  │ si te pregunta por el            │
+  │     02:59 anon    ▒▒▒▒▒▒ ▒▒▒▒▒                         │  │ deck, no contestes.              │
+  │     02:47 broker  el trato sigue en pie                │  │ y no vayas al bar solo.          │
+  │     02:40 ◆ K     nos vemos en el bar                  │  │ — K                              │
+  │     02:31 sistema reputación +0.1                      │  └──────────────────────────────────┘
+  │     02:18 anon    ¿sigues ahí?                         │
+  │                                                        │  ┌─ ANÁLISIS ───────────────────────┐
+  │                                                        │  │ cifrado         ROTO  ▒▒▒▒       │
+  │ ────────────────────────────────────────────────────── │  │ firma           dudosa           │
+  │ ● sin leer · ◆ identidad verificada · anon = sin firma │  │ retransmisión   14 saltos        │
+  │                                                        │  │ origen          desconocido      │
+  │ ▸ 12 de 128 · orden: más reciente primero              │  │ adjunto         1 archivo        │
+  │ ▸ 3 mensajes llevan la misma firma quebrada            │  │ trampa probable ▓▓▓▓▓▓▓░░░░░     │
+  │ ▸ el adjunto de ◆ K no se ha abierto todavía           │  │ ▸ el adjunto no se ha abierto    │
+  │                                                        │  │                                  │
+  └────────────────────────────────────────────────────────┘  └──────────────────────────────────┘
+
+
+
+ [↑↓] mensaje   [⏎] abrir   [D] descargar   [X] borrar   [ESC] salir
+
+=== 06 · Visualizador ================================================================================
+ ▓▓ VHS DREAMS // REPRODUCTOR                                    SALIDA: JACK CRANEAL · 04:15:02 ▓▓
+  ▸ 118 BPM · vol 72 % · fuente: cinta · ruido -42 dB
+
+  ┌─ SONANDO ────────────────────────────────────────────────────────────────────────────────────┐
+  │ NIGHT_CITY.EXE                                                                               │
+  │ VHS DREAMS · lado A · 1986 (remaster 2087)                                                   │
+  │                                                                                              │
+  │ 01:12 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   04:38    │
+  └──────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  ┌─ ESPECTRO ─────────────────────────────────────────────────────┐  ┌─ MEDIDORES ──────────────┐
+  │       ██                                                       │  │ GRAVES      ▓▓▓▓▓▓▓░░░   │
+  │    ▃ ███            █    █                                     │  │ MEDIOS      ▓▓▓▓▓░░░░░   │
+  │    █ ███   █   ▆    ██   █  ▆                                  │  │ AGUDOS      ▓▓▓░░░░░░░   │
+  │   ▃█ ████  █▃  █    ██ ▃▃█  █                                  │  │ REVERB      ▓▓▓▓░░░░░░   │
+  │   ██ ████  ██ ▃█    ██ ███ ▃█ ▆                                │  │ SATURACIÓN  ▓▓▓▓▓▓▓▓▓░   │
+  │   ███████  ██▇██  ▄ ██ ███ ██ █▂                               │  │ WOBBLE      ▓▓░░░░░░░░   │
+  │  ▃███████  █████ ██ ██▃███ ██ ██          ▆                    │  │ CINTA       ▓▓▓▓▓▓░░░░   │
+  │ ▃████████  █████ ██ ██████ ██▄██▅▄        █  ▅                 │  │ RUIDO       ▓▓▓░░░░░░░   │
+  │ █████████ ▇█████▃██▆██████ ███████▇█  ▄  ██  █                 │  │                          │
+  │ █████████ ████████████████ █████████ ▄██▇██ ▇█ ▃  ▇▄▃          │  │ ──────────────────────── │
+  │ █████████ ████████████████ █████████▃██████ ████▄ ███▃ ▅▄▄     │  │ SALIDA ESTÉREO           │
+  │ ██████████████████████████▆████████████████ █████▇████████▆▆   │  │ ▮▮▮▮▮▮▮▯▯▯  L            │
+  │ ████████████████████████████████████████████████████████████   │  │ ▮▮▮▮▮▯▯▯▯▯  R            │
+  │  20 Hz                                               20 kHz    │  │ compresor 4:1 · 8 ms     │
+  └────────────────────────────────────────────────────────────────┘  └──────────────────────────┘
+
+  ▸ cinta rebobinada a mano · la velocidad puede bailar
+
+ [␣] pausa   [←→] pista   [S] shuffle   [V] visual   [ESC] salir

@@ -1,0 +1,96 @@
+
+=== 01 · Registro ==================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Accounts ─────┐  ┌─ View and add ───────┐  ┌─ Templates ────────────────────────────────────────┐
+│ Bank    4924.5 │  │  Expense     Income  │  │ Home-Uni     Monthly Rent Netflix      Weekly shop │
+│                │  │                      │  │ 1            2            3            4           │
+│ Card    80.0   │  │  <<< 17-23 Nov >>>   │  │                                                    │
+│                │  │                      │  │                                                    │
+└────────────────┘  └──────────────────────┘  └────────────────────────────────────────────────────┘
+
+┌─ Records ────────────────────────────────────────────────────────────────────────────────────────┐
+│ Category            Amount      Label                       Account                              │
+│ ● Salary            + 1200.0    Wage pay                    Bank                                 │
+│ ● Restaurants       - 50.0      Dinner with Sarah           Bank                                 │
+│     × Sarah         + 25.0      —                           —                                    │
+│     Self total      = 25.0      —                           —                                    │
+│ ● Rent              - 1200.0    Monthly Rent                Bank                                 │
+│ ● Public Transport  - 10.0      Home → School               Card                                 │
+│ ● Snacks            - 2.5       Bagels                      Bank                                 │
+│ ● Home-Uni          - 14.0      Weekly ticket               Card                                 │
+│ ● Groceries         - 62.5      Weekly shop                 Bank                                 │
+│ ● Netflix           - 12.99     Suscripción                 Card                                 │
+│ ● Café              - 3.2       Con Ana                     Bank                                 │
+│ ● Regalo            - 25.0      Cumpleaños                  Bank                                 │
+│                                                                                                  │
+│ 12 registros · filtro: 17-23 Nov                                                                 │
+│ ↑↓ elegir · ⏎ editar · / buscar · tab cambia de panel                                            │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ a add   d delete   e edit   t transfer   q quit
+
+
+=== 02 · Calendario ================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Period · Nov 2024 ──────────────────────────────┐  ┌─ Expense of 17 Nov - 23 Nov ───────────────┐
+│ <<< 17 Nov - 23 Nov >>>                          │  │ Total   1262.5                             │
+│                                                  │  │ Por día 180.36                             │
+│  S   M   T   W   T   F   S                       │  │                                            │
+│ 27  28  29  30  31   1   2                       │  │ ////////////////////////////////////       │
+│  3   4   5   6   7   8   9                       │  │ Un gasto grande y muchos pequeños.         │
+│ 10  11  12  13  14  15  16                       │  │                                            │
+│ 17  18  19  20  21  22  23                       │  │ 7 días · 9 registros                       │
+│ 24  25  26  27  28  29  30                       │  │                                            │
+│ Días con gasto marcados con ·                    │  └────────────────────────────────────────────┘
+│ ·   ·   ·   ·                                    │
+│                                                  │  ┌─ Insights ─────────────────────────────────┐
+│ gasto por día     máximo 1240.0 el 17            │  │ ● Housing   ███████████████████·   95%     │
+│                                                  │  │                                            │
+│   ████                                           │  │ ● Food      █···················    3%     │
+│   ████                                           │  │                                            │
+│   ████                                           │  │ ● Transport ····················    2%     │
+│   ████                                           │  │                                            │
+│   ████                                           │  │                                            │
+│   ████                                           │  │ El 95 % del gasto es el alquiler:          │
+│   ████                                           │  │ un solo registro decide la semana.         │
+│   ████  ████  ████  ████  ████  ████  ████       │  │                                            │
+│    17    18    19    20    21    22    23        │  │ ▸ filtrar por categoría con ⏎              │
+│ 18 Nov · 50.0 · Restaurants + 25.0 de Sarah      │  │                                            │
+│                                                  │  │                                            │
+└──────────────────────────────────────────────────┘  └────────────────────────────────────────────┘
+ ←→ periodo   ↑↓ día   q quit
+
+
+=== 03 · Resumen ===================================================================================
+ ➜Bagels 0.3.2   Home      Manager                                                      instance
+
+┌─ Gasto por día · Nov ────────────────────────────────────────────────────────────────────────────┐
+│ máximo 1240.0 · el 17                                                                            │
+│                                                                                                  │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│                                                   █████                                          │
+│         █████         █████                       █████                              █████       │
+│   10     11     12     13     14     15     16     17     18     19     20     21     22     23  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Categorías ───────────────────────────────┐  ┌─ Resumen del periodo ────────────────────────────┐
+│ Housing     █████████████████████·  1200.0 │  │ ingresos        + 1200.0                         │
+│             95 % del total                 │  │ gastos          - 1262.5                         │
+│                                            │  │ balance         - 62.5                           │
+│ Groceries   █·····················  62.5   │  │                                                  │
+│             5 % del total                  │  │ Días con gasto  9 de 14                          │
+│                                            │  │                                                  │
+│ Transport   ······················  20.0   │  │ El periodo gasta más de lo que                   │
+│             2 % del total                  │  │ ingresa: la diferencia son los                   │
+│                                            │  │ 1200.0 del alquiler.                             │
+│ Snacks      ······················  2.5    │  │                                                  │
+│             1 % del total                  │  │ El color no explica el balance;                  │
+│                                            │  │ lo explica la resta.                             │
+└────────────────────────────────────────────┘  └──────────────────────────────────────────────────┘
+ q quit   p periodo   e exportar
+
